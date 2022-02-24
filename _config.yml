@@ -50,6 +50,8 @@ author:
 menu:
   - title:             About
     url:               /about/
+  - title:             Posts
+    url:               /posts/
   - title:             Example1
     url:               /Example1/
   - title:             Example2
@@ -86,7 +88,7 @@ paginate_path:         /:num/
 # Theme
 # ---------------------------------------------------------------------------------------
 
-#theme: jekyll-theme-hydejack
+theme: jekyll-theme-hydejack
 remote_theme: hydecorp/hydejack@v9
 
 
