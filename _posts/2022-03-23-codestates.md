@@ -2,7 +2,7 @@
 layout: post
 title: 코드스테이츠 AI 부트캠프
 subtitle: #부제목
-categories: markdown
+categories: review
 tags: [코드스테이츠]
 ---
 
