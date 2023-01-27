@@ -2,8 +2,8 @@
 layout: post
 title: 블로그 활성화 (구글, 네이버 검색노출)
 subtitle: #공공데이터 / Pandas
-categories: daily
-tags: [daily]
+categories: Daily
+tags: [일상]
 ---
 
 오늘부터 블로그에 공부했던 내용들을 포스팅 하려 한다.<br>
