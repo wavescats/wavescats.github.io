@@ -392,6 +392,7 @@ html {
 
     .post-title {
       margin-bottom: 6px;
+      line-height: 50px;
     }
 
     .post-subtitle {
@@ -448,6 +449,7 @@ html {
 
     p, hr {
       margin-bottom: 24px;
+      line-height: 30px;
     }
 
     hr {
@@ -460,8 +462,9 @@ html {
   .post-related {
     &>*:first-child {
       @include relative-font-size(1.425);
-      color: #333;
+      color: #1b75a8;
       margin-bottom: 14px;
+      font-weight: bold;
     }
 
     ul {

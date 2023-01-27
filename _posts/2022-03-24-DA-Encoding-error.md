@@ -2,7 +2,7 @@
 layout: post
 title: "[Data Analysis & EDA] 데이터 로드 중 인코딩 에러"
 subtitle: 공공데이터 / Pandas
-categories: DA
+categories: error
 tags: [Data Analysis & EDA]
 ---
 
@@ -46,10 +46,10 @@ tags: [Data Analysis & EDA]
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbZicHT%2FbtrxcMbdRLR%2Fv1N0A0TtzfXmQzXAWrmWXK%2Fimg.jpg)
 
-아니었다.. :cry: <br>
+아니었다.. 😢 <br>
 
 에러를 해결하기 위해 여러 방법을 시도 해 봤지만,<br>
-해결하지 못한 채 결국 맨 처음으로 다시 돌아갔다... :weary::weary::weary:
+해결하지 못한 채 결국 맨 처음으로 다시 돌아갔다... 😇😇😇
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcREKwL%2FbtrxaOA9YwN%2FCK6ORPOxnKII9UM2NvHPU1%2Fimg.jpg)
 
@@ -81,5 +81,5 @@ tags: [Data Analysis & EDA]
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb0iQ1r%2FbtrxeKcToAo%2FwCAw599AN9pUfaG2EnRPr1%2Fimg.jpg)
 
-휴우 편----안.. :dash:<br>
+휴우 편----안.. 💨<br>
 실습을 마저 진행하러 간다.
