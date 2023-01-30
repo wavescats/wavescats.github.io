@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[React] Document input 태그 오류"
+title: "[React] Document input 태그 에러"
 subtitle: #부제목
 categories: Error
 tags: [리액트]
