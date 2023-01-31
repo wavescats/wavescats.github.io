@@ -10,7 +10,7 @@ tags: [리액트]
 ---
 > TypeError - Cannot read properties of undefined
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/bb425f2d-62e9-48e0-9d03-08318c4e9ea9/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230127%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230127T182113Z&X-Amz-Expires=86400&X-Amz-Signature=e6b4894c23d0e5e81a18d6449bae30e11c11b6eece9e0ec4a7e5454912416662&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FVSkqF%2FbtrXFtLW5Kd%2FfSW65yP2xrfJfd9oNCyZn0%2Fimg.png)
 
 url 에서 community 경로로 진입 시 해당 구간에서의 오류가 발생했다.
 
@@ -32,12 +32,12 @@ email 에 해당하는 value 부분이 정의되지 않는다는 오류이다.
 ---
 > 오류가 발생한 구간 주석 처리 진행
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/332e75cf-afb0-4969-8024-cba3c792d0ab/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230127%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230127T182353Z&X-Amz-Expires=86400&X-Amz-Signature=acb448c290f3ce84360a75800526105a032d4f5e9c250f642884224b3fdaca9d&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FYEDCQ%2FbtrXJgxmRxC%2FY719bSBtABxE4EoaUp9qK0%2Fimg.png)
 <br>
 
 정상적으로 페이지가 랜더링 됨을 확인할 수 있다.
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d16f5291-483d-4107-a376-9353a09bfd7b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230127%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230127T182447Z&X-Amz-Expires=86400&X-Amz-Signature=e35cc31dee205d1159ca3d73efd604c569830ec7f9d714bc7f70d77eecf8f24a&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcNqvhk%2FbtrXIzKItzM%2FCvZU97nME723UK4YTjoB4k%2Fimg.png)
 
 > 이후 CRUD 에 적용되는 토큰이 아직 없기 때문에<br> 
 모든 구간 주석 처리 진행

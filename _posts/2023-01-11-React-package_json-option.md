@@ -14,7 +14,7 @@ tags: [리액트]
 
 `npm init -y` 명령을 통해 package.json 파일을 생성한다.
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/89d121e8-9a1b-4ac5-859f-7ae056ba1570/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230130%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230130T094631Z&X-Amz-Expires=86400&X-Amz-Signature=8ea491972c8a42b317aee20fbf7debf0846a759d7c447cc62a05c2cc75ac534d&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fk0PCN%2FbtrXJq0121e%2Fg2HJuwMli8s3CHmXIUrkc1%2Fimg.png)
 
 <br>
 
@@ -30,7 +30,7 @@ package.json 의 devDependencies 에 추가하겠다는 의미이다.
 
 <br>
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/bed606cd-8fa5-48de-864d-c9b7860c6748/Untitled.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230130%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230130T094724Z&X-Amz-Expires=86400&X-Amz-Signature=8190b2e9ad46110586ab9e76221751cab1821f1aba47f9e2f625eaacf5a6a388&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.jpeg%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FowtpQ%2FbtrXGTKo4X0%2FTLamDP94ZyVYa7aQz2co70%2Fimg.jpg)
 
 
 
@@ -39,7 +39,7 @@ package.json 의 devDependencies 에 추가하겠다는 의미이다.
 
 `npm` 명령어로 설치한 패키지의 버전과 강의에서 사용한 버전이 일치하지 않는다.
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c0225433-dd24-4555-acad-7d855060350b/Untitled.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230130%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230130T095410Z&X-Amz-Expires=86400&X-Amz-Signature=032eae38eb7507def58d485b5d1e6c35a97163bab2d71b98f4c66194e7b04685&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.jpeg%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb4w7ZS%2FbtrXGUWShnI%2FrK4nVZGf9KMF7mLspsWbO1%2Fimg.jpg)
 <br>
 <br>
 
@@ -47,7 +47,7 @@ package.json 의 devDependencies 에 추가하겠다는 의미이다.
 아래와 같이 package.json 의 버전을 직접 바꿔 준 뒤 저장 하고<br>
 npm i 를 실행하면 수정된 버전이 설치된다.
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3ce92000-a61d-44ad-b562-bcc2647c691a/Untitled.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230130%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230130T095627Z&X-Amz-Expires=86400&X-Amz-Signature=805facad01b9cde3923a2ff181b9b95f378fa17da9c25de7c77691abd860da5c&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.jpeg%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FchSxOV%2FbtrXIzDY7v6%2FYdei1VfiV3ezOjCqlaELbK%2Fimg.jpg)
 
 
 ## Reference

@@ -10,7 +10,7 @@ tags: [Github]
 
 <br>
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2b0356e8-ca76-4d8a-9ae6-376ff0b3701a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230129T173948Z&X-Amz-Expires=86400&X-Amz-Signature=1b33fc7f6a47aa7602f316f5ccca90b5d477c64aeeb34df9183c51fb98d38631&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fcm3Tio%2FbtrXEChOtpJ%2FasZfOPX77LsHCwpUemigVk%2Fimg.png)
 
 ### 에러 확인
 ---
@@ -27,7 +27,7 @@ tags: [Github]
 먼저 status 로 스테이징 영역을 확인해본다.<br>
 수정한 파일은 정상적으로 올라갔는데, 다른 파일들이 올라가지 않았다.
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/430e7abb-0279-424d-bda1-593d1be49b96/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230129T174131Z&X-Amz-Expires=86400&X-Amz-Signature=3bd012814576f23d82415ba3441fb7dc67e745736a4f09774e45b442cb1da0f5&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcSQwFt%2FbtrXHUaZ1nk%2FVKsstJiMkERh86Iv8wKbw1%2Fimg.png)
 
 혹시 vscode 의 setting.json 파일을 건드려<br>
 이전 버전과 충돌이 생긴건아닐까 싶어 검색한 해결책을 실행해본다.
@@ -40,9 +40,9 @@ $ git remote update
 $ git checkout [브랜치명]
 ```
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b203fab6-a5bc-465b-a36c-274544e7f53d/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230129T174243Z&X-Amz-Expires=86400&X-Amz-Signature=b60d3343593ce73c91a8cbfd4a731a3762e43b3aa039f270408c6a640b2af574&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fl5uWp%2FbtrXGnLtCSH%2FK7WKKvk5EKnolT76BFQ1v0%2Fimg.png)
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9dd54b15-d180-44ab-8063-d40d507f324b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230129T174257Z&X-Amz-Expires=86400&X-Amz-Signature=8c7f961040ae70bfa956d14d35b56e421339794d0d3fb09d136c0dc7ab63e566&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FJPbED%2FbtrXFvJNBn1%2FMjZuo8aSEOlt6ck0V1h5nk%2Fimg.png)
 
 ??? <br>
 똑같다..😱<br>
@@ -50,7 +50,7 @@ $ git checkout [브랜치명]
 
 <br>
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2f42aa52-1258-4589-9d00-0bfb71399786/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230129T174450Z&X-Amz-Expires=86400&X-Amz-Signature=38f3f840073b4346edf4896bf42cec74a69f4418e3f4a2afa5306b0f065feca7&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FVk7yE%2FbtrXFuD6AqQ%2FoHM3HCijWY0ed7y5DMLdwK%2Fimg.png)
 
 아무런 반응이 없다...😩
 <br>
@@ -62,7 +62,7 @@ $ git checkout [브랜치명]
 에러의 원인은..<br>
 커밋 메세지 작성 시 **-m 옵션을 추가하지 않았다.**
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8b4d0fb3-d7cb-455a-aa13-b84f21ece3ad/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230129T174706Z&X-Amz-Expires=86400&X-Amz-Signature=a3a22c8e41f2714e38390dbd9d4f0acf7b04cb04eddf99d1fbc23eaf97b305f0&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FNqM0Z%2FbtrXECWrvJI%2FRhkvoIiKsicVKB3YQkMO5k%2Fimg.png)
 
 
 ### Review

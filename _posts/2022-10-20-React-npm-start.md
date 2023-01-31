@@ -10,11 +10,11 @@ tags: [리액트]
 ---
 npm start 명령어 실행 시 에러 문구는 출력되지 않고,<br>
 아래와 같이 랜더링이 되지 않고 자동으로 탈출 되는 현상이 있었다.
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/397c7963-3563-48c1-8945-1d558352143a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230129T172514Z&X-Amz-Expires=86400&X-Amz-Signature=66aad80512d95943e32d27d022c36af8001361aadb8ea5251cf1dea6dacb1df3&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FnDVP8%2FbtrXGUWQRyq%2FYi1wk8XC5eKPOqRmnK9th0%2Fimg.png)
 
 구글 검색을 해 보니<br>
 package.json 의 scripts 부분에 아래와 같은 옵션이 추가되어있었다.
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0993da7b-961a-4bfd-9a2d-544d3500a5f1/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230129T172738Z&X-Amz-Expires=86400&X-Amz-Signature=2068d939ebd2068d76172447e15c705d6b46d8167f9a667ea2042a44491faaac&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FU7aVp%2FbtrXHB3OvAj%2Fk97bTQ7uVizGBesrwGADlK%2Fimg.png)
 
 
 실행 순서는 (&& 기준) 앞 구문 이 먼저 실행되고,<br>
@@ -26,6 +26,6 @@ package.json 의 scripts 부분에 아래와 같은 옵션이 추가되어있었
 
 ### 에러 해결
 ---
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c32459ea-6f6d-4c70-9ea3-bc877f593779/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230129T172924Z&X-Amz-Expires=86400&X-Amz-Signature=1b139e306beb4f1c5bc7b07e52139163485085ee63a084ac5d4cdf61b9e526dc&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuyOoz%2FbtrXIoo5VQZ%2FhNq3XiqOQ319mlnt47JDb1%2Fimg.png)
 
 다음과 같이 오류가 발생하는 앞 구문을 지워주고 실행하니 정상적으로 랜더링이 되었다.
