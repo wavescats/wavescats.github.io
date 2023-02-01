@@ -33,9 +33,79 @@ useEffect(() => {함수},[배열])
 
 위 Reference 를 참조하여 현재위치에 대한 정보를 가져와 보자.
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d3b2184f-52c1-478e-b512-e1670e6249cb/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230130%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230130T172607Z&X-Amz-Expires=86400&X-Amz-Signature=e1c3382f61c098e698695aeb94de57d67554f07bc45a17cc36a3e3abcd1c655f&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/5bdf5282-39f1-47ce-851c-31547895200b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230130%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230130T173142Z&X-Amz-Expires=86400&X-Amz-Signature=ac72ae3f99ca49f8c401d40d8fad3298de4b013ccc082f04e2cb38672f839376&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/162f73cb-3bf6-4f86-9607-4181bccf6ff1/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230130%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230130T173258Z&X-Amz-Expires=86400&X-Amz-Signature=5fed7d13d289414008edd918b76032dd740291de55d9327bd7c148a3c7be8523&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcaLHbn%2FbtrXOkgeWpY%2FmK7czxOPoYR7TrIKeFpRhk%2Fimg.png)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcSCbwB%2FbtrXOWMGe2V%2FWtKqwAVtvZxaKiF0pe7eKk%2Fimg.png)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbKCgBn%2FbtrXOvV8sQT%2F6BkUJJzVbCCSq4XE87zua0%2Fimg.png)
+
 
 > latitude (위도), longitude (경도)
 
+## 현재위치 기반 날씨정보 가져오기
+**Current Weather Data** -> **API doc** -> **API call**
+> <https://openweathermap.org/current#geocoding>
+
+---
+
+
+API 를 불러오기 전 함수를 만들어 자리를 만들어주자.
+
+> getWeatherByCurrentLocation 함수 생성
+
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FWiQaz%2FbtrXK8HCSJR%2F2Y0hHt49wE6RNfPcFdRXV1%2Fimg.png)
+
+API url 을 살펴보면 필요한 값들이 적혀있다.<br>
+**lat** 의 정보, **lon** 의 정보, **API key**
+
+하지만,<br>
+이미 **lat** 과 **lon** 의 값을 구하는 코드를 만들었으니,<br>
+그 값을 호출만 해 주면 된다.
+
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbX2TO4%2FbtrXPUnlwUv%2FePn8kysksXEhqQ8dzZhmw0%2Fimg.png)
+
+> getCurrentLocation 함수 내부에서 **lat** 과 **lon** 의 값을 가져올때,<br>
+getWeatherByCurrentLocation 함수를 호출하고 그 값으로는 **lat** 과 **lon** 을 받는다.
+
+매개변수로 **lat** 과 **lon** 을 주어 <br>
+getCurrentLocation 함수가 실행될 때 던져준 값을 캐치한다.<br>
+
+> $ 의 의미는 Dynamic Value 로 변화하는 값을 구할 때 사용한다.
+
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbNpsTQ%2FbtrXPw72LAO%2FPDAk1SZB9rX8fdy2mKC0G0%2Fimg.png)
+
+
+---
+### API 호출 🔮
+현재 위치정보가 담긴 url 을 기반으로 API 를 호출해보자 💥
+
+먼저,<br>
+url 을 호출해 데이터를 가져올때까지 await 를 통해 기다려달라는 값을 response 에 담아주었다.
+
+> await 을 사용함으로써 비동기적처리를 알수 있다. async - await
+
+> fetch 란, <br>
+JavaScript 에서 서버로 네트워크 요청을 보내고 응답을 받을 수 있도록 해주는 매서드이다.
+
+마찬가지로 url 에서 추출한 json 파일을 담아줄 필요가 있다.
+response 에서 추출한 json 을 가져올때까지 기다려달라는 값을 data 에 담아주었다.
+
+> API 는 대부분 JSON 파일의 형태를 띄고있다.
+
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc2AdSO%2FbtrXK88KSSK%2FVNe6Fu1Nf4QI4taaFfkplK%2Fimg.png)
+
+
+---
+### 데이터 확인 💥
+이제,<br>
+가져온 데이터를 확인해 볼 차례이다 🙌🙌<br>
+console.log 를 찍어 값을 확인 해 보자.
+
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFaGi1%2FbtrXLr1A89j%2FzUq1tCZ6ikeEUv0reKXbOk%2Fimg.png)
+
+
+헉스,, 내 신상정보가 담긴 데이터가 보여지고 있다 😱😱 <br>
+코딩이란,, API 란,, 정말 심오하며 신기한것,,😎<br>
+
+<br>
+
+다음 포스팅에선,<br>
+불러온 데이터를 UI 를 통해 화면에 뿌려주는 작업을 해 보도록 하자 😆
