@@ -3,7 +3,7 @@ layout: post
 title: "[React] Styled-Components 설치 에러"
 subtitle: #부제목
 categories: Error
-tags: [리액트 네이티브]
+tags: [리액트]
 ---
 
 ### 에러 확인
