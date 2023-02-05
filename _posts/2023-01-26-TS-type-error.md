@@ -19,7 +19,7 @@ react-dorpzone Hooks 를 가져와 사용했다.
 
 코드를 작성하고 실행하니 다음과 같은 에러 메세지를 출력한다.
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/fe6f65f1-da45-44c6-bffb-75a0d489649e/Parameter_acceptedFiles_implicitly_has_an_any_type2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230131%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230131T102841Z&X-Amz-Expires=86400&X-Amz-Signature=cd2d1472328b92622c646a6b1539112a17a78e64796896147dfdf8c4ea0cdfca&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Parameter%2520%27acceptedFiles%27%2520implicitly%2520has%2520an%2520%27any%27%2520type2.JPG.jpg%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbJ5z2v%2FbtrXHPnbrU9%2F8zGEg2w2zlG9DlkUpFUiy1%2Fimg.jpg)
 
 
 에러를 살펴보면,
@@ -39,7 +39,7 @@ react-dorpzone Hooks 를 가져와 사용했다.
 
 **let 이 아닌 const 임**
 
-![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/1d976c97-b17f-4cee-ae48-ef222e0331b8/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230131%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230131T102940Z&X-Amz-Expires=86400&X-Amz-Signature=3e51c27d705730accd927deb60b4d4d80594d511d6a03407d6d59cce46969fdf&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject)
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcqQ7Vg%2FbtrXIivERrm%2F1aixUsJQY2BhEUcdJVqluk%2Fimg.png)
 
 
 ### Reference
