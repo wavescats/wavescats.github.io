@@ -3,7 +3,7 @@ layout: post
 title: "[React] 띄어쓰기의 중요성"
 subtitle: #부제목
 categories: Error
-tags: [리액트]
+tags: [리액트, 프로젝트]
 ---
 
 ### 에러 확인

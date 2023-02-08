@@ -3,7 +3,7 @@ layout: post
 title: "[Typescripts] Parameter 'xxx' implicitly has an 'any' type"
 subtitle: #부제목
 categories: Error
-tags: [타입스크립트]
+tags: [타입스크립트, 프로젝트]
 ---
 
 ### 에러 확인

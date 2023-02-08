@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[React] Cannot read properties of undefined"
+title: "[React] Cannot read properties of undefined (reading 'xxx')"
 subtitle: #부제목
 categories: Error
-tags: [리액트]
+tags: [리액트, 프로젝트]
 ---
 
 ### 에러 확인
