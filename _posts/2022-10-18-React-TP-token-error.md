@@ -2,8 +2,8 @@
 layout: post
 title: "[React] [팀 프로젝트] 페이지 이동 시 토큰의 부재로 인한 에러"
 subtitle: #부제목
-categories: Error
-tags: [리액트]
+categories: React
+tags: [리액트, Error]
 ---
 
 ### 에러 발생

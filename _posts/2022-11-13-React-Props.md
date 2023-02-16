@@ -2,8 +2,8 @@
 layout: post
 title: "[React] Props 를 활용한 Weather 데이터 호출 시 에러"
 subtitle: #부제목
-categories: Error
-tags: [리액트]
+categories: React
+tags: [리액트, Error]
 ---
 
 ### 에러 확인

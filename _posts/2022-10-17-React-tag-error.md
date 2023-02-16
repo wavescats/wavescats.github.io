@@ -2,8 +2,8 @@
 layout: post
 title: "[React] Document input 태그 에러"
 subtitle: #부제목
-categories: Error
-tags: [리액트]
+categories: React
+tags: [리액트, Error]
 ---
 
 ### 에러 확인

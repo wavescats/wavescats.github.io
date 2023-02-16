@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[React] 날씨 기반 API 를 활용한 프로젝트 - 2"
+title: "[Project] 날씨 기반 API 를 활용한 프로젝트 - 2"
 subtitle: #부제목
 categories: Project
-tags: [프로젝트]
+tags: [리액트, 프로젝트]
 ---
 
 ## UI 제작

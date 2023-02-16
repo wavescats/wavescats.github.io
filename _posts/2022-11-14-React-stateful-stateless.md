@@ -2,8 +2,8 @@
 layout: post
 title: "[React] 부모, 자식 컴포넌트간의 데이터 이동"
 subtitle: #부제목
-categories: TIL
-tags: [리액트, 프로젝트]
+categories: React
+tags: [리액트, 프로젝트, TIL]
 ---
 
 ### 로직

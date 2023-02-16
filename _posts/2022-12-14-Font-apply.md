@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "구글 폰트 적용하는 법 (다운로드 x)"
+title: "[React] 구글 폰트 적용하는 법 (다운로드 x)"
 subtitle: #부제목
-categories: TIL
-tags: [리액트]
+categories: React
+tags: [리액트, TIL]
 ---
 
 ### 폰트 적용

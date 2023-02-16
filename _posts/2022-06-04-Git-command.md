@@ -2,8 +2,8 @@
 layout: post
 title: "[Git] Git 명령어"
 subtitle: #부제목
-categories: TIL
-tags: [Github]
+categories: Git
+tags: [TIL]
 ---
 
 ### `git init`

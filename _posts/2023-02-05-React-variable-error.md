@@ -2,8 +2,8 @@
 layout: post
 title: "[React] ReferenceError: 'xxx' is not defined"
 subtitle: #부제목
-categories: Error
-tags: [리액트, MongoDB]
+categories: React
+tags: [리액트, MongoDB, Error]
 ---
 
 ### 에러 확인

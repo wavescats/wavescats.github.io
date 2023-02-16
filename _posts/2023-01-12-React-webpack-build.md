@@ -2,8 +2,8 @@
 layout: post
 title: "[React] webpack / npm run build 시 발생한 오타 에러"
 subtitle: #부제목
-categories: Error
-tags: [리액트]
+categories: React
+tags: [리액트, Error]
 ---
 
 ### 에러 확인

@@ -2,8 +2,8 @@
 layout: post
 title: "[React] 에러는 없는데 페이지 랜더링이 되지 않을 때"
 subtitle: #공공데이터 / Pandas
-categories: Error
-tags: [리액트]
+categories: React
+tags: [리액트, Error]
 ---
 ### 에러 발생
 ---

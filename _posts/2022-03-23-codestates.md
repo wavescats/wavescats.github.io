@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 코드스테이츠 AI 부트캠프
+title: "[코드스테이츠] 코드스테이츠 AI 부트캠프"
 subtitle: #부제목
 categories: Review
 tags: [코드스테이츠]

@@ -2,8 +2,8 @@
 layout: post
 title: "[React] 프로젝트의 npm start 가 실행되지 않을 때"
 subtitle: #공공데이터 / Pandas
-categories: Error
-tags: [리액트]
+categories: React
+tags: [리액트, Error]
 ---
 
 ### 에러 확인

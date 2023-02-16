@@ -2,8 +2,8 @@
 layout: post
 title: "[Git] Commit & Push 중 에러"
 subtitle: #부제목
-categories: Error
-tags: [Github]
+categories: Git
+tags: [Github, Error]
 ---
 
 여느 때와 같이 수정 사항을 푸시하기 위해 파일을 추가하고 커밋과 푸ㅅ.. 응?

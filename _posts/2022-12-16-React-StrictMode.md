@@ -2,8 +2,8 @@
 layout: post
 title: "[React] 콘솔 창에서 같은 결과가 중복되어 출력되는경우"
 subtitle: #부제목
-categories: TIL
-tags: [리액트]
+categories: React
+tags: [리액트, TIL]
 ---
 
 아래와 같이 **console.log** 를 찍어 보았을 때,<Br>

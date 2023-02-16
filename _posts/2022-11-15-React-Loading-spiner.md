@@ -2,8 +2,8 @@
 layout: post
 title: "[React] UI 에 Loading-Spinners 효과 주기"
 subtitle: #부제목
-categories: Project
-tags: [리액트, 프로젝트]
+categories: React
+tags: [리액트, 프로젝트, TIL]
 ---
 
 지역별 현재 날씨 정보를 불러오는 과정에서 사용하는 효과이다.<br>

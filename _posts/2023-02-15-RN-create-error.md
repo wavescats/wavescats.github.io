@@ -2,8 +2,8 @@
 layout: post
 title: "[React-Native] 프로젝트 생성 시 발생한 에러 'npx create-expo-app'"
 subtitle: #부제목
-categories: Error
-tags: [리액트 네이티브, 프로젝트]
+categories: React-Native
+tags: [리액트 네이티브, Error]
 ---
 
 ### 에러 확인 💥

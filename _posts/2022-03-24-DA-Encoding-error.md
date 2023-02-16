@@ -2,8 +2,8 @@
 layout: post
 title: "[Pandas] 데이터 로드 중 인코딩 에러"
 subtitle: 공공데이터 / Pandas
-categories: Error
-tags: [Data Analysis & EDA]
+categories: Pandas
+tags: [Data Analysis & EDA, Error]
 ---
 
 ### 에러 발생

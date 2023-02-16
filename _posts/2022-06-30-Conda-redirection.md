@@ -2,7 +2,7 @@
 layout: post
 title: "[Anaconda] 가상환경 목록을 추출해 .txt 파일에 저장하기"
 subtitle: 
-categories: Python
+categories: Anaconda
 tags: [아나콘다, 파이썬]
 ---
 

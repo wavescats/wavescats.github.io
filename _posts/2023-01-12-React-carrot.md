@@ -2,8 +2,8 @@
 layout: post
 title: "[React] npm i 로 패키지 설치 시 캐럿의 유무"
 subtitle: #부제목
-categories: TIL
-tags: [리액트]
+categories: React
+tags: [리액트, TIL]
 ---
 
 npm package.json 에서 패키지의 버전을 관리하다 보면<br>

@@ -2,8 +2,8 @@
 layout: post
 title: "[React-Native] SafeAreaView 를 활용해 expo 앱에 그리기"
 subtitle: #부제목
-categories: TIL
-tags: [리액트 네이티브]
+categories: React-Native
+tags: [리액트 네이티브, TIL]
 ---
 ### 에러도 아닌것이 뭔가 이상한거..😇
 

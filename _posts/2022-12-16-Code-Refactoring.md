@@ -2,8 +2,8 @@
 layout: post
 title: "[React] Code Refactoring 을 통한 리소스 줄이기"
 subtitle: #부제목
-categories: TIL
-tags: [리액트]
+categories: React
+tags: [리액트, TIL]
 ---
 
 ### 프로젝트 MBTI

@@ -2,8 +2,8 @@
 layout: post
 title: "[Git] Private Repo Clone 시 에러"
 subtitle: #부제목
-categories: Error
-tags: [Github]
+categories: Git
+tags: [Error, Github]
 ---
 
 ### 에러 확인

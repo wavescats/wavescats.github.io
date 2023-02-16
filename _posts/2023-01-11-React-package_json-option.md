@@ -2,8 +2,8 @@
 layout: post
 title: "[React] Webpack 을 활용한 Package.json 의 초기 설정 및 수정 방법"
 subtitle: #부제목
-categories: TIL
-tags: [리액트]
+categories: React
+tags: [리액트, TIL]
 ---
 
 
