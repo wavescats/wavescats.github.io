@@ -34,6 +34,8 @@ props 로 내려받은 `isOpened` 가 true 일땐 **up** false 일땐 **down** �
 여기에 이벤트를 추가해 아이콘이 **down** 이 되었을 경우,<br>
 친구 목록이 보여지는 이벤트를 추가하려한다.
 
+---
+
 ### 삼항 연산자
 삼항연산자를 활용해,<br>
 props 로 내려받은 `isOpened` 가 true 일 때 아래 `ScrollView` 구문을 실행시키고 false 라면 null 을 return 하는 로직이다.
@@ -47,6 +49,18 @@ if 문을 활용해<br>
 그게 아니라면 `ScrollView` 구문을 실행하는 로직이다.
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc1oxBb%2Fbtr0AxYYZKJ%2Fn9CMcgzPVwSQ2WiZ7GFblk%2Fimg.png)
+
+
+### && 연산자
+`props.isOpened` 가 && (true) 일 때 아래 구문을 랜더링 하라는 로직이다.
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbORFEw%2Fbtr0HSt5WOR%2FrYG1PgM9yekKk7Vr7H7bL0%2Fimg.png)
+
+&& 연산자는<br>
+값이 false 라면 && 이전에 멈추기 때문에 return false 가 되고,<br>
+true 라면 && 이후의 값을 체크한다.
+
+> false && 2 = false<br>
+true && 2 = true
 
 > 두 방법 중 **가독성** 측면에서 바라봤을 때는,<br>
 첫 번째 줄에서 return 되는 부분을 첫 줄에서 확인할 수 있기 때문에<br>
