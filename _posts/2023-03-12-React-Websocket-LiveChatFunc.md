@@ -175,6 +175,7 @@ console.log(parsed, message.toString('utf8'))
 
 ---
 
+## 테스트
 로직을 작성하여 메세지를 보내 작동이 잘 되는지 테스트 해 보도록 하자.
 ```js
 // Server.js
@@ -187,8 +188,82 @@ socket.on("message", (message) => {
     }
 })
 ```
+
 ![](https://blog.kakaocdn.net/dn/Aulbq/btr4kQrNZoY/Nf6DnByuc3n4cx0Y0et6Hk/img.gif)
 
 예상했던 대로,<br>
 **Id 를 입력했을 때는 메세지가 리스트에 출력되지 않고,**<br>
 **메세지를 입력했을때만** 리스트에 출력됨을 확인할 수 있었다.<bR>
+
+> else if 문이 아닌 switch 문법을 사용하여 코드를 리펙토링 함.
+```js
+// Server.js
+socket.on("message", (message) => {
+    const parsed = JSON.parse(message)
+    switch (parsed.type) { // 만약 parsed.type 이 
+        case "new_message": // new_message 와 같다면 아래 코드 실행
+            otherBrowser.forEach((aSocket) => aSocket.send(parsed.payload))
+        case "id":
+            console.log(parsed.payload)
+    }
+})
+```
+
+---
+
+`parsed` 를 message object 형태로 변환해줄 필요가 있다.
+```js
+// Server.js
+socket.on("message", (mag) => { // msg 라는 string 을 받고
+    const message = JSON.parse(mag) // parse 하여 message 가 됨
+    switch (message.type) { // 만약 parsed.type 이 
+        case "new_message": // new_message 와 같다면 아래 코드 실행
+            otherBrowser.forEach((aSocket) => aSocket.send(message.payload))
+        case "id": // id type 의 message 를 받으면 
+            socket['id'] = message.payload // id 를 socket 에 넣어줌
+    }
+})
+```
+
+### 예외처리
+**모든 사람이 id 를 저장하고 메세지를 보내지 않을 가능성**을 생각하여,<br>
+id 를 저장하지 않은 사람이 메세지를 보낼 경우인<br>
+**익명 메세지에 대한 예외처리**를 진행한다.
+
+```js
+// Server.js
+socket["id"] = "NaN"
+```
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fk1Mb6%2Fbtr4ihcJ9ZV%2FFzG8n2YxywRU2Nn6SlpAtk%2Fimg.png)
+
+---
+## 출력(최종)
+메세지의 형태는 단순한 `payload` 형태만 받는 것이 아닌,<br>
+`id` property 를 socket object 에 저장하고,<br>
+`payload` property 를 message JSON 에 저장한다.
+
+> `` **(==백틱, 템플릿 리터럴)** 을 사용하여 변화하는 문자열을 삽입한다.
+```js
+aSocket.send(`${socket.id} : ${message.payload}`)
+```
+
+![](https://blog.kakaocdn.net/dn/CO5Pr/btr4t689Cq7/qlwEIIIZeq4l6W6x0feKKk/img.gif)
+
+
+
+## 최종 코드
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdjTaM2%2Fbtr4aKU0PZF%2FzequvozSsF2Opnp10Xp7xK%2Fimg.png)
+
+
+## 회고 및 개선사항
+다음과 같이 메세지를 두번 이상 보내는 경우 저장된 아이디가 없어지고,<br>
+직전에 전송한 메세지가 아이디로 저장되어<br>
+메세지 : 메세지 형태로 출력되고있다.
+
+![](https://blog.kakaocdn.net/dn/CzbSK/btr4tOVkZxc/iHZwKiWeqpRltcqmRixsM0/img.gif)
+
+아이디는 아이디대로 서버에 저장되어 유지되어야 하며,<br>
+유지된 아이디에서 보낸 텍스트만 리스트에 저장되는 형태로 코드를 개선해봐야겠다.
+
+## Reference
+> <https://nomadcoders.co/noom/lectures/3096><br><https://eblee-repo.tistory.com/38>
