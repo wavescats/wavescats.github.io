@@ -3,7 +3,7 @@ layout: post
 title: "[React] npx 로 하드햇(hardht) 설치 시 발생한 에러 (An unexpected error occurred Error)"
 subtitle: #부제목
 categories: React
-tags: [리액트, TIL]
+tags: [리액트, TIL, Error]
 ---
 
 ## 에러 확인
