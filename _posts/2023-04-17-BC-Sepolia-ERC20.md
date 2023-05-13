@@ -1,10 +1,35 @@
 ---
 layout: post
-title: "[BlockChain] Sepolia 네트워크 환경에서 erc20 토큰 발행하기"
+title: "[Blockchain] 세폴리아 (Sepolia) 네트워크 환경에서 erc20 토큰 발행하기"
 subtitle: #부제목
-categories: React
-tags: [BlockChain, TIL, Sepolia, ERC20]
+categories: Blockchain
+tags: [블록체인, TIL, Sepolia, ERC20]
 ---
+
+## Sepolia ?
+
+Sepolia 는 이더리움 메인넷과 동일한 환경을 갖춘 테스트넷이다.<br>
+이더리움 테스트넷으로는 Goerli 네트워크도 존재하는데,<br>
+이는,<br>
+**Sepolia 는 테스트넷에서 분기되어 만들어졌으며,**<br>
+**Goerli 은 이더리움 클래식 테스트넷에서 만들어진 네트워크** 정도로 말할 수 있다.<br>
+하지만, 두 네트워크 모두<br>
+스마트컨트랙트를 체인 위에 올리기 전 테스트를 위한 목적으로는 동일한 환경을 제공하며,<br>
+이더리움 기반의 개발을 위해 안정적인 테스트넷으로 활용할 수 있다.
+
+> Sepolia = > Rinkeby 와 호환,<br>
+> Goerli => Ethereum Classic 과 호환<br><br>
+> Sepolia, Goerli => PoA (Proof of Authority) consensus algorithm 사용
+
+### Faucet
+
+<https://sepolia-faucet.pk910.de/><br>
+
+- 위 페이지는 Sepolia 테스트넷에서 ‘테스트용’으로 나눠주는 이더리움을 받을 수 있는 페이지이다.<br>
+
+- 1시간마다 **0.05 Sepolia ETH** 를 받을 수 있다 (Faucet)
+
+- Goerli 테스트넷의 수수료가 비싸져서 Sepolia 테스트넷으로 이동하는 추세이다
 
 ## Sepolia 네트워크 환경에서 erc20 토큰 발행하기
 
@@ -77,6 +102,7 @@ Symbol 명과 발행한 토큰의 개수를 확인할 수 있고,<br>
 <br>
 주고 받을 계정을 새로 생성하고,<br>
 기존의 지갑에서 **보내기**를 통해 토큰을 전송할 수 있다.
+
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fblgu2N%2Fbtsa8BIsQqt%2FK5O874RCoOKVdlvskIso10%2Fimg.png)
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcEuoDw%2Fbtsa8AvZX6t%2FCGHqzne5TAgB2B6xT2yTCK%2Fimg.png)
