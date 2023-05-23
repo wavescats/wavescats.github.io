@@ -19,6 +19,7 @@ html {
         .site-brand-inner, .page-link {
           color: #fff;
           transition: 0.1s color;
+          font-weight: 700;
         }
 
         @include media-query($on-laptop) {
@@ -54,6 +55,19 @@ html {
       top: 20px;
     }
   }
+}
+
+// font area
+@font-face {
+  font-family: "MyLotteLight";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.0/MyLotteLight.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "MyLotteLight";
 }
 
 /**
@@ -132,13 +146,23 @@ html {
     line-height: $base-line-height;
     color: $header-text-color;
     transition: 0.1s ease-in-out;
+    color: #000;
+    font-weight: bold;
+    padding: 5px;
+    // box-sizing: border-box;
+
 
     // Gaps between nav items, but not on the last one
     &:not(:last-child) {
       margin-right: 24px;
       &:hover {
-        background-color: red;
+        color: #000;
+        font-weight: bold;
+        background-color: #0575b6;
         text-decoration: underline;
+        border-radius: 10px;
+        opacity: 0.6;
+        transition: 0.5s;
       }
     }
   }
@@ -727,9 +751,14 @@ html {
   .page-segments-list {
     margin-left: 0;
     list-style: none;
+    width: 640px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .segment-name {
+    color: #0575b6;
     font-weight: $base-font-weight * 1.5;
     margin-bottom: 8px;
     position: relative;
