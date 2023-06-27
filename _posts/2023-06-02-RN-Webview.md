@@ -162,4 +162,4 @@ npm i react-native-webview
 
 ## Reference
 
-<https://apis.map.kakao.com/web/guide/><br><https://clolee.tistory.com/77><br><https://kimcomdong.tistory.com/entry/Deploy%EC%9A%B0%EC%97%AC%EA%B3%A1%EC%A0%88-%EB%A7%8E%EC%9D%80-React-netlify-%EB%B0%B0%ED%8F%AC-Page-Not-Found-%EC%99%80-Deploy-Failed%EC%9D%98-%ED%96%A5%EC%97%B0><br><https://velog.io/@remon/React-Netlify%EB%A1%9C-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0><br><https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file>
+> <https://apis.map.kakao.com/web/guide/><br><https://clolee.tistory.com/77><br><https://kimcomdong.tistory.com/entry/Deploy%EC%9A%B0%EC%97%AC%EA%B3%A1%EC%A0%88-%EB%A7%8E%EC%9D%80-React-netlify-%EB%B0%B0%ED%8F%AC-Page-Not-Found-%EC%99%80-Deploy-Failed%EC%9D%98-%ED%96%A5%EC%97%B0><br><https://velog.io/@remon/React-Netlify%EB%A1%9C-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0><br><https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file>
