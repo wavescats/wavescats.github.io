@@ -2,7 +2,7 @@
 layout: post
 title: "[Typescript] Type 을 지정하지 않아 발생하는 에러 해결방법"
 subtitle: #부제목
-categories: [TypeScript]
+categories: [Typescript]
 tags: [리액트 네이티브, 타입스크립트, Error, TIL]
 ---
 
