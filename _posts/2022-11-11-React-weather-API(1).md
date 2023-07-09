@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "[Project] 날씨 기반 API 를 활용한 프로젝트 - 1"
+title: "[Project] 날씨 기반 API 를 활용한 프로젝트 - 1 (OpenWeather API) 🌞"
 subtitle: #부제목
 categories: Project
 tags: [리액트, 프로젝트]
 ---
 
 ## 프로젝트 생성
+
 ---
 
 ```
@@ -17,13 +18,14 @@ npx create-react-app [프로젝트명]
 `$npm start` 명령어로 앱 실행
 
 ## 현재위치 정보 가져오기
+
 ---
 
-앱이 ***실행되자마자*** 현재위치에 대한 정보가 필요하므로<br>
+앱이 **_실행되자마자_** 현재위치에 대한 정보가 필요하므로<br>
 `useEffect` Hooks 를 사용
 
 > useEffect 에는 2개의 매개변수가 필요하고,<br>
-함수 내부에 원하는 내용을 작성 해 주면 된다.
+> 함수 내부에 원하는 내용을 작성 해 주면 된다.
 
 ```
 useEffect(() => {함수},[배열])
@@ -37,15 +39,15 @@ useEffect(() => {함수},[배열])
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcSCbwB%2FbtrXOWMGe2V%2FWtKqwAVtvZxaKiF0pe7eKk%2Fimg.png)
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbKCgBn%2FbtrXOvV8sQT%2F6BkUJJzVbCCSq4XE87zua0%2Fimg.png)
 
-
 > latitude (위도), longitude (경도)
 
 ## 현재위치 기반 날씨정보 가져오기
+
 **Current Weather Data** -> **API doc** -> **API call**
+
 > <https://openweathermap.org/current#geocoding>
 
 ---
-
 
 API 를 불러오기 전 함수를 만들어 자리를 만들어주자.
 
@@ -63,7 +65,7 @@ API url 을 살펴보면 필요한 값들이 적혀있다.<br>
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbX2TO4%2FbtrXPUnlwUv%2FePn8kysksXEhqQ8dzZhmw0%2Fimg.png)
 
 > getCurrentLocation 함수 내부에서 **lat** 과 **lon** 의 값을 가져올때,<br>
-getWeatherByCurrentLocation 함수를 호출하고 그 값으로는 **lat** 과 **lon** 을 받는다.
+> getWeatherByCurrentLocation 함수를 호출하고 그 값으로는 **lat** 과 **lon** 을 받는다.
 
 매개변수로 **lat** 과 **lon** 을 주어 <br>
 getCurrentLocation 함수가 실행될 때 던져준 값을 캐치한다.<br>
@@ -72,9 +74,10 @@ getCurrentLocation 함수가 실행될 때 던져준 값을 캐치한다.<br>
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbNpsTQ%2FbtrXPw72LAO%2FPDAk1SZB9rX8fdy2mKC0G0%2Fimg.png)
 
-
 ---
+
 ### API 호출 🔮
+
 현재 위치정보가 담긴 url 을 기반으로 API 를 호출해보자 💥
 
 먼저,<br>
@@ -83,7 +86,7 @@ url 을 호출해 데이터를 가져올때까지 await 를 통해 기다려달�
 > await 을 사용함으로써 비동기적처리를 알수 있다. async - await
 
 > fetch 란, <br>
-JavaScript 에서 서버로 네트워크 요청을 보내고 응답을 받을 수 있도록 해주는 매서드이다.
+> JavaScript 에서 서버로 네트워크 요청을 보내고 응답을 받을 수 있도록 해주는 매서드이다.
 
 마찬가지로 url 에서 추출한 json 파일을 담아줄 필요가 있다.
 response 에서 추출한 json 을 가져올때까지 기다려달라는 값을 data 에 담아주었다.
@@ -92,15 +95,15 @@ response 에서 추출한 json 을 가져올때까지 기다려달라는 값을 
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc2AdSO%2FbtrXK88KSSK%2FVNe6Fu1Nf4QI4taaFfkplK%2Fimg.png)
 
-
 ---
+
 ### 데이터 확인 💥
+
 이제,<br>
 가져온 데이터를 확인해 볼 차례이다 🙌🙌<br>
 console.log 를 찍어 값을 확인 해 보자.
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFaGi1%2FbtrXLr1A89j%2FzUq1tCZ6ikeEUv0reKXbOk%2Fimg.png)
-
 
 헉스,, 내 신상정보가 담긴 데이터가 보여지고 있다 😱😱 <br>
 코딩이란,, API 란,, 정말 심오하며 신기한것,,😎<br>
