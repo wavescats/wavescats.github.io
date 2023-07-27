@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[React-Native] App 의 종류와 특징 (네이티브, 크로스 플랫폼, 하이브리드)"
+title: "[React-Native] App 의 종류와 특징 (네이티브, 크로스 플랫폼, 하이브리드) 📱"
 subtitle: #부제목
 categories: [React-Native]
 tags: [리액트 네이티브, TIL]

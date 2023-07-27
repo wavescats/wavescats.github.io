@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[React-Native] 특정 라이브러리 설치 후 Android 빌드 시 SDK 에러 해결방법"
+title: "[React-Native] 특정 라이브러리 설치 후 Android 빌드 시 SDK 에러 해결방법 💺"
 subtitle: #부제목
 categories: React-Native
 tags: [리액트 네이티브, TIL, Error]
@@ -9,7 +9,7 @@ tags: [리액트 네이티브, TIL, Error]
 ## 개요
 
 아래와 같이 React-Native 를 사용하여<br>
-실시간 채팅이 가능한 모바일 서비스를 제작중인 과정이다<br>
+실시간 채팅이 가능한 모바일 서비스 📱 를 제작중인 과정이다<br>
 <br>
 여러명의 사용자를 관리하기 위해<br>
 파이어베이스 Authentication 을 사용하여
@@ -21,7 +21,7 @@ tags: [리액트 네이티브, TIL, Error]
 
 ---
 
-## 설치
+## 설치 🔨
 
 해당 기능을 구현하기 위해 설치한 라이브러리는<br>
 <br>
@@ -44,7 +44,7 @@ yarn add react-native-image-crop-picker
 
 ---
 
-### 에러확인
+### 에러 확인 😈
 
 여느 때와 같이<bR>
 `yarn run android` 명령을 통해 안드로이드 스튜디오 애뮬레이터를 실행시킨다<br>
@@ -113,7 +113,7 @@ yarn start --reset-chche
 
 ---
 
-### 에러 해결
+### 에러 해결 😇
 
 위 과정에서 겪었듯,<br>
 설치된 라이브러리와 앱을 실행하는 프로젝트가 충돌하고있는상황같아<br>
@@ -149,7 +149,7 @@ android CompileSdkVersion 의 버전을 33 으로 수정해야 할것 같았다.
 ---
 
 패스트캠퍼스 디스코드는<br>
-질문글을 남기면 답변을 한달 뒤에 달아준다...<br>
+질문글을 남기면 답변을 한달 뒤에 달아준다... 😣<br>
 <br>
 그냥 뭐... 그렇다고.. ㅎㅎ
 
