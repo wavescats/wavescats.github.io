@@ -58,6 +58,27 @@ localstorage 에 입력받은 값이 전송되는 형태의 로직이다.<br>
 
 #### Client 🔑
 
+먼저 `./public/index.html` 내부에 SDK 모듈을 심고,<br>
+사용자에게 입력받을 수 있는 input 태그에<br>
+`v-model` 함수를 사용하여 변수를 선언 해 주고<br>
+들어올 값들을 위해 초기화를 해 준다.
+
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbmsEeJ%2Fbtspolzqkgg%2F1k6duwaxfgKK8oxjIAvp01%2Fimg.png)
+
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFBZl0%2FbtspmfGsCJy%2FYp5ebMbafEZe3xpL1TUPTK%2Fimg.png)
+
+주소 검색 버튼을 눌렀을 때 실행되는 이벤트로는<br>
+공식 Docs 에서 제공하는 레퍼런스를 참고했다.
+
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FsN77k%2Fbtspxq7ZSGW%2FuFqM7MGUkzX6V8zTEzkisk%2Fimg.png)
+
+그리고,<br>
+데이터가 담긴 각각의 변수를 `this` 를 사용하여 한번 더 감싸고<br>
+`formData` 객체로 해당 값들을 묶어 서버로 요청을 보낸다.
+
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbtEw3H%2FbtspHZBzU9y%2Fp4EPnfRIeLTscYvURsX8AK%2Fimg.png)
+
+`formData`에 담긴 데이터를 서버측에 보내기 위해<br>
 `axios` 라이브러리를 사용하여 서버와의 통신을 할 수 있도록 작성했다.
 
 ```
