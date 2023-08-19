@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "[React] JSX 문법 에러 발생시 해결방법 (Feat. return)"
+title: "[React-Native] JSX 문법 에러 발생시 해결방법 (Feat. return)"
 subtitle: #부제목
-categories: [React]
+categories: [React-Native]
 tags: [리액트, 리액트 네이티브, Error, TIL]
 ---
 
