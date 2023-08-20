@@ -128,53 +128,9 @@ JSON 형식을 갖춘 응답 데이터가 자동으로 파싱된다.
 
 ---
 
-### 사용 예시
+### 사용 예시 🔐
 
-#### `fetch` 사용 예시
-
-아래는 `fetch` 를 사용하여 `React-Native` 환경에서<br>
-별도의 라이브러리 설치 없이 `GET` 요청을 보내는 예시이다.
-
-```javascript
-fetch("https://api.example.com/data")
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.error("Error:", error));
-```
-
-```javascript
-const getUser = async () => {
-  const response = await fetch(`/user?name=TEST`)
-    .then((result) => result.json())
-    .catch((result) => {
-      /* 에러 발생 */
-    });
-  console.log(response); // API 호출
-};
-```
-
-`POST` 요청을 보낼 경우,<br>
-아래와 같이 `method` 와 `headers` 를 설정하여 본문에 데이터를 추가할 수 있다.
-
-```javascript
-fetch("https://api.example.com/data", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    key1: "value1",
-    key2: "value2",
-  }),
-})
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((error) => console.error("Error:", error));
-```
-
----
-
-#### `axios` 사용 예시
+#### `Axios`
 
 마찬가지로 `React-Native` 환경에서<br>
 `axios` 를 사용하여 `GET` 요청을 보내는 예시이다.
@@ -241,6 +197,50 @@ const createFeed = async (feedItem: FeedItem) => {
     // API 호출 시 에러 발생
   }
 };
+```
+
+---
+
+#### `Fetch`
+
+아래는 `fetch` 를 사용하여 `React-Native` 환경에서<br>
+별도의 라이브러리 설치 없이 `GET` 요청을 보내는 예시이다.
+
+```javascript
+fetch("https://api.example.com/data")
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error("Error:", error));
+```
+
+```javascript
+const getUser = async () => {
+  const response = await fetch(`/user?name=TEST`)
+    .then((result) => result.json())
+    .catch((result) => {
+      /* 에러 발생 */
+    });
+  console.log(response); // API 호출
+};
+```
+
+`POST` 요청을 보낼 경우,<br>
+아래와 같이 `method` 와 `headers` 를 설정하여 본문에 데이터를 추가할 수 있다.
+
+```javascript
+fetch("https://api.example.com/data", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    key1: "value1",
+    key2: "value2",
+  }),
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error("Error:", error));
 ```
 
 ---
