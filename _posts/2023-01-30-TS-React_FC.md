@@ -60,7 +60,7 @@ type ComponentsType = (
 `children` 을 자동으로 추가하기에<br>
 `children` 을 받지 않아야 하는 컴포넌트에서 **별도의 타입을 지정**하여 사용해야한다.
 
-> `defaultProps` 는 클래스 컴포넌트에서 주로 사용함.<br> > `children` 을 받지 않아야 하는 컴포넌트에서는 **`React.FC` 를 사용하지 않고 직접 props 타입을 명시**해준다.
+> `defaultProps` 는 클래스 컴포넌트에서 주로 사용함.<br>`children` 을 받지 않아야 하는 컴포넌트에서는 **`React.FC` 를 사용하지 않고 직접 props 타입을 명시**해준다.
 
 즉, `Optional Children`.<br>
 말 그대로 `Children` 을 옵셔널하게 가지고 있다는 것이다.
