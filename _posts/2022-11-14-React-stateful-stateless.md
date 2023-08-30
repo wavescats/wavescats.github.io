@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "[React] 부모, 자식 컴포넌트간의 데이터 이동"
+title: "[React] 부모, 자식 컴포넌트간의 데이터 이동 🔁"
 subtitle: #부제목
 categories: React
 tags: [리액트, 프로젝트, TIL]
 ---
 
 ### 로직
+
 다음과 같이 버튼 `WeatherButton` 을 클릭하게 되면,<br>
 해당 지역에 따른 날씨 정보가 `WeatherBox` 에 출력되는 로직을 구현하려 한다.
 
@@ -15,10 +16,11 @@ tags: [리액트, 프로젝트, TIL]
 먼저 버튼에 `onClick` 이벤트를 부여하여 함수 내부에 이벤트를 정의해주었고,<br>
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbLYCnu%2FbtrYkFp1UBI%2FJKoOzSNBJLjukJfBqHtOIK%2Fimg.png)
 
-변화하는 값을 제어하기 위해 `useState` Hooks 를 생성해주었다. 
+변화하는 값을 제어하기 위해 `useState` Hooks 를 생성해주었다.
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FegBPM7%2FbtrYe0oW7xm%2FDKaWq1tXMhzoJLrXJuf9E0%2Fimg.png)
 
 ### 문제 발생
+
 ---
 
 문제는<br>
@@ -34,6 +36,7 @@ url 을 통해 받은 데이터를 `WeatherBox` 에 전달해 주어야 하는�
 > 즉, 위에서 아래로만 값을 전달해 줄 수 있는 리액트
 
 ### 문제 해결
+
 ---
 
 자식 컴포넌트에 존재하는 모든 State 를<br>
@@ -57,7 +60,7 @@ url 을 통해 받은 데이터를 `WeatherBox` 에 전달해 주어야 하는�
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FGdDHY%2FbtrYqSb9eoQ%2FsG2PJrpokxnrscuovWD7Xk%2Fimg.png)
 
 > useEffect 는 컴포넌트의 **update** 를 주시하는 Hooks 이다.<br>
-즉, `city` State 를 주시하고 있다가 `city` 가 바뀔 경우 **useEffect** 함수가 호출된다.
+> 즉, `city` State 를 주시하고 있다가 `city` 가 바뀔 경우 **useEffect** 함수가 호출된다.
 
 ![](https://blog.kakaocdn.net/dn/11u1a/btrYr9qRqBg/F1349gnVQ1Y50ck6diSAM1/img.gif)
 <br>
@@ -69,4 +72,4 @@ url 을 통해 받은 데이터를 `WeatherBox` 에 전달해 주어야 하는�
 나머지 컴포넌트에서는 Props 로 받은 데이터를 보여주는 형태로 구현했다.
 
 > **stateful** Component : 모든 State 를 들고있는 컴포넌트<bR>
-**stateless** Component : State 없이 Props 와 같이 받은 데이터만 보여주는 컴포넌트
+> **stateless** Component : State 없이 Props 와 같이 받은 데이터만 보여주는 컴포넌트
