@@ -3,7 +3,7 @@ layout: post
 title: "[DataBase] MySQL 에 지도 RestAPI 를 활용하여 데이터 적재하기 (Vue.js) 🐦"
 subtitle: #부제목
 categories: [DataBase]
-tags: [뷰js, TIL, DB]
+tags: [뷰js, TIL, MySQL]
 ---
 
 ## 개요
@@ -180,8 +180,7 @@ root 사용자로 접근할 수 있고,<br>
 `command` 창에 `mysql -u root -p` 를 입력하면 mysql cli 가 실행되고<br>
 그 아래에서 SQL 문법을 통해 DB 를 관리할 수 있다.
 
-> 만약 이 명령어가 커맨드에서 실행이 되지 않는다면<br>
-> `환경변수` 를 키워드로 에러를 해결할 수 있다.
+> 만약 이 명령어가 커맨드에서 실행이 되지 않는다면<br> > `환경변수` 를 키워드로 에러를 해결할 수 있다.
 
 - 데이터베이스 생성
 

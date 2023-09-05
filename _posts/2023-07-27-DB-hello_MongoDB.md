@@ -3,7 +3,7 @@ layout: post
 title: "[DataBase] MongoDB 에 RestAPI 를 활용하여 데이터 적재하기 (Vue.js) 🐸"
 subtitle: #부제목
 categories: [DataBase]
-tags: [뷰js, TIL, DB]
+tags: [뷰js, TIL, MongoDB]
 ---
 
 ## 개요 🌱
