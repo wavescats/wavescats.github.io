@@ -3,7 +3,7 @@ layout: post
 title: "[Blockchain] Polygon 테스트넷 '뭄바이(Mumbai)' 에서 폴리곤(Matic faucet) 받기"
 subtitle: #부제목
 categories: Blockchain
-tags: [블록체인, Polygon, TIL]
+tags: [블록체인, Polygon, Faucet, TIL]
 ---
 
 ## Mumbai Test Network
