@@ -2,7 +2,7 @@
 layout: post
 title: "[React] Interface 를 통해 Props 관리하기 💨"
 subtitle: #부제목
-categories: [React, Typescript]
+categories: React
 tags: [타입스크립트, 리액트, TIL]
 ---
 
