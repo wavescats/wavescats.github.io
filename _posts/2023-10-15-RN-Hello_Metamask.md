@@ -2,7 +2,7 @@
 layout: post
 title: "[React-Native] Expo 앱에서 MetaMask 연결 구현하기 🐺"
 subtitle: #부제목
-categories: [React-Native]
+categories: [React-Native, Blockchain]
 tags: [리액트 네이티브, 블록체인, MetaMask, TIL]
 ---
 
@@ -16,7 +16,7 @@ tags: [리액트 네이티브, 블록체인, MetaMask, TIL]
 
 ---
 
-### init
+### init 🔥
 
 해당 과정을 따라가기에 앞서 **React-Native expo** 앱을 생성 해 준다.
 
@@ -50,7 +50,7 @@ npx create-expo-app -t expo-template-blank-typescript
 
 ---
 
-### Wellet Connect
+### Wellet Connect 🌷
 
 > <https://walletconnect.com/>
 
@@ -72,7 +72,7 @@ React-Native 앱에서 메타마스크 SDK 를 사용할 수 있는 패키지가
 
 ---
 
-### install
+### install 🔮
 
 이벤트를 실행시킬 때 Wallet Connect 모달 창을 표시하기 위해 해당 라이브러리를 설치 해 준다.
 
@@ -119,7 +119,7 @@ react-native-svg
 
 ---
 
-### 코드 구현
+### 코드 구현 💻
 
 > <https://walletconnect.com/>
 
@@ -197,7 +197,7 @@ return (
 );
 ```
 
-## 전체 코드
+## 전체 코드 🔐
 
 ```javascript
 import { StyleSheet, Text, View, Pressable } from "react-native";
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
 
 ---
 
-### Error
+### Error ❌
 
 만약,<br>
 모든 코드를 작성하고 앱을 실행시킨 경우 아래 에러가 발생한다면,<br>
