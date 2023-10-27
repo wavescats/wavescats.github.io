@@ -2,7 +2,7 @@
 layout: post
 title: "[React-Native] Expo 앱에서 MetaMask 연결 구현하기 🐺"
 subtitle: #부제목
-categories: [React-Native, Blockchain]
+categories: [React-Native]
 tags: [리액트 네이티브, 블록체인, MetaMask, TIL]
 ---
 
