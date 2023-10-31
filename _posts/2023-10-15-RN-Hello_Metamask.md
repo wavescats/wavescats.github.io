@@ -286,6 +286,8 @@ const styles = StyleSheet.create({
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcV3cst%2Fbtsywjryl7z%2Fz3NhXczgzwjAL5kyVLsk00%2Fimg.png)
 
+---
+
 ## Reference 🌊
 
 > <https://cloud.walletconnect.com/><br><https://docs.metamask.io/wallet/how-to/connect/set-up-sdk/javascript/react-native/><br>
