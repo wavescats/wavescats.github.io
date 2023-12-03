@@ -236,4 +236,4 @@ const MyComponent = () => {
 
 ## Reference 🌊
 
-> <https://www.loginradius.com/blog/engineering/react-code-splitting-with-lazy-suspense/><br><https://www.daleseo.com/react-suspense/><br><https://yiyb-blog.vercel.app/posts/react-query-loading-state><br><https://stackoverflow.com/questions/75401477/reasons-for-using-isloading-or-isfetching-in-react-query>
+> <https://www.loginradius.com/blog/engineering/react-code-splitting-with-lazy-suspense/><br><https://www.daleseo.com/react-suspense/><br><https://yiyb-blog.vercel.app/posts/react-query-loading-state><br><https://stackoverflow.com/questions/75401477/reasons-for-using-isloading-or-isfetching-in-react-query><br><https://programmerplum.tistory.com/179><br><https://velog.io/@bnb8419/Suspense%EC%99%80-lazy-Loading#lazy-loading%EC%9D%B4%EB%9E%80><br><https://lasbe.tistory.com/160#google_vignette>
