@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[AWS] VSCode 에서 SSH 로 실행한 원격 서버 연결 실패시 해결방법"
+title: "[AWS] VSCode 에서 SSH 로 실행한 원격 서버 연결 실패시 해결방법 🙋‍♂️"
 subtitle: #부제목
 categories: AWS
 tags: [Node.js, AWS, EC2, TIL, Error, 프로젝트]
