@@ -236,4 +236,6 @@ exports.getCoffeeInfoSum = async ({ getReq }) => {
 
 ---
 
+## Reference 🌊
+
 > <https://velog.io/@wngud4950/MySQL-%EB%8B%A8%EC%9D%BC-Connection-VS-Connection-Pool-%EB%B0%A9%EC%8B%9D%EC%9D%98-%EC%B0%A8%EC%9D%B4><br><https://velog.io/@gwon713/Nodejs-MySQL-DB-connection-pool><br><https://techbless.github.io/2020/01/17/Node-js%EC%97%90%EC%84%9C-Mysql-Connection-Pool-%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0/><br><https://m.blog.naver.com/collcr/222869575871>
