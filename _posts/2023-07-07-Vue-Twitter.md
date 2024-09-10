@@ -61,7 +61,7 @@ UI 에서 하트 이모지를 클릭 시 Toggle 되어<br>
 
 ---
 
-> Github 소스코드<br> > <https://github.com/swon95/Twitter_App>
+> Github 소스코드<br> > <https://github.com/wavecats/Twitter_App>
 
 ---
 

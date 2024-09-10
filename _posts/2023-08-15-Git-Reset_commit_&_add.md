@@ -115,7 +115,7 @@ Staging 영역에 있던 파일들이 취소됨을 확인할 수 있다.
 이제 로그인되어있는 계정과 email 을 변경 해 주고<br>
 다시 `add`, `commit`, `push` 과정을 진행 해 주면 된다.
 
-> **깃 계정 변경하기**<br> <https://swon95.github.io/git/2023/07/24/Git-userChange.html>
+> **깃 계정 변경하기**<br> <https://wavecats.github.io/git/2023/07/24/Git-userChange.html>
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbRQcC2%2FbtsrvWymi02%2FFBnTD7GaXxUeXVfyENX0zK%2Fimg.png)
 
@@ -125,4 +125,4 @@ Staging 영역에 있던 파일들이 취소됨을 확인할 수 있다.
 
 ## Reference 🌊
 
-> <https://inpa.tistory.com/entry/GIT-%E2%9A%A1%EF%B8%8F-git-add-commit-push-%EC%B7%A8%EC%86%8C%ED%95%98%EA%B8%B0-%F0%9F%92%AF-%EC%A0%95%EB%A6%AC-git-reset-restore-clean><br><https://swon95.github.io/git/2023/07/24/Git-userChange.html>
+> <https://inpa.tistory.com/entry/GIT-%E2%9A%A1%EF%B8%8F-git-add-commit-push-%EC%B7%A8%EC%86%8C%ED%95%98%EA%B8%B0-%F0%9F%92%AF-%EC%A0%95%EB%A6%AC-git-reset-restore-clean><br><https://wavecats.github.io/git/2023/07/24/Git-userChange.html>
