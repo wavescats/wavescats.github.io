@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[React-Native] HTTP 요청 시 Axios 와 Fetch 의 차이 (feat. HTTP 요청이란 ?)💬 | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.3">
+<meta property="og:title" content="[React-Native] HTTP 요청 시 Axios 와 Fetch 의 차이 (feat. HTTP 요청이란 ?)💬">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요 🌅">
+<meta property="og:description" content="개요 🌅">
+<link rel="canonical" href="/jekyll-theme-yat/react-native/2023/08/20/RN-Axios_&amp;_Fetch.html">
+<meta property="og:url" content="/jekyll-theme-yat/react-native/2023/08/20/RN-Axios_&amp;_Fetch.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-08-20T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[React-Native] HTTP 요청 시 Axios 와 Fetch 의 차이 (feat. HTTP 요청이란 ?)💬">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2023-08-20T00:00:00+00:00","datePublished":"2023-08-20T00:00:00+00:00","description":"개요 🌅","headline":"[React-Native] HTTP 요청 시 Axios 와 Fetch 의 차이 (feat. HTTP 요청이란 ?)💬","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/react-native/2023/08/20/RN-Axios_&_Fetch.html"},"url":"/jekyll-theme-yat/react-native/2023/08/20/RN-Axios_&_Fetch.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[React-Native] HTTP 요청 시 Axios 와 Fetch 의 차이 (feat. HTTP 요청이란 ?)💬</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2023-08-20T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Aug 20, 2023
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 9 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#%EB%A6%AC%EC%95%A1%ED%8A%B8%20%EB%84%A4%EC%9D%B4%ED%8B%B0%EB%B8%8C">#리액트 네이티브</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="개요-">개요 🌅</h2>
+
+<p>백엔드 서버와 HTTP 통신을 <code class="language-plaintext highlighter-rouge">axios</code> 라이브러리를 사용하여 한 경험이 있다.<br>
+리액트에서는 자체 내장되어있는 <code class="language-plaintext highlighter-rouge">fetch</code> 를 사용하여 별도의 설치 없이 사용 가능했었지만,<br>
+<br>
+실은 이 둘의 기능은 같다고 할 수 있다.<br>
+이번 포스팅에서는 두 기능의 차이점과 간단한 예시를 통해<br>
+두 기능의 차이를 적어보려한다.</p>
+
+<hr>
+
+<h3 id="axios-vs-fetch-">Axios vs Fetch 💌</h3>
+
+<p><code class="language-plaintext highlighter-rouge">axios</code> 와 <code class="language-plaintext highlighter-rouge">fetch</code> 는 모두 웹 브라우저 또는 <code class="language-plaintext highlighter-rouge">Node.js</code> 환경에서<br>
+<code class="language-plaintext highlighter-rouge">HTTP</code> 요청을 보내고 받는데 사용되는 <code class="language-plaintext highlighter-rouge">Javascript</code> 라이브러리 이다.<br></p>
+
+<p><code class="language-plaintext highlighter-rouge">axios</code> 란,<br>
+웹 브라우저, <code class="language-plaintext highlighter-rouge">Node.js</code> 를 위한 <code class="language-plaintext highlighter-rouge">Promise API</code> 를 활용하는 <code class="language-plaintext highlighter-rouge">HTTP</code> 비동기 통신 라이브러리이다.<br></p>
+
+<p>두 라이브러리 모두 HTTP <code class="language-plaintext highlighter-rouge">GET</code>, <code class="language-plaintext highlighter-rouge">POST</code>, <code class="language-plaintext highlighter-rouge">PUT</code>, <code class="language-plaintext highlighter-rouge">DELETE</code> 등의 요청을 보낼 수 있지만,<br>
+각 기능이 갖고있는 약간의 차이점이 있다.</p>
+
+<hr>
+
+<h4 id="http-">HTTP ❔</h4>
+
+<p><code class="language-plaintext highlighter-rouge">HTTP</code> 요청 (HTTP Request) 이란,<br>
+클라이언트 (웹 브라우저, 모바일 앱 등) 가<br>
+웹 서버에 데이터를 요청하거나 서버로 데이터를 전송 하는데 사용되는 메세지를 말한다.<br>
+<code class="language-plaintext highlighter-rouge">HTTP</code> 요청은 <code class="language-plaintext highlighter-rouge">HTTP</code> 프로토콜을 사용하여 전송되며,<br>
+이를 통해 웹 페이지, 이미지, 비디오 등의 리소스를 다운로드하거나<br>
+폼 데이터를 서버에 전송 (submit) 할 수 있다.</p>
+
+<p><strong>1️⃣. <code class="language-plaintext highlighter-rouge">HTTP</code> 메서드 (Method)</strong></p>
+
+<ul>
+  <li>요청의 종류를 나타내는 동작으로, <code class="language-plaintext highlighter-rouge">GET</code>, <code class="language-plaintext highlighter-rouge">POST</code>, <code class="language-plaintext highlighter-rouge">PUT</code>, <code class="language-plaintext highlighter-rouge">DELETE</code> 등이 있다.
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">GET</code> -&gt; 서버에 데이터를 요청하여 가져오는 데 사용한다. (읽기 기능)</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">POST</code> -&gt; 서버에 데이터를 보내 리소스를 생성하거나 업데이트 하는데 사용한다. (쓰기 기능)</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">PUT</code> -&gt; 서버의 리소스를 업데이트하거나 대체하는데 사용한다.</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">DELETE</code> -&gt; 서버의 리소스를 삭제(제거)하는데 사용한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>2️⃣. 헤더 (Headers)</strong></p>
+
+<ul>
+  <li>요청에 대한 부가 정보를 나타내는 메타데이터이다.
+    <ul>
+      <li>요청을 보내는 사용자의 브라우저 정보</li>
+      <li>콘텐츠 타입</li>
+      <li>인증 토큰</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>3️⃣. 본문 (Body)</strong></p>
+
+<ul>
+  <li>요청과 함께 전송되는 데이터이다.
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">POST</code> 혹은 <code class="language-plaintext highlighter-rouge">PUT</code> 요청과 같이 서버에 데이터를 보낼 때 사용된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">HTTP</code> 요청을 보내는 경우,<br>
+웹 서버는 요청을 처리하고 응답 (HTTP Response) 을 클라이언트로 돌려 보낸다.<br>
+응답 (res) 에는 요청에 대한 결과 정보, 요청한 데이터, 상태코드 등이 포함된다.</p>
+</blockquote>
+
+<hr>
+
+<h4 id="axios">Axios</h4>
+
+<p><strong>1️⃣. Error Handling</strong><br>
+<code class="language-plaintext highlighter-rouge">HTTP</code> 오류 상태코드 (404, 500 등) 를 반환하는 경우,<br>
+<code class="language-plaintext highlighter-rouge">axios</code> 는 자동으로 에러를 발생시킨다.</p>
+
+<p><strong>2️⃣. JSON Parsing</strong><br>
+JSON 형식을 갖춘 응답 데이터가 자동으로 파싱된다.</p>
+
+<p><strong>3️⃣. Browser Support</strong><br>
+더 오래된 브라우저에 대한 지원을 제공하며, ES5 를 사용하여 구현된다.</p>
+
+<p><strong>4️⃣. TimeOuts</strong><br>
+요청 시간 초과를 설정할 수 있다.</p>
+
+<p><strong>5️⃣. Interceptors</strong><br>
+요청 및 응답 인터셉터를 제공하여<br>
+전역 수준에서 요청과 응답을 변형하거나 로깅하는데 유용하다.</p>
+
+<p><strong>6️⃣. Cancellation</strong><br>
+요청 취소 토큰을 사용하여 이미 진행중인 <code class="language-plaintext highlighter-rouge">HTTP</code> 요청을 취소할 수 있다.</p>
+
+<p><strong>7️⃣. Progress Monitoring</strong><br>
+업로드 및 다운로드의 진행 상황을 모니터링 할 수 있는 기능을 제공한다.</p>
+
+<p><strong>8️⃣. Server-Side Rendering (SSR)</strong><br>
+<code class="language-plaintext highlighter-rouge">Node.js</code> 환경에서도 작동하므로 서버측 렌더링을 지원한다.</p>
+
+<hr>
+
+<h4 id="fetch">Fetch</h4>
+
+<p><strong>1️⃣. Error Handling</strong><br>
+<code class="language-plaintext highlighter-rouge">HTTP</code> 오류 상태 코드를 반환하는 경우, <code class="language-plaintext highlighter-rouge">fetch</code> 는 에러를 발생시키지 않는다.<br>
+대신, 응답 객체를 반환하고 개발자가 응답 객체의 <code class="language-plaintext highlighter-rouge">'ok'</code> 속성을 확인하여<br>
+요청이 성공했는지 확인해야할 필요가 있다.</p>
+
+<p><strong>2️⃣. JSON Parsing</strong><br>
+<code class="language-plaintext highlighter-rouge">json()</code> 메서드를 사용하여 수동으로 응답 데이터를 <code class="language-plaintext highlighter-rouge">JSON</code> 으로 파싱해야한다.</p>
+
+<p><strong>3️⃣. Browser Support</strong><br>
+최신 브라우저에서 지원되지만,<br>
+일부 더 오래된 브라우저에서는 <code class="language-plaintext highlighter-rouge">fetch</code> 를 지원하지 않을 수 있다.<br>
+이러한 경우 <code class="language-plaintext highlighter-rouge">폴리필</code> 을 사용하여 <code class="language-plaintext highlighter-rouge">fetch</code> 기능을 추가할 수 있다.</p>
+
+<p><strong>4️⃣. TimeOuts</strong><br>
+요청 시간 초과를 설정할 수 있는 기능이 없지만, 이를 대체(해결) 할 수 있는 방법이 존재한다.</p>
+
+<p><strong>5️⃣. Interceptors</strong><br>
+해당 기능 제공 x</p>
+
+<p><strong>6️⃣. Cancellation</strong><br>
+<code class="language-plaintext highlighter-rouge">AbortController</code> 객체를 사용하여 요청을 취소할 수 있다.</p>
+
+<p><strong>7️⃣. Progress Monitoring</strong><br>
+해당 기능 제공 x</p>
+
+<p><strong>8️⃣. Server-Side Rendering (SSR)</strong><br>
+브라우저 기반 API 이기 때문에,<br>
+<code class="language-plaintext highlighter-rouge">Node.js</code> 환경에서 <code class="language-plaintext highlighter-rouge">fetch</code> 를 사용하기 위해선 별도의 라이브러리를 사용해야한다.</p>
+
+<hr>
+
+<h3 id="사용-예시-">사용 예시 🔐</h3>
+
+<h4 id="axios-1"><code class="language-plaintext highlighter-rouge">Axios</code></h4>
+
+<p>마찬가지로 <code class="language-plaintext highlighter-rouge">React-Native</code> 환경에서<br>
+<code class="language-plaintext highlighter-rouge">axios</code> 를 사용하여 <code class="language-plaintext highlighter-rouge">GET</code> 요청을 보내는 예시이다.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">axios</code> 는 별도의 패키지 이므로, 사용하기 전 설치가 필요하다</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install axios
+or
+yarn add axios
+</code></pre></div></div>
+
+<p>설치 한 후에는 아래와 같이 <code class="language-plaintext highlighter-rouge">axios</code> 를 사용하여 <code class="language-plaintext highlighter-rouge">GET</code> 요청을 보낼 수 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span>
+  <span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api.example.com/data</span><span class="dl">"</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">getUser</span> <span class="o">=</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">`/user?name=TEST`</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span> <span class="c1">// API 호출 정상</span>
+  <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// API 호출시 에러 발생</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">POST</code> 요청을 보낼 경우,<br>
+아래와 같이 <code class="language-plaintext highlighter-rouge">post</code> 메소드를 사용하여 본문에 데이터를 추가할 수 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nx">axios</span>
+  <span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api.example.com/data</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">key1</span><span class="p">:</span> <span class="dl">"</span><span class="s2">value1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">key2</span><span class="p">:</span> <span class="dl">"</span><span class="s2">value2</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">createFeed</span> <span class="o">=</span> <span class="k">async </span><span class="p">(</span><span class="nx">feedItem</span><span class="p">:</span> <span class="nx">FeedItem</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">`/feed`</span><span class="p">,</span> <span class="p">{</span> <span class="p">...</span><span class="nx">feedItem</span> <span class="p">});</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span> <span class="c1">// API 호출 정상</span>
+  <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">ex</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// API 호출 시 에러 발생</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<hr>
+
+<h4 id="fetch-1"><code class="language-plaintext highlighter-rouge">Fetch</code></h4>
+
+<p>아래는 <code class="language-plaintext highlighter-rouge">fetch</code> 를 사용하여 <code class="language-plaintext highlighter-rouge">React-Native</code> 환경에서<br>
+별도의 라이브러리 설치 없이 <code class="language-plaintext highlighter-rouge">GET</code> 요청을 보내는 예시이다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api.example.com/data</span><span class="dl">"</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">getUser</span> <span class="o">=</span> <span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">fetch</span><span class="p">(</span><span class="s2">`/user?name=TEST`</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">result</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="cm">/* 에러 발생 */</span>
+    <span class="p">});</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span> <span class="c1">// API 호출</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">POST</code> 요청을 보낼 경우,<br>
+아래와 같이 <code class="language-plaintext highlighter-rouge">method</code> 와 <code class="language-plaintext highlighter-rouge">headers</code> 를 설정하여 본문에 데이터를 추가할 수 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">fetch</span><span class="p">(</span><span class="dl">"</span><span class="s2">https://api.example.com/data</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">({</span>
+    <span class="na">key1</span><span class="p">:</span> <span class="dl">"</span><span class="s2">value1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">key2</span><span class="p">:</span> <span class="dl">"</span><span class="s2">value2</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">}),</span>
+<span class="p">})</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">((</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
+</code></pre></div></div>
+
+<hr>
+
+<p>두 예시의 차이를 보면,<br>
+<code class="language-plaintext highlighter-rouge">Axios</code> 는 data 의 속성을 다루고,<br>
+<code class="language-plaintext highlighter-rouge">Fetch</code> 는 body 의 속성을 다룬다.&lt;br<br></p>
+
+<p><code class="language-plaintext highlighter-rouge">Fetch</code> 의 경우 <code class="language-plaintext highlighter-rouge">response</code> 를 받는다고 바로 사용할 수 없고,<br>
+<code class="language-plaintext highlighter-rouge">.json</code> 메서드를 사용하여 값을 사용할 수 있었다.<br></p>
+
+<p>반면에 <code class="language-plaintext highlighter-rouge">Axios</code> 의 경우,<br>
+위와 같은 과정이 생략되고 바로 값을 받아 사용가능한 형태를 지원한다.<br><br></p>
+
+<p>마지막으로 <code class="language-plaintext highlighter-rouge">TypeScript</code> 에서의 <code class="language-plaintext highlighter-rouge">Axios</code> 는,<br>
+<code class="language-plaintext highlighter-rouge">generic</code> 을 통한 Typescript Type 추론이 재활용을 통해 가져올 수 있어 비교적 간편하다는 장점이 있다.</p>
+
+<hr>
+
+<h3 id="reference-">Reference 🌊</h3>
+
+<blockquote>
+  <p><a href="https://velog.io/@eunbinn/Axios-vs-Fetch">https://velog.io/@eunbinn/Axios-vs-Fetch</a><br><a href="https://tlsdnjs12.tistory.com/26">https://tlsdnjs12.tistory.com/26</a><br><a href="https://kofearticle.substack.com/p/korean-fe-article-axios-vs-fetch">https://kofearticle.substack.com/p/korean-fe-article-axios-vs-fetch</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/node.js/2023/08/17/PM2-log-error.html" title="[Node.js] PM2 log 명령어가 실행되지 않을때 해결방법 💞">[Node.js] PM2 log 명령어가 실행되지 않을때...</a><a class="next" href="/jekyll-theme-yat/react-native/2023/08/21/RN-Infinity_scroll.html" title="[React-Native] 유튜브 API 를 활용하여 무한 스크롤 구현하기 (feat. A to Z )">[React-Native] 유튜브 API 를 활용하여 무한...</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/git/2022/06/02/Git-Private-repo-clone.html" title="[React-Native] 유튜브 API 를 활용하여 무한 스크롤 구현하기 (feat. A to Z )">[Git] Private Repo Clone 시 에러</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/review/2022/03/23/codestates.html" title="[React-Native] 유튜브 API 를 활용하여 무한 스크롤 구현하기 (feat. A to Z )">[코드스테이츠] 코드스테이츠 AI 부트캠프</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react-native/2023/06/25/RN-Navigation_method.html" title="[React-Native] 유튜브 API 를 활용하여 무한 스크롤 구현하기 (feat. A to Z )">[React-Native] Navigation 을 통한 화면 이동 시 뒤로가기 기능 구현하기</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/review/2024/01/11/Coding_Test.html" title="[React-Native] 유튜브 API 를 활용하여 무한 스크롤 구현하기 (feat. A to Z )">[코딩테스트] 알고리즘 스터디 시작 👀🚀</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

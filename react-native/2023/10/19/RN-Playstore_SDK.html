@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[React-Native] 안드로이드 스튜디오 애뮬레이터에 구글 플레이스토어 앱 추가하기 📱 | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.3">
+<meta property="og:title" content="[React-Native] 안드로이드 스튜디오 애뮬레이터에 구글 플레이스토어 앱 추가하기 📱">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요 ⏰">
+<meta property="og:description" content="개요 ⏰">
+<link rel="canonical" href="/jekyll-theme-yat/react-native/2023/10/19/RN-Playstore_SDK.html">
+<meta property="og:url" content="/jekyll-theme-yat/react-native/2023/10/19/RN-Playstore_SDK.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-10-19T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[React-Native] 안드로이드 스튜디오 애뮬레이터에 구글 플레이스토어 앱 추가하기 📱">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2023-10-19T00:00:00+00:00","datePublished":"2023-10-19T00:00:00+00:00","description":"개요 ⏰","headline":"[React-Native] 안드로이드 스튜디오 애뮬레이터에 구글 플레이스토어 앱 추가하기 📱","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/react-native/2023/10/19/RN-Playstore_SDK.html"},"url":"/jekyll-theme-yat/react-native/2023/10/19/RN-Playstore_SDK.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[React-Native] 안드로이드 스튜디오 애뮬레이터에 구글 플레이스토어 앱 추가하기 📱</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2023-10-19T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Oct 19, 2023
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#%EB%A6%AC%EC%95%A1%ED%8A%B8%20%EB%84%A4%EC%9D%B4%ED%8B%B0%EB%B8%8C">#리액트 네이티브</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#PlayStore">#PlayStore</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="개요-">개요 ⏰</h2>
+
+<p>개발자라면,,<br>
+아니 컴퓨터를 사용하는 사용자의 <strong>대부분이 윈도우 사용자 일거라 예상하며</strong> 이 포스팅을 작성한다.<br>
+나도 윈도우 개발환경을 사용하면서,<br>
+디바이스는 ios 를 사용하고 있는데,<br>
+<strong>React-native</strong> 에서 <strong>ios 개발은 Mac 💻 으로만 가능</strong>하다는 점이 아쉬웠다.<br>
+하지만,<br>
+나와 같은 케이스를 위해 <strong>안드로이드 스튜디오 애뮬레이터</strong>를 사용하여<br>
+윈도우 개발환경에서 Android 디바이스를 구동하여 앱을 빌드 할 수 있다.<br></p>
+
+<p>이번 포스팅 에서는,<br>
+애뮬레이터를 구동시켰을 때, 대게 <strong><code class="language-plaintext highlighter-rouge">Play Store</code></strong> 가 없었던 경우가 다반수였던것같다.<br>
+아니, 실제로 필요가 없었다.<br>
+특정 앱을 설치하기 위해 애뮬레이터에서 <code class="language-plaintext highlighter-rouge">Play Store</code> 에 접근하여야하는데,<br>
+어떻게 하면 <code class="language-plaintext highlighter-rouge">Play Store</code> 를 추가할 수 있을까 ? 에서 시작하려 한다.</p>
+
+<hr>
+
+<h2 id="virtual-device-manager-">Virtual Device Manager 📱</h2>
+
+<p>초기 화면에서,<br>
+우측 옵션을 클릭하여 <code class="language-plaintext highlighter-rouge">Virtual Device Manager</code> 로 이동한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbNuvwJ%2FbtsyQPJ6zty%2Fs8hNmUtBwor9ILqOQDkRYk%2Fimg.png" alt=""></p>
+
+<p>해당 애뮬레이터의 옵션을 클릭하여 <code class="language-plaintext highlighter-rouge">Show on Disk</code> 를 선택하면,<br>
+파일 탐색기가 실행되는데,<br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbXKV5W%2FbtsyMNmHjzy%2FfLKhzSDaN5IMC22yxrsIHk%2Fimg.png" alt=""></p>
+
+<p><code class="language-plaintext highlighter-rouge">config.ini</code> 파일을 편집기로 실행하여 아래와 같이 수정하여 저장한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fcy41wx%2FbtsyLoOJ0qE%2FEHcCRXANBWTaXqWm4DU9N0%2Fimg.png" alt=""></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PlayStore.enabled = true
+image.sysdir.1 = system-images\android-31\google_apis_playstore\x86_64\
+</code></pre></div></div>
+
+<p>저장하고 <code class="language-plaintext highlighter-rouge">Device Manager</code> 를 새로고침 하면 아래와 같이 경고 아이콘이 표시되는데,<br>
+해당 이미지 파일을 찾을 수 없다고 하니,<br>
+<code class="language-plaintext highlighter-rouge">SDK Manager</code> 에서 <strong>필요한 이미지를 다운로드</strong> 받아주도록 한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbndUX1%2FbtsyPUFach6%2FQkFC8gDXvMq0kJCmM2YEr1%2Fimg.png" alt=""></p>
+
+<hr>
+
+<h2 id="sdk-manager-">SDK Manager 🔮</h2>
+
+<p>다시 초기 화면으로 돌아와 옵션 버튼을 클릭하여 <code class="language-plaintext highlighter-rouge">SDK Manager</code> 로 접근한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcWO4sZ%2FbtsyLtieBZ5%2Fb5o1fJnCMgjaVCL3T4EIlK%2Fimg.png" alt=""></p>
+
+<p>첫 번째 탭 <code class="language-plaintext highlighter-rouge">SDK Platforms</code> 에서 하단의 <code class="language-plaintext highlighter-rouge">Show Package Details</code> 체크박스를 체크하면,<br>
+<strong>특정 API Level 별로 정리하여 보여주는 것 같다.</strong></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FSqXEj%2FbtsyQSNBaZW%2FsvDQFtfrnpHVvYIrbvPkCK%2Fimg.png" alt=""></p>
+
+<p>원하는 System image 를 선택하여 <code class="language-plaintext highlighter-rouge">Apply</code> 버튼을 클릭하면,<br>
+<code class="language-plaintext highlighter-rouge">SDK Component installer</code> 가 열리며 다운로드가 진행된다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbULvR%2FbtsyNt2CCGD%2FGzKSDYd8FGuFn26GHdipiK%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcB5N7i%2FbtsyNqrgtH0%2FQtMGUvg7we7dKRZA6iKo7k%2Fimg.png" alt=""></p>
+
+<hr>
+
+<h3 id="생성-및-실행-">생성 및 실행 🏄</h3>
+
+<p>위 두 과정을 모두 마쳤다면,<br>
+<strong>새로 <code class="language-plaintext highlighter-rouge">Device</code> 를 추가하여 <code class="language-plaintext highlighter-rouge">Play Store</code> 를 지원하는 기기를 생성</strong>한다.</p>
+
+<blockquote>
+  <p>위 이미지에서 <code class="language-plaintext highlighter-rouge">Pixel XL</code> 을 선택하여 설정을 마쳤는데,<br>
+해당 디바이스는 <code class="language-plaintext highlighter-rouge">Play Store</code> 를 지원하지 않는 기기였다 ..😨</p>
+</blockquote>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FUafnR%2FbtsyMMuBEox%2FNsD4k1dIpbQzNO9XJPBdD0%2Fimg.png" alt=""></p>
+
+<p>나는 <strong><code class="language-plaintext highlighter-rouge">Pixel 4</code> 를 선택하여 디바이스를 생성</strong> 해 주었고,<br>
+해당 기기를 실행 해 보면 다음과 같이 홈 화면에 <code class="language-plaintext highlighter-rouge">Play Store</code> 가 생성됨을 확인할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fyi1fZ%2FbtsyLNU046g%2FOrp5X3Zfsmdh92kdKTora0%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDHcw2%2FbtsyPT7jYLz%2FNNjlOhjCDPTEGq39VNcbD0%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>실제 디바이스와 같이 앱 다운로드 하는 과정도 모두 동일하다.</p>
+</blockquote>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbs4FM8%2FbtsyPT0zhPp%2FRy1EAXhH10F9nCz06nFPfK%2Fimg.png" alt=""></p>
+
+<hr>
+
+<h2 id="reference-">Reference 🌊</h2>
+
+<blockquote>
+  <p><a href="https://bada744.tistory.com/112">https://bada744.tistory.com/112</a><br><a href="https://ccusean.tistory.com/entry/Android-Virtual-Devices-%EC%97%90-Play-Store-%EC%B6%94%EA%B0%80%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95">https://ccusean.tistory.com/entry/Android-Virtual-Devices-%EC%97%90-Play-Store-%EC%B6%94%EA%B0%80%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95</a><br><a href="https://developer.android.com/studio/run/managing-avds?hl=ko">https://developer.android.com/studio/run/managing-avds?hl=ko</a><br><a href="https://aspring.tistory.com/entry/Android-App-%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-AVD-%EC%84%A4%EC%B9%98">https://aspring.tistory.com/entry/Android-App-%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-AVD-%EC%84%A4%EC%B9%98</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/react-native/2023/10/15/RN-Hello_Metamask.html" title="[React-Native] Expo 앱에서 MetaMask 연결 구현하기 🐺">[React-Native] Expo 앱에서 MetaMask 연결 구현하기...</a><a class="next" href="/jekyll-theme-yat/react/2023/10/25/React-Vite_tailwind_init_Error.html" title="[React] 리액트 + Vite 앱에 TailwindCSS 적용하기 🌈">[React] 리액트 + Vite 앱에 TailwindCSS...</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/react-native/2023/02/15/RN-create-error.html" title="[React] 리액트 + Vite 앱에 TailwindCSS 적용하기 🌈">[React-Native] 프로젝트 생성 시 발생한 에러 'npx create-expo-app'</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react-native/2023/07/25/RN-profile-image.html" title="[React] 리액트 + Vite 앱에 TailwindCSS 적용하기 🌈">[React-Native] image 라이브러리를 사용하여 프로필 이미지 등록하기 🌁</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2023/02/05/React-variable-error.html" title="[React] 리액트 + Vite 앱에 TailwindCSS 적용하기 🌈">[React] ReferenceError: 'xxx' is not defined ❌</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2023/05/25/React-SSR&amp;CSR.html" title="[React] 리액트 + Vite 앱에 TailwindCSS 적용하기 🌈">[React] 서버사이드렌더링 이란 ? (SSR &amp; CSR)</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Blockchain] Klaytn 체인에서 Generative Art 방식을 사용하여 NFT 민팅해보기 | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.3">
+<meta property="og:title" content="[Blockchain] Klaytn 체인에서 Generative Art 방식을 사용하여 NFT 민팅해보기">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요">
+<meta property="og:description" content="개요">
+<link rel="canonical" href="/jekyll-theme-yat/blockchain/2023/05/08/NFT_Generative_Art.html">
+<meta property="og:url" content="/jekyll-theme-yat/blockchain/2023/05/08/NFT_Generative_Art.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-05-08T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[Blockchain] Klaytn 체인에서 Generative Art 방식을 사용하여 NFT 민팅해보기">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2023-05-08T00:00:00+00:00","datePublished":"2023-05-08T00:00:00+00:00","description":"개요","headline":"[Blockchain] Klaytn 체인에서 Generative Art 방식을 사용하여 NFT 민팅해보기","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/blockchain/2023/05/08/NFT_Generative_Art.html"},"url":"/jekyll-theme-yat/blockchain/2023/05/08/NFT_Generative_Art.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[Blockchain] Klaytn 체인에서 Generative Art 방식을 사용하여 NFT 민팅해보기</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2023-05-08T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> May 08, 2023
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8">#블록체인</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#NFT">#NFT</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h3 id="개요">개요</h3>
+
+<p>이번 포스팅에서는 Klaytn 체인 위에서 NFT 를 발행하고 조회하며<br>
+이를 분산형 저장소에 업로드하고,<br>
+간단한 민팅 페이지를 만들어 보는 실습을 해 보려고 한다.</p>
+
+<blockquote>
+  <p><a href="https://github.com/LgcLazyboy/hashlips_art_engine">https://github.com/LgcLazyboy/hashlips_art_engine</a></p>
+</blockquote>
+
+<p>먼저,<br>
+위 레파지토리에서 해당 소스코드를 Clone 해 로컬로 가져온다.</p>
+
+<h3 id="설치-및-실행">설치 및 실행</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install </span>canvas
+</code></pre></div></div>
+
+<p><strong>Canvas</strong> 는 HTML5 요소를<br>
+Node.js 환경에서 사용할 수 있도록 해 주는 라이브러리 이다.<br>
+해당 라이브러리를 통해<br>
+JavaScript 코드에서 그래픽 작업을 수행하고 이미지를 생성 및 수정할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbJ6WZf%2FbtsedaVGRGd%2F6yEkOk0LIRppUXVpMNBJRk%2Fimg.png" alt=""></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>깃허브 레파지토를 로컬로 Clone 해 가져올 경우,<br>
+프로젝트 내부에 존재하는 <code class="language-plaintext highlighter-rouge">.gitignore</code> 파일로 인해<br>
+<code class="language-plaintext highlighter-rouge">./nodemodule</code> 폴더가 포함되지 않은 채 다운로드 된다.<br>
+이를 해결하기 위해<br>
+Git Clone 을 했다면 <code class="language-plaintext highlighter-rouge">npm i</code> 명령을 통해<br>
+프로젝트에(<code class="language-plaintext highlighter-rouge">./package.json</code>) 적용되어있는 라이브러리를 먼저 설치 해 주는것이 좋다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbtD3ji%2Fbtsd9NGI08K%2FdhbKqlPDfB7PqVvkoNcyT0%2Fimg.png" alt=""></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm run build
+</code></pre></div></div>
+
+<p>해당 명령을 통해 프로젝트를 실행한다.<br>
+<code class="language-plaintext highlighter-rouge">./package.json</code> 을 확인 해 보니<br>
+<code class="language-plaintext highlighter-rouge">npm run build</code> 명령을 실행 할 경우<br>
+<code class="language-plaintext highlighter-rouge">index.js</code> 를 실행하는 구조로 지정되어 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FeHClMZ%2Fbtsd0vtA5xD%2FrFFH25PUOK3Mck9ApoKKtK%2Fimg.png" alt=""></p>
+
+<p>명령을 실행하니<br>
+약 100 개의 무언가가 실행되며,<br>
+디렉토리 내부에는 build 디렉토리가 새로 생성된다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdTQ8ro%2Fbtsd0SbuVN7%2FQg2zDdoj2RM6cpOwW0B6ik%2Fimg.png" alt=""></p>
+
+<p>디렉토리 내부에는 <code class="language-plaintext highlighter-rouge">images</code> 와 <code class="language-plaintext highlighter-rouge">json</code> 디렉토리가 생성되며</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlEWfc%2Fbtsd1iHKyp0%2FAcrhUrsjpdhc6u5iCtQz71%2Fimg.png" alt=""></p>
+
+<p>그 안에는,<br>
+각각의 고유한 이미지 파일과 <code class="language-plaintext highlighter-rouge">json</code> 형태의 데이터가 담긴 파일들이 생성된다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FJpQFY%2Fbtsd4eSbsTk%2F4By231aY4YxFfVn8b1Mro0%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FXwsh9%2Fbtsd6sW7Rkq%2FKlUg0D2A0R2gg6du80JTS0%2Fimg.png" alt=""></p>
+
+<h3 id="등장빈도">등장빈도</h3>
+
+<p>대게
+특성명 #등장빈도율로 파일명을 설정한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fx7Zos%2FbtskhLJo14q%2FgKWBLLIkNwrcQqMin0EUBk%2Fimg.png" alt=""></p>
+
+<p>해당 파일 명을 살펴보면<br>
+분모를 100 으로 기준하여 설정할 경우 30 의 기준으로 등장하는 비율로 지정이 되어있다. <br></p>
+
+<blockquote>
+  <p>30/100, 1/100, 15/100, 15/100, 15/100, 20/100, 4/100</p>
+</blockquote>
+
+<p>이 기준은<br>
+랜덤 조합 시 레어리티 빈도를 지정하여 등장하는 기준이다.</p>
+
+<h3 id="ipfs-에-소스파일-업로드하기">IPFS 에 소스파일 업로드하기</h3>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FRsj0X%2Fbtsd9MHRXF7%2F4Aot8Toy7f6khpQjNKkpc0%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p><a href="https://nft.storage/">https://nft.storage/</a></p>
+</blockquote>
+
+<p>로그인을 위해 이메일을 입력 후 버튼을 클릭하면,<br>
+입력한 이메일에 cirnfim 메일이 온다.
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F2MAA8%2FbtsejKWILBJ%2Fnfh9Q4Kx7m55xut0masVQ0%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F4iJpP%2Fbtsecvy4jF3%2FrKh3rumLtpb8RNYNE3zHk1%2Fimg.png" alt=""></p>
+
+<p>로딩 화면이 끝나게 되면 페이지가 리다이렉션 되며,<br>
+로그인 버튼이 로그아웃 버튼으로 바뀌게 되며 로그인 상태로 변환된다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FM9WPE%2Fbtsd9exn0fU%2Fa7fwd6UrTKWHMmtvCEAWK0%2Fimg.png" alt=""></p>
+
+<p>API Key 탭 에서 새로운 Key 를 생성 해 준다.<br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbf8wlb%2FbtsejK3qNFU%2FmDldnLrNbX27hUxsyaHYZk%2Fimg.png" alt=""></p>
+
+<p>이름은 임의로 설정 해 주었다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtDBGR%2Fbtseh7YKhcV%2FDRtzImc6fJXDVfGU4CuN81%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FblJEqt%2Fbtsd0uVPnLH%2FIrfT1Jf34AK4fAyUNPsPc1%2Fimg.png" alt=""></p>
+
+<p>발급받은 API 키를 <code class="language-plaintext highlighter-rouge">store.mjs</code> 내부에 넣어준다.
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbYQfVL%2Fbtsd1inuXTX%2FOfkOzUJvZRKcsWUY7rUvkK%2Fimg.png" alt=""></p>
+
+<p>파일을 저장 후 터미널에서 <code class="language-plaintext highlighter-rouge">node store.mjs</code> 명령을 실행하면,<br>
+다음과 같은 데이터가 담긴 객체가 생성된다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fcj1qGg%2Fbtsd9MgKWOg%2Fwla26FvCkbdewaAkZTQ3Xk%2Fimg.png" alt=""></p>
+
+<p>다시 <nft.storage> 에 접근 해 `Files` 탭에 접근 해 보면,<br>
+파일이 추가 된 것을 볼 수 있다.</nft.storage></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fdkex7J%2Fbtsd3fc0Lwe%2FjHGqBfsuucsDKd1We9dm1K%2Fimg.png" alt=""></p>
+
+<p>생성된 파일에 CID 에 접근해보면,<br>
+생성된 100 개의 이미지파일을 분산형 스토리지인 IPFS 에 업로드 한 것이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FyA65b%2FbtsejKh7il9%2FhQ0Lx01EpBIzz3WBCKSIr1%2Fimg.png" alt=""></p>
+
+<p>해당 이미지 정보를 build/json 내 1.json 을 확인 해 보면<br>
+image 가 복사한 IPFS URL 로 변경된것을 확인할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F8zIDu%2Fbtsd6toeyE6%2F8WAdrkMKgTK1DRem2DK93K%2Fimg.png" alt=""></p>
+
+<p>다음으로는 이미지에 해당하는 부가정보(메타데이터)를<br>
+IPFS 서버에 업로드하려 한다.<br>
+<br></p>
+
+<p>이미지 파일이 담긴 URL 을 복사하여<br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcIM0bA%2Fbtsd9MulZmO%2FuvnBUXQWRCvfJMTa7fHJUK%2Fimg.png" alt=""></p>
+
+<p><code class="language-plaintext highlighter-rouge">./addr.mjs</code> 에 붙여넣어준다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbQghJh%2Fbtsd5YhjmIv%2FI2HiGioM15H8PwX5eGpwkK%2Fimg.png" alt=""></p>
+
+<p>터미널에 <code class="language-plaintext highlighter-rouge">node addr.mjs</code> 실행 !</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbgkVql%2FbtseoYmB6Wa%2F2moBLt6ICpB67SGKB2I9B1%2Fimg.png" alt=""></p>
+
+<p>명령을 실행하게 되면<br>
+<code class="language-plaintext highlighter-rouge">./build/json/1.json</code> 의 image 주소가 변경됨을 확인할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F8zIDu%2Fbtsd6toeyE6%2F8WAdrkMKgTK1DRem2DK93K%2Fimg.png" alt=""></p>
+
+<p>마찬가지로 <code class="language-plaintext highlighter-rouge">storejson.json</code> 파일 내부에 api 키를 입력 해 준뒤</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fchr7dT%2Fbtseh8QSeAN%2FBJZkDE1A7k9UXLfTs6VHK0%2Fimg.png" alt=""></p>
+
+<p>터미널에 <code class="language-plaintext highlighter-rouge">node storejson.mjs</code> 명령을 실행하면,<br>
+IPFS 서버에 파일이 추가로 생성 됨을 확인할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbI75KR%2Fbtsd3eZsvP8%2FNjHpIkHVWG5OOgYyY2R0A1%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbPzh2T%2Fbtseh7qSyrl%2FLlazKXL7ghmlEsOWPECPL1%2Fimg.png" alt=""></p>
+
+<p>생성된 파일의 CID 로 접근 해 보면,<br>
+추가로 업로드 한 부가정보(메타데이터) 가<br>
+IPFS 서버에 업로드 됨을 확인할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbcdhUO%2Fbtseh7ErNmm%2FKzov0G9CHe0tCrBo3gnPh0%2Fimg.png" alt=""></p>
+
+<h3 id="remix">Remix</h3>
+
+<p>이제 IPFS 에 업로드한 데이터를 기반으로<br>
+클레이튼 체인 위에서 스마트컨트랙트를 배포하려한다.</p>
+
+<p>Wallet 은 KaiKas 를 사용하며<br>
+Baobab 테스트넷으로 전환하여 사용할 예정이다.</p>
+
+<blockquote>
+  <p>Faucet 과정 생략.</p>
+</blockquote>
+
+<hr>
+
+<blockquote>
+  <p><a href="https://github.com/LgcLazyboy/KIP17NFTContract">https://github.com/LgcLazyboy/KIP17NFTContract</a></p>
+</blockquote>
+
+<p>해당 레파지토리로 접근하여<br>
+<code class="language-plaintext highlighter-rouge">KIP17NFTTokenFlatten.sol</code> 컨트랙트를 Remix 에 불러온다.</p>
+
+<p>불러온 컨트랙트를 컴파일 해 보면 에러가 발생하는데,<br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fwy7Ma%2Fbtskg8kOGWl%2FkxpiDUo66T2nC0SoCDJR91%2Fimg.png" alt=""></p>
+
+<p>이 때<br>
+컴파일러의 버전을 0.5.17 로 변경 후 다시 컴파일을 진행</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbgwSg7%2FbtskhaCGsI5%2F7LOxqzUpHhaYwZMZuoHNsk%2Fimg.png" alt=""></p>
+
+<hr>
+
+<p>하단에 클레이튼 Deploy 탭으로 접근하여<br>
+KaiKas 개인키 주소를 입력 해 준다.
+<br>
+<br>
+그리고 Contract 부분에는 확장 버튼을 눌러,<br>
+<code class="language-plaintext highlighter-rouge">KIP17NFTToken</code> 을 선택한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FC8PYS%2FbtskgdfE1VO%2F831tQfvtCgksBLJs9pVC80%2Fimg.png" alt=""></p>
+
+<p>Deploy 탭을 확장하여<br>
+Name 과 Symbol 을 지정하여 Transact 버튼을 클릭한다.</p>
+
+<blockquote>
+  <p>Name -&gt; NFT 프로젝트명<br>
+Symbol -&gt; 비트코인 = BTC 등의 축약어 심볼</p>
+</blockquote>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fsq1IO%2FbtskhaWYd40%2F0m2hgbR9iBKfkFkOSkzLkk%2Fimg.png" alt=""></p>
+
+<p>생성된 트랜잭션을 확인하고,<br>
+Deployed Contracts 에서<br>
+복사 버튼을 눌러 스마트 컨트랙트의 주소를 획득한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FKVAGj%2FbtskgHAZ3Ll%2FVIRHTS3txhPfoi56BbBmM0%2Fimg.png" alt=""></p>
+
+<p>확장 버튼을 클릭하여<br>
+컨트랙트에 작성된 함수의 기능을 확인할 수 있다.
+<br></p>
+
+<p>우리는 <code class="language-plaintext highlighter-rouge">setBaseURI</code> 함수를 사용할 것이며,<br>
+이곳에 Copy 한 IPFS URL 을 입력하고<br>
+주소 마지막에는 ‘/’ 를 삽입한 후 Transact 버튼을 클릭한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbOVxML%2FbtskgHgGKgb%2FfgWBxgzfjJRdeYJ3W7yNUK%2Fimg.png" alt="">
+<br>
+민팅된 NFT 의 판매 설정을 초기화 하는 함수인 <br>
+<code class="language-plaintext highlighter-rouge">setupSale</code> 을 다음과 같이 입력 후 Transact 버튼을 클릭한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcBW18R%2Fbtskg7T4Wi5%2FZ2TqL8EfBsDweu4yL6ALTk%2Fimg.png" alt=""></p>
+
+<p><code class="language-plaintext highlighter-rouge">setPublicMintEnabled</code> 함수를 <code class="language-plaintext highlighter-rouge">true</code> 로 입력 후 Transact 버튼을 클릭한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtjxRa%2Fbtskgp8pIwu%2FBeATo8AbkWxsVtFpGEauk0%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>이 함수는,<br>
+퍼블릭 민팅 설정값을 불가능에서 -&gt; 가능으로 변경하는 의미이다.</p>
+</blockquote>
+
+<hr>
+
+<h4 id="함수">함수</h4>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">newAntibotinterval</code>
+    <ul>
+      <li>연속 시도 방지 지연시간</li>
+      <li>bot 을 통한 불공정 민팅 방지</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">newMintLimitPerBlock</code>
+    <ul>
+      <li>한 번의 트랜잭션에 최대로 민팅할 수 있는 개수</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">newMintLimitPerSale</code>
+    <ul>
+      <li>이번 민팅 기간동안 한 지갑이 최대로 민팅할 수 있는 개수</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">newMintStartBlockNumber</code>
+    <ul>
+      <li>이번 민팅 기간이 시작되는 블록의 높이</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">newMintIndexForSale</code>
+    <ul>
+      <li>이번 민팅 기간에 최초로 민팅될 NFT 번호</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">newMaxSaleAmount</code>
+    <ul>
+      <li>최대 NFT 개수 제한</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">newMintPrice</code>
+    <ul>
+      <li>민팅 가격 (peb 단위, 10^18 Klay)</li>
+    </ul>
+  </li>
+</ul>
+
+<hr>
+
+<h3 id="프론트엔드">프론트엔드</h3>
+
+<p>Deploy 한 컨트랙트를<br>
+웹에서 보여주기위한 작업을 한다면 해당 포스팅은 마무리 된다.</p>
+
+<blockquote>
+  <p><a href="https://github.com/LgcLazyboy/nft-minting-site">https://github.com/LgcLazyboy/nft-minting-site</a></p>
+</blockquote>
+
+<p>해당 레파지토리를 Clone 하여<br>
+<code class="language-plaintext highlighter-rouge">config.js</code> 파일 내부에 Deploy 한 컨트랙트의 주소를 넣는다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbtOaXt%2Fbtskk8jL8lj%2FKAKS7xaXsZgXhNNsY8IdW1%2Fimg.png" alt=""></p>
+
+<p>해당 수정사항을 저장하고,<br>
+코드가 포함된 폴더를 Netlify 에 업로드 한다</p>
+
+<blockquote>
+  <p><a href="https://www.netlify.com/">https://www.netlify.com/</a></p>
+</blockquote>
+
+<p>해당 과정은 정적인 웹 페이지를 배포하는 과정으로<br>
+Netlify 서버에 해당 프로젝트를 배포한 경우<br>
+언제 어디서나 URL 을 통해 접근이 가능하다.</p>
+
+<blockquote>
+  <p>Drag &amp; Drop 방식으로 해당 프로젝트 업로드</p>
+</blockquote>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FCLcPW%2FbtskifRtJmT%2FTlKwo1K5WVkKvCMo4ZPB11%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbe7h8V%2FbtskgqGx570%2FBYVjIp2HFrkBJUT8Mdjie1%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>배포하지 않은 채 <code class="language-plaintext highlighter-rouge">index.html</code> 로 접근하여 보니<br>
+Wallet 연결이 에러와 함께 되지 않음을 알 수 있었다.</p>
+</blockquote>
+
+<p><img src="https://blog.kakaocdn.net/dn/d0m9L6/btskhaiDVJI/1xUrDTKis5xOSc0yrWNvc1/img.gif" alt=""></p>
+
+<hr>
+
+<h3 id="민팅">민팅</h3>
+
+<p>프론트엔드 단 에서 민팅을 시도하면,<br>
+트랜잭션을 확인하고 민팅이 완료된다.</p>
+
+<p>이 과정을 opensea testnet 에서 확인 가능하며
+지갑 연결을 하고 mycollection 으로 접근하면 서명 메세지가 출력이 된다.
+서명을 동의하고 난 후,<br>
+내 컬렉션 페이지에서 직전에 민팅한 NFT 를 확인할 수 있다.</p>
+
+<p><img src="https://blog.kakaocdn.net/dn/eqL4Uj/btskll4T1zp/VtOfIeADS8aKibvhfrhzNK/img.gif" alt=""></p>
+
+<p>해당 NFT 는 등록한 부가정보가 불러와지지 않은 상태이므로,<br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fmmijy%2Fbtskg7GB20E%2F4OmvZIxPTSfwcJvTaDAJK1%2Fimg.png" alt=""></p>
+
+<p>More - Refresh metadata 를 눌러 부가정보를 연동 시킬 수 있다.</p>
+
+<p>그리고,<br>
+민팅된 NFT 는 Klaytn 체인 위에서 발행했기 때문에<br>
+Klayscope 에서 트랜잭션을 확인할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FGXDzY%2FbtskrdrInyC%2Fpfq5dESgbDHEccxIigmHxk%2Fimg.png" alt=""></p>
+
+<h3 id="reference">Reference</h3>
+
+<blockquote>
+  <p><a href="https://github.com/LgcLazyboy/KIP17NFTContract">https://github.com/LgcLazyboy/KIP17NFTContract</a><br><a href="https://github.com/LgcLazyboy/hashlips_art_engine">https://github.com/LgcLazyboy/hashlips_art_engine</a><br><a href="https://github.com/LgcLazyboy/nft-minting-site">https://github.com/LgcLazyboy/nft-minting-site</a><br><a href="https://nft.storage/">https://nft.storage/</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/review/2023/05/03/Sesacthon-Engagement.html" title="[새싹톤] 해커톤 참여 결정 !! (Feat.AI 👀)">[새싹톤] 해커톤 참여 결정 !! (Feat.AI...</a><a class="next" href="/jekyll-theme-yat/blockchain/2023/05/10/BC-Polygon-Facat.html" title="[Blockchain] Polygon 테스트넷 '뭄바이(Mumbai)' 에서 폴리곤(Matic faucet) 받기">[Blockchain] Polygon 테스트넷 '뭄바이(Mumbai)' 에서 폴리곤(Matic...</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/react/2023/01/26/React-blank.html" title="[Blockchain] Polygon 테스트넷 '뭄바이(Mumbai)' 에서 폴리곤(Matic faucet) 받기">[React] 띄어쓰기의 중요성 ✔️</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/git/2023/07/24/Git-userChange.html" title="[Blockchain] Polygon 테스트넷 '뭄바이(Mumbai)' 에서 폴리곤(Matic faucet) 받기">[Git] 로그인 되어있는 Git Bash 의 계정 변경하기 (&amp; git Checkout Error)...</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react-native/2024/02/06/RN-Tailwind.html" title="[Blockchain] Polygon 테스트넷 '뭄바이(Mumbai)' 에서 폴리곤(Matic faucet) 받기">[React-Native] Expo 프로젝트에 Tailwind CSS 적용하기 🎫</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/anaconda/2022/06/30/Conda-redirection.html" title="[Blockchain] Polygon 테스트넷 '뭄바이(Mumbai)' 에서 폴리곤(Matic faucet) 받기">[Anaconda] 가상환경 목록을 추출해 .txt 파일에 저장하기</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

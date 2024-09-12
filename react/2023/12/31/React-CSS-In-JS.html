@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[React] Zero-Runtime CSS in JS (Feat.최적화) | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.3">
+<meta property="og:title" content="[React] Zero-Runtime CSS in JS (Feat.최적화)">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요 🔔">
+<meta property="og:description" content="개요 🔔">
+<link rel="canonical" href="/jekyll-theme-yat/react/2023/12/31/React-CSS-In-JS.html">
+<meta property="og:url" content="/jekyll-theme-yat/react/2023/12/31/React-CSS-In-JS.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-12-31T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[React] Zero-Runtime CSS in JS (Feat.최적화)">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2023-12-31T00:00:00+00:00","datePublished":"2023-12-31T00:00:00+00:00","description":"개요 🔔","headline":"[React] Zero-Runtime CSS in JS (Feat.최적화)","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/react/2023/12/31/React-CSS-In-JS.html"},"url":"/jekyll-theme-yat/react/2023/12/31/React-CSS-In-JS.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[React] Zero-Runtime CSS in JS (Feat.최적화)</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2023-12-31T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Dec 31, 2023
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 5 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#%EB%A6%AC%EC%95%A1%ED%8A%B8">#리액트</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Zero-Runtime">#Zero-Runtime</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#CS">#CS</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8">#프로젝트</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="개요-">개요 🔔</h2>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F85ZqL%2FbtsCP272CLV%2FvkjVOaEQiGMgTZ41ZTmr81%2Fimg.webp" alt=""></p>
+
+<p>해당 포스팅에서는 프론트엔드 직군에서 빼 놓을 수 없는 <code class="language-plaintext highlighter-rouge">최적화</code> 에 대한 관계가 있는,<br>
+<code class="language-plaintext highlighter-rouge">CSS</code> 에 대해 정리 해 보고자 한다.</p>
+
+<hr>
+
+<h2 id="zero-runtime-">Zero-Runtime 🚫</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Zero-Runtime</code> 이란,<br>
+특정 기술이나 라이브러리를 사용할 때 <strong>런타임 코드가 최소화</strong> 되거나 <strong>필요하지 않은 상태</strong>를 의미한다.</p>
+
+<h3 id="런타임-">런타임 ❓</h3>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAtsYL%2FbtsCN6bT3P3%2FiDLxsRaVY6m4p9Eurn2Uy0%2Fimg.png" alt=""></p>
+
+<p><strong>런타임</strong>이란,<br>
+프로그램이 실행되고 있는 동안의 시간을 의미한다.<br>
+런타임은 프로그램이 실행되고 종료될 때 까지 계속되며<br>
+컴퓨터의 하드웨어와 상호작용하는 작업을 수행하는 동안의 모든 활동을 포함한다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">JavaScript</code> 에서의 런타임은,<br>
+<strong>브라우저에서 실행되는 경우</strong> 브라우저의 <code class="language-plaintext highlighter-rouge">JavaScript</code> 엔진을 의미하며<br>
+<strong>서버 사이드에서 실행되는 경우</strong> <code class="language-plaintext highlighter-rouge">Node.js</code> 와 같은 환경을 가리킨다.</p>
+
+<hr>
+
+<p>제로 런타임은 <strong><code class="language-plaintext highlighter-rouge">UX</code></strong> 에 유의미한 영향을 끼치며,<br>
+번들 사이즈를 줄일 수 있고,<br>
+만약 런타임 코드가 작거나 없다면 서비스를 보다 효율적으로 제작할 수 있다.<br>
+이를 통해 <strong>초기 로딩속도</strong> 를 향상시키고 사용자 경험을 향상시킬 수 있다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Zero-Runtime</code> 이라는 용어는 주로 <code class="language-plaintext highlighter-rouge">CSS-in-JS</code> 라이브러리 중에서<br>
+<strong>런타임 오버헤드</strong>를 최소화 하거나 없애는 방식을 강조할 때 사용한다.<br>
+이를 통해<br>
+<strong>번들 사이즈</strong>를 줄이고 <strong>초기 로딩속도</strong>를 개선하여 웹 애플리케이션의 <strong>성능을 향상</strong>시키는데 유의미한 영향을 끼친다.</p>
+
+<hr>
+
+<h2 id="css-in-js-">CSS in JS 💛</h2>
+
+<p>먼저, <code class="language-plaintext highlighter-rouge">CSS in JS</code> 라고 하면 가장 먼저 떠오르는 것은 <strong><code class="language-plaintext highlighter-rouge">Styled Component</code></strong> 일 것이다.<br>
+<code class="language-plaintext highlighter-rouge">Styled Component</code> 는 <strong><code class="language-plaintext highlighter-rouge">Zero-Runtime</code> 특징</strong>을 가지기도 하며,<br>
+<code class="language-plaintext highlighter-rouge">React</code> 뿐만 아니라 다른 프레임워크와도 호환되며 현존하는 생태계에 자연스레 동화되며<br>
+다양한 확장성 또한 제공하는 점에서 대표적인 라이브러리로 꼽힌다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">CSS in JS</code> 와 반대되는 개념으로 <code class="language-plaintext highlighter-rouge">CSS in Module</code> 이 있는데,<br>
+아래 사진을 참고 해 보자.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbnbeS2%2FbtsCP45Snz8%2FpOXRcD1yk3fDfIByOSAA3K%2Fimg.png" alt=""></p>
+
+<p>만약, 보다 효율적인 유지보수를 위해 모든 <code class="language-plaintext highlighter-rouge">Style</code> 을 모듈화 하여 생성했다면<br>
+위 사진과 같이 셀 수 없이 생성되는 모듈이 많아질 것으로 예상된다.<br></p>
+
+<p>이를 보완하기 위해 <code class="language-plaintext highlighter-rouge">CSS in JS</code> 방식을 보다 선호하는 추세이며<br>
+마찬가지로 <strong>빌드 타임에 생성된</strong> <code class="language-plaintext highlighter-rouge">JavaScript</code> 파일을 불러옴으로 인해<br>
+여러 모듈을 생성하고 관리하는 과정에서 발생하는 사소한 문제를 해결할 수 있다.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">CSS in Module</code> 은 스타일을 부여한 <code class="language-plaintext highlighter-rouge">Class</code> 가 <strong>중복되게 생성되는 문제</strong>를 막아준다.<br>
+이를 통해 <strong>유지보수</strong>에 용이하고,<br>
+모듈화 된 <code class="language-plaintext highlighter-rouge">CSS</code> 가 분리된 <code class="language-plaintext highlighter-rouge">React</code> 컴포넌트와 잘 어우러진다는 장점이 있다.</p>
+</blockquote>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F18f0x%2FbtsCWLcHZ5g%2FDp6bOoT19LpfYvU7CeNta0%2Fimg.png" alt=""></p>
+
+<hr>
+
+<p><code class="language-plaintext highlighter-rouge">Styled Componet</code> 는,<br>
+각 컴포넌트 내부에 <code class="language-plaintext highlighter-rouge">CSS</code> 를 적용하고 이를 컴포넌트 화 함으로 인해<br>
+별도로 <code class="language-plaintext highlighter-rouge">CSS</code> 파일을 불러올 필요 없이 <code class="language-plaintext highlighter-rouge">JS</code> 에서 바로 스타일을 입힐 수 있고,<br>
+컴포넌트에 정의한 스타일이 <strong>다른 컴포넌트에 오염</strong>이 되지 않는다는 장점이 있다.</p>
+
+<p>하지만, <code class="language-plaintext highlighter-rouge">Styled Component</code> 혹은 <code class="language-plaintext highlighter-rouge">Emotion</code> 과 같은 <code class="language-plaintext highlighter-rouge">CSS in JS</code> 라이브러리의 경우<br>
+<strong>개발자 경험은 크게 상승</strong>시키지만,<br>
+빌드 시간에 모든 스타일을 계산하여 생성하는 것이 아니라<br>
+런타임에 <strong>동적으로 스타일을 계산하여 추가</strong>하기 때문에<br>
+<strong>번들 크기가 증가</strong>하고<br>
+<strong>렌더링 속도가 저하</strong>되어 UX 에 유의미한 영향을 끼친다는 단점이 있다.</p>
+
+<p>대부분의 경우 문제가 발생하진 않지만,<br>
+스타일이 복잡할 경우 런타임에 성능 이슈가 발생할 수도 있다.</p>
+
+<hr>
+
+<h2 id="대안-">대안 ❔</h2>
+
+<h3 id="tailwind-">Tailwind 🌫</h3>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcaPzfZ%2FbtsCTz40miD%2F8Ok2RwIqUjDg0XXht5zPTk%2Fimg.png" alt=""></p>
+
+<p>테일윈드는 <code class="language-plaintext highlighter-rouge">CSS in JS</code> 방식은 아니지만,<br>
+<code class="language-plaintext highlighter-rouge">HTML</code> 클래스에 직접 스타일을 적용하는 방식으로<br>
+<strong>빌드 타임에 미리 정의되어있는 스타일을 통해</strong> 디자인을 빠르게 구성할 수 있고, 커스터마이징이 가능하기에<br>
+별도의 스타일 시트나 스타일 블록이 필요하지 않아<br>
+보다 간결해진 문서의 구조를 유지할 수 있다.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Tailwind</code> 또한, 런타임에 CSS 를 생성하지 않는 <code class="language-plaintext highlighter-rouge">Zero Runtime</code> 의 특성을 가지고 있다.</p>
+</blockquote>
+
+<p>다만,<br>
+일부 개발자는 문서에 작성된 스타일 코드로 인해 <strong>문서를 빠르게 파악하기 어렵다</strong>는 단점이 있고<br>
+코드가 가로로 길게 나열된다는 부분을 선호하지 않는 개발자들도 존재한다.</p>
+
+<h3 id="panda-css-">Panda CSS 🐼</h3>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FSNhsa%2FbtsCOGKYgqf%2FdaMPk56lJ0ImDwQnu4cbQK%2Fimg.png" alt=""></p>
+
+<p><code class="language-plaintext highlighter-rouge">Panda CSS</code> 는 최근 진행한 프로젝트에서 도입한 <code class="language-plaintext highlighter-rouge">CSS</code> 라이브러리로,<br>
+위에 작성된 라이브러리, 프레임워크의 가능한 모든 단점들을 보완하여 나온 라이브러리 이다.<br></p>
+
+<p><code class="language-plaintext highlighter-rouge">Panda CSS</code> 또한 <code class="language-plaintext highlighter-rouge">Tailwind</code> 와 동일하게<br>
+<strong>런타임에 <code class="language-plaintext highlighter-rouge">CSS</code> 를 생성하지 않는다는 <code class="language-plaintext highlighter-rouge">Zero Runtime</code> 특성</strong>을 가지고 있지만<br>
+미리 정의해둔 스타일을 적용하는 것이 아니기에 <strong><code class="language-plaintext highlighter-rouge">Atomic</code> 하지 않다</strong>는 차이가 있다.</p>
+
+<p>또한, <code class="language-plaintext highlighter-rouge">Styled Component</code> 의 문법을 지원히여 앞선 이슈들을 해소할 수 있었다.</p>
+
+<p>다만,<br>
+비교적 다른 라이브러리들에 비해 나온지 얼마 되지 않아 <strong>자료가 별로 없다</strong>는 단점이 있었다.</p>
+
+<hr>
+
+<h2 id="마무리-하며-">마무리 하며… 🤔</h2>
+
+<p>해당 포스팅을 작성하며 내가 지금 뭘 작성하고 있는지? 🙄<br>
+쓰면서도 모르겠는 부분이 생기기도 했고,<br>
+비교적 다른 포스팅들에 비해 많은 시간이 소요된 포스팅 인것같다.</p>
+
+<p>이를 빗대어 표현 해 보자면,<br>
+그만큼 UI 뿐만 아니라 UX 부분 또한 상당 시간 고려해야하는 부분이며<br>
+이를 해소하기 위해 등장한 <code class="language-plaintext highlighter-rouge">CSS</code> 들이 다양하지만<br></p>
+
+<p>그 중에서 프로젝트 진행 시 채택할 수 있는 라이브러리의 폭도 넓어진 것 같다.<br></p>
+
+<ul>
+  <li>프로젝트의 규모 및 팀 구성</li>
+  <li>컴포넌트 기반 vs 페이지 기반</li>
+  <li>개발자의 선호도</li>
+</ul>
+
+<p>이 밖에도 여러 가지로 선택할 수 있는 기준은 다양하겠지만,<br>
+단순히 기능 구현에만 초점을 두어 공부했던 본인을 다시금 돌아볼 수 있게끔 만들어준 포스팅 이라고 생각한다.</p>
+
+<hr>
+
+<h2 id="reference-">Reference 🌊</h2>
+
+<blockquote>
+  <p><a href="https://velog.io/@daymoon_/CSS-CSS-in-JS-vs-CSS-in-CSS">https://velog.io/@daymoon_/CSS-CSS-in-JS-vs-CSS-in-CSS</a><br><a href="https://velog.io/@lucas/CSS-IN-JS%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A5%BC-%EC%8A%A4%ED%83%80%EC%9D%BC%EB%A7%81%ED%95%B4%EC%A4%84-%EC%88%98-%EC%9E%88%EB%8A%94%EA%B0%80">https://velog.io/@lucas/CSS-IN-JS%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A5%BC-%EC%8A%A4%ED%83%80%EC%9D%BC%EB%A7%81%ED%95%B4%EC%A4%84-%EC%88%98-%EC%9E%88%EB%8A%94%EA%B0%80</a><br><a href="https://velog.io/@daymoon_/CSS-CSS-in-JS-vs-CSS-in-CSS">https://velog.io/@daymoon_/CSS-CSS-in-JS-vs-CSS-in-CSS</a><br><a href="https://fe-developers.kakaoent.com/2022/220210-css-in-kakaowebtoon/?fbclid=IwAR10q4zhGGIdjdd7l9VyDC9Xn0AU0UkoGeDmTyoWotpt6cxn4T6WHLMPkGg">https://fe-developers.kakaoent.com/2022/220210-css-in-kakaowebtoon/?fbclid=IwAR10q4zhGGIdjdd7l9VyDC9Xn0AU0UkoGeDmTyoWotpt6cxn4T6WHLMPkGg</a><br><a href="https://velog.io/@kbs2082/React-Styled-Component%EC%9D%98-%EC%9E%A5%EB%8B%A8%EC%A0%90">https://velog.io/@kbs2082/React-Styled-Component%EC%9D%98-%EC%9E%A5%EB%8B%A8%EC%A0%90</a><br><a href="https://www.javascriptstuff.com/what-are-css-modules/">https://www.javascriptstuff.com/what-are-css-modules/</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/react/2023/12/06/React-Vite_env.html" title="[React] Vite 앱에서 .env 환경변수 관리하기 (Feat. Firebase 🔥)">[React] Vite 앱에서 .env 환경변수 관리하기...</a><a class="next" href="/jekyll-theme-yat/react/2024/01/01/React-Crawling.html" title="[React] 크롤링이란 ? (Feat.SEO ⚡)">[React] 크롤링이란 ? (Feat.SEO ⚡)</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/react-native/2023/01/14/RN-SafeAreaView.html" title="[React] 크롤링이란 ? (Feat.SEO ⚡)">[React-Native] SafeAreaView 를 활용해 expo 앱에 그리기</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/typescript/2023/11/01/TS-init.html" title="[React] 크롤링이란 ? (Feat.SEO ⚡)">[Typescript] 타입스크립트에서 초기 개발환경 구축하기 (Feat. ESLint) 🌎</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/anaconda/2022/06/30/Conda-redirection.html" title="[React] 크롤링이란 ? (Feat.SEO ⚡)">[Anaconda] 가상환경 목록을 추출해 .txt 파일에 저장하기</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/review/2022/03/23/codestates.html" title="[React] 크롤링이란 ? (Feat.SEO ⚡)">[코드스테이츠] 코드스테이츠 AI 부트캠프</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
