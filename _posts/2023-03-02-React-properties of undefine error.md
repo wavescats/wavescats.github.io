@@ -25,7 +25,7 @@ Git Hub 에 Push 까지 마친 상태였지만,<br>
 에러를 확인 해 보니,<br>
 이전에 포스팅 했던 에러와 같은 에러였다.
 
-> <https://wavecats.github.io/react/2022/11/14/React-properties-of-undefined-error.html>
+> <https://wavescats.github.io/react/2022/11/14/React-properties-of-undefined-error.html>
 
 리액트에서 가장 자주 보는 오류 메시지로<br>
 ('') 안의 값이 정의되지 않아 불러올 수 없을 때 발생한다고 한다.<br>
