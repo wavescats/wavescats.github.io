@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[React] 크롤링이란 ? (Feat.SEO ⚡) | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.4">
+<meta property="og:title" content="[React] 크롤링이란 ? (Feat.SEO ⚡)">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요 🔔">
+<meta property="og:description" content="개요 🔔">
+<link rel="canonical" href="/jekyll-theme-yat/react/2024/01/01/React-Crawling.html">
+<meta property="og:url" content="/jekyll-theme-yat/react/2024/01/01/React-Crawling.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2024-01-01T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[React] 크롤링이란 ? (Feat.SEO ⚡)">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2024-01-01T00:00:00+00:00","datePublished":"2024-01-01T00:00:00+00:00","description":"개요 🔔","headline":"[React] 크롤링이란 ? (Feat.SEO ⚡)","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/react/2024/01/01/React-Crawling.html"},"url":"/jekyll-theme-yat/react/2024/01/01/React-Crawling.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[React] 크롤링이란 ? (Feat.SEO ⚡)</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2024-01-01T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jan 01, 2024
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 5 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#%EB%A6%AC%EC%95%A1%ED%8A%B8">#리액트</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#%ED%81%AC%EB%A1%A4%EB%A7%81">#크롤링</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#SEO">#SEO</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="개요-">개요 🔔</h2>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdzfdyK%2FbtsC0aDoLlo%2FGzNZxU3yHMuhGWbDGBAKK0%2Fimg.jpg" alt=""></p>
+
+<p>정보의 바다라고 불리는 웹 사이트는 지금 이 시간에도 <strong>무수히 많은 정보</strong>가 쏟아져 나오고 있다.<br>
+이처럼 방대한 양의 정보(데이터) 를 사용자에게 보다 <strong>쉽게</strong> 전달하기 위해<br>
+우리 (프론트엔드 as 개발자) 는 페이지들을 인덱싱 하여 화면에 렌더링 해 준다.</p>
+
+<p>만약,<br>
+가공되지 않은 데이터를 누군가가 인덱싱 &amp; 저장 하여 관리하지 않는다면,<br>
+사용자는 해당 컨텐츠에 접근할 수 있는 방법이 존재하지 않을 것이다.</p>
+
+<p>그래서 등장한 개념이 <strong><code class="language-plaintext highlighter-rouge">크롤링</code></strong> 이고,<br>
+이를 보다 쉽게 사용하기 위해 소프트웨어로 감싼것을 <strong><code class="language-plaintext highlighter-rouge">크롤러</code></strong> 라고 한다.</p>
+
+<blockquote>
+  <p>위키 백과 👇<br><a href="https://namu.wiki/w/%ED%81%AC%EB%A1%A4%EB%A7%81">https://namu.wiki/w/%ED%81%AC%EB%A1%A4%EB%A7%81</a></p>
+</blockquote>
+
+<p>그럼,<br>
+크롤링을 사용해야하는 이유는 뭘까 ?</p>
+
+<p>결론부터 말하자면 <strong><code class="language-plaintext highlighter-rouge">당신의 시간은 소중하니까</code></strong> 라고 할 수 있다.<br>
+즉,<br>
+필요한 데이터를 <strong>복사 + 붙여넣기</strong>를 통해 번거로운 작업을 하는것이 아닌<br>
+크롤링의 자동화를 통해 정보(데이터)를 취득하는 시간을 <strong>효율적으로 관리</strong>한다는 점에 의미를 두고 있다.</p>
+
+<blockquote>
+  <p>밈 으로 👉 <strong><code class="language-plaintext highlighter-rouge">'진정한 개발자는 게을러야 한다'</code></strong> 라는 말이 있듯,<br>개발자라면 <strong>반복적인 작업을 지양</strong>해야하며<br>이는 자동화된 프로그램을 만들어 업무 효율을 증가시킨다 라는 의미를 가진다.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="deep-inf-">Deep inf 👀</h2>
+
+<p>위 모든 과정을 가장 잘 다루는 곳은 어딜까 ?<br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbs7Y9m%2FbtsCZ613WfE%2FnADwFosIINxukOK7RJazz1%2Fimg.png" alt=""></p>
+
+<p>바로, <strong><code class="language-plaintext highlighter-rouge">Google</code></strong> 이다.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Google</code></strong> 은 앞서 말했듯,<br>
+무한히 늘어나는 웹 페이지를 인덱싱함으로 인해 보다 쉽게 정보를 제공하여 사용자 경험을 증가시켜 준다.</p>
+
+<p>해당 분야에서 가장 대표적인 소프트웨어로는,<br>
+<strong><code class="language-plaintext highlighter-rouge">Python</code></strong> 의 <strong><code class="language-plaintext highlighter-rouge">Beautiful Soup</code></strong> 이 있고,<br>
+<strong><code class="language-plaintext highlighter-rouge">Java</code></strong> 의 <strong><code class="language-plaintext highlighter-rouge">jsoup</code></strong> 이라는 HTML 파싱 라이브러리가 존재한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fd29lh0%2FbtsCU0an8aY%2FGCEC8uIdY6zaz4MegHp071%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbwEz7c%2FbtsCRg6expe%2FcNTgPDk6ndIP4ApwmFKMxk%2Fimg.png" alt=""></p>
+
+<p>실제로 구글에 <strong><code class="language-plaintext highlighter-rouge">크롤링</code></strong> 이라는 키워드로 검색하면,<br>
+<strong><code class="language-plaintext highlighter-rouge">Beautiful Soup</code></strong> 를 활용한 예제가 대부분임을 확인할 수 있다..🙄</p>
+
+<p>하지만 <strong><code class="language-plaintext highlighter-rouge">Beautiful Soup</code></strong> 같은 경우는 동적으로 데이터를 추출하는 크롤러가 아닌,<br>
+정적으로 이미 그려진 웹 페이지를 <strong><code class="language-plaintext highlighter-rouge">Seed</code></strong> == <strong><code class="language-plaintext highlighter-rouge">baseURL</code></strong> 로 하여<br>
+데이터를 추출하는 <strong><code class="language-plaintext highlighter-rouge">스크래퍼</code></strong>, <strong><code class="language-plaintext highlighter-rouge">스크래핑</code></strong> 쪽에 조금 더 가깝다.</p>
+
+<p>스크래퍼를 동적으로 추출하는 크롤링의 개념을 적용하기 위해 등장한 라이브러리가<br>
+<strong><code class="language-plaintext highlighter-rouge">Python</code></strong> 의 <strong><code class="language-plaintext highlighter-rouge">Selenium</code></strong> 이다.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Selenium</code></strong> 은,<br>
+다양한 옵션을 제공하는데 크롤링은 방대한 양의 데이터를 추출해야 함으로 <strong><code class="language-plaintext highlighter-rouge">자동화</code></strong> 를 목적으로 두고있기 때문에,<br>
+<strong><code class="language-plaintext highlighter-rouge">WebDriver</code></strong>와 <strong><code class="language-plaintext highlighter-rouge">Headless</code></strong> 옵션을 통해 <strong><code class="language-plaintext highlighter-rouge">CLI</code></strong> 창에서 데이터를 추출하고 가공할 수 있다.</p>
+
+<p>추가적으로 우리가 주로 다뤄야하는, 다루는 언어인 <strong><code class="language-plaintext highlighter-rouge">JavaScript</code></strong> 에서도<br>
+위와 같은 기능이 구현된 라이브러리가 존재한다.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Cheerio</code></strong> 와 <strong><code class="language-plaintext highlighter-rouge">Puppeteer</code></strong> 가 있는데,<br>
+바로 다음 포스팅에서 두 라이브러리의 차이와 예제를 통해 학습했던 방법을 정리하려고 한다.</p>
+
+<hr>
+
+<h2 id="robotstxt-">Robots.txt 🤖</h2>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcFA952%2FbtsCUzKG0Om%2FC8TSI9iHu0VnfHkFC6T7V0%2Fimg.png" alt=""></p>
+
+<p>아, 이제 크롤링에 대한 어느정도 이해도 끝났고,<br>
+내가 원하는 데이터를 추출하여 멋진 웹 사이트를 만들어 봐야지 ❗❗</p>
+
+<p>라고 한다면 큰 실수일 수도 있다 🚫<br>
+보통 웹 사이트에는 크롤링이 가능한 허용범위 ✅ 에 대한 정보가 담긴 문서가 존재한다.<br>
+이와 같은 정보는 <strong><code class="language-plaintext highlighter-rouge">Robots.txt</code></strong> 파일에 담겨있는데,<br>
+이 파일은 검색엔진최적화(<strong><code class="language-plaintext highlighter-rouge">SEO</code></strong>) 와 밀접한 관계가 있다.</p>
+
+<blockquote>
+  <p>크롤링 할 <strong><code class="language-plaintext highlighter-rouge">baseURL</code></strong> 뒤에 <strong><code class="language-plaintext highlighter-rouge">/robots.txt</code></strong> 를 입력 해 주면,<br>해당 사이트에 대한 크롤링 정책을 확인할 수 있다.<br>👉 네이버의 경우 <strong><code class="language-plaintext highlighter-rouge">.txt</code></strong> 파일이 다운로드 된다.</p>
+</blockquote>
+
+<p>단, <strong><code class="language-plaintext highlighter-rouge">Params</code></strong> 로 지정된 하위 페이지 경로에서 <strong><code class="language-plaintext highlighter-rouge">robots.txt</code></strong> 를 붙이게 되면,<br>
+간혹 정책을 확인할 수 없는 경우도 있기에<br>
+하위 경로를 모두 제거한 최 상위 (메인 URL) 에서 확인하는게 가장 이상적인 방법이다 💌💨</p>
+
+<h3 id="seo-">SEO ⚡</h3>
+
+<p>아래 사진은 구글 URL 에서 <strong><code class="language-plaintext highlighter-rouge">robots.txt</code></strong> 를 추출하여 확인한 이미지 이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FljtdP%2FbtsCOEs7r52%2FON0xFuiLdkt3rD0Ns2Yxe0%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>출처 👇<br><a href="https://developers.google.com/search/docs/crawling-indexing/robots/create-robots-txt?hl=ko">https://developers.google.com/search/docs/crawling-indexing/robots/create-robots-txt?hl=ko</a></p>
+</blockquote>
+
+<p>이 이미지가 의미하는 바는 다음과 같다.<br></p>
+
+<ul>
+  <li>이름이 <strong><code class="language-plaintext highlighter-rouge">Googlebot</code></strong> 인 사용자는 <strong><code class="language-plaintext highlighter-rouge">baseURL</code></strong> 에서 <strong><code class="language-plaintext highlighter-rouge">/nogooglebot</code></strong> 으로 시작하는 URL 을 크롤링 할 수 없다.<br>
+👉 <strong><code class="language-plaintext highlighter-rouge">https://exaple.com/nogooglebot/...</code></strong>
+<br><br>
+</li>
+  <li>그 외 사용자 (<strong><code class="language-plaintext highlighter-rouge">*</code></strong> == <strong><code class="language-plaintext highlighter-rouge">와일드카드</code></strong>) 는 모든 경로 (<strong><code class="language-plaintext highlighter-rouge">/</code></strong>) 에서 크롤링을 할 수 있다.<br>
+👉 해당 부분은 생략 가능
+<br><br>
+</li>
+  <li>
+<strong><code class="language-plaintext highlighter-rouge">Sitemap</code></strong> 은 크롤링 봇에게 알려주는 <strong>가이드</strong> 정도의 의미를 담고 있으며,<br>
+<strong><code class="language-plaintext highlighter-rouge">.xml</code></strong> 형식의 파일로 작성되어있다.<br>
+👉 해당 파일은 URL 뒤에 심어주는 형식으로 구성되어 있으며,<br>
+<strong><code class="language-plaintext highlighter-rouge">Google Docs</code></strong> 를 참고하면 해당 파일을 생성하는 <strong>가이드라인</strong>과 <strong>커스텀이 가능한 프리셋</strong>을 제공하고 있다.
+<br>
+</li>
+</ul>
+
+<p>또한, 이 <strong><code class="language-plaintext highlighter-rouge">robots.txt</code></strong> 파일에 담긴 <strong><code class="language-plaintext highlighter-rouge">Googlebot</code></strong> 을 통해<br>
+우리가 만든 사이트를 검색엔진에 잘 노출시킬 수 있도록 최적화 시킬 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Ft92Nv%2FbtsCP21xOVN%2FB7kULrAtTcq7yX2iRobkE0%2Fimg.png" alt=""></p>
+
+<p>검색엔진이 자료를 긁어가는 주기가 정확하진 않지만,<br>
+구글을 기준으로 한다면 1일 1회 이상 우리가 만든 <strong><code class="language-plaintext highlighter-rouge">DDocker</code></strong> 라는 사이트를<br>
+<strong><code class="language-plaintext highlighter-rouge">robots.txt</code></strong> 와 <strong><code class="language-plaintext highlighter-rouge">Sitemap.xml</code></strong> 을 기준으로 웹 사이트 안의 모든 정보를 크롤링 하여<br>
+구글 검색엔진 DB 에 저장하는 형태로 구현되어 있다.</p>
+
+<p>우리는, 보다 효율적으로 <strong>검색엔진에 내 서비스를 노출</strong>시켜주어야 하는걸 목표로 두고 있기에<br>
+<strong><code class="language-plaintext highlighter-rouge">robots.txt</code></strong> 를 검색엔진에 노출이 잘 되게끔 설정 해 주어야 한다.<br>
+이 파일은 프로젝트 내부 <strong><code class="language-plaintext highlighter-rouge">/public</code></strong> 경로에 생성하여 빌드하면 자동으로 반영이 된다.</p>
+
+<blockquote>
+  <p>설정 후 실제 반영은 24시간 정도 이후부터 된다고 한다.</p>
+</blockquote>
+
+<p>실제 검색엔진에 잘 노출이 되게끔 하기 위해서는<br>
+크롤링 봇 🤖 에게 알려주는 <strong><code class="language-plaintext highlighter-rouge">robots.txt</code></strong> 와 <strong><code class="language-plaintext highlighter-rouge">Sitemap.xml</code></strong> 도 중요하지만<br>
+코드 내부에 정의하는 각종 태그에도 영향을 받는다.</p>
+
+<p>검색엔진 최적화를 위해 태그를 수정하는 방법은 아래 링크를 참조하여 적용하면 좋을 것 같다.<br>
+<a href="https://yozm.wishket.com/magazine/detail/1540/">https://yozm.wishket.com/magazine/detail/1540/</a></p>
+
+<hr>
+
+<h2 id="reference-">Reference 🌊</h2>
+
+<blockquote>
+  <p><a href="https://jins-sw.tistory.com/55">https://jins-sw.tistory.com/55</a><br><a href="https://www.fun-coding.org/post/crawl_basic2.html#gsc.tab=0">https://www.fun-coding.org/post/crawl_basic2.html#gsc.tab=0</a><br><a href="https://brunch.co.kr/@webbible/5">https://brunch.co.kr/@webbible/5</a><br><a href="https://youtu.be/xGkftwkoJK4?si=IhnTcFQy8qQJzJr4">https://youtu.be/xGkftwkoJK4?si=IhnTcFQy8qQJzJr4</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/react/2023/12/31/React-CSS-In-JS.html" title="[React] Zero-Runtime CSS in JS (Feat.최적화)">[React] Zero-Runtime CSS in JS (Feat.최적화)...</a><a class="next" href="/jekyll-theme-yat/aws/2024/01/04/AWS-EC2.html" title="[AWS] AWS EC2 클라우드 서버를 VSCode 에서 띄우기 ⛅">[AWS] AWS EC2 클라우드 서버를 VSCode...</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/review/2024/01/11/Coding_Test.html" title="[AWS] AWS EC2 클라우드 서버를 VSCode 에서 띄우기 ⛅">[코딩테스트] 알고리즘 스터디 시작 👀🚀</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2022/12/16/Code-Refactoring.html" title="[AWS] AWS EC2 클라우드 서버를 VSCode 에서 띄우기 ⛅">[React] Code Refactoring 을 통한 리소스 줄이기</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react-native/2023/06/01/RN-Next.html" title="[AWS] AWS EC2 클라우드 서버를 VSCode 에서 띄우기 ⛅">[React-Native] Expo 프로젝트에 Next.js 설치하기 (Feat. Bare WorkFlow)</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/node.js/2023/08/17/PM2-log-error.html" title="[AWS] AWS EC2 클라우드 서버를 VSCode 에서 띄우기 ⛅">[Node.js] PM2 log 명령어가 실행되지 않을때 해결방법 💞</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

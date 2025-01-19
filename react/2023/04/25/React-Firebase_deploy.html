@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[React] 🔥 Firebase 를 활용한 웹 호스팅 추가하기 (배포) 🚀 | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.4">
+<meta property="og:title" content="[React] 🔥 Firebase 를 활용한 웹 호스팅 추가하기 (배포) 🚀">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요 📣">
+<meta property="og:description" content="개요 📣">
+<link rel="canonical" href="/jekyll-theme-yat/react/2023/04/25/React-Firebase_deploy.html">
+<meta property="og:url" content="/jekyll-theme-yat/react/2023/04/25/React-Firebase_deploy.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-04-25T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[React] 🔥 Firebase 를 활용한 웹 호스팅 추가하기 (배포) 🚀">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2023-04-25T00:00:00+00:00","datePublished":"2023-04-25T00:00:00+00:00","description":"개요 📣","headline":"[React] 🔥 Firebase 를 활용한 웹 호스팅 추가하기 (배포) 🚀","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/react/2023/04/25/React-Firebase_deploy.html"},"url":"/jekyll-theme-yat/react/2023/04/25/React-Firebase_deploy.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[React] 🔥 Firebase 를 활용한 웹 호스팅 추가하기 (배포) 🚀</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2023-04-25T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Apr 25, 2023
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 4 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#%EB%A6%AC%EC%95%A1%ED%8A%B8">#리액트</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8">#프로젝트</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#%ED%8C%8C%EC%9D%B4%EC%96%B4%EB%B2%A0%EC%9D%B4%EC%8A%A4">#파이어베이스</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="개요-">개요 📣</h2>
+
+<p>로컬 서버에서 개발한 프로젝트를,<br>
+호스팅을 통해 도메인을 얻어 외부에서의 접근을 허용하는 것을 배포(<code class="language-plaintext highlighter-rouge">Deploy</code>)라고 한다.<br>
+대표적인 호스팅 서비스로는 <code class="language-plaintext highlighter-rouge">Netlify</code>, <code class="language-plaintext highlighter-rouge">Vercel</code>, <code class="language-plaintext highlighter-rouge">AWS</code>, <code class="language-plaintext highlighter-rouge">Github Pages</code> 등 이 있지만,<br>
+이번 포스팅에서는,<br>
+Google 에서 제공하는 <code class="language-plaintext highlighter-rouge">Firebase</code> 를 통한 호스팅 처리를 정리하고자 한다.</p>
+
+<hr>
+
+<h3 id="프로젝트-생성-">프로젝트 생성 🎉</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Firebase</code> 웹 호스팅 생성 및 배포하기 작업 순서는 크게 아래와 같이 진행된다.<br></p>
+
+<p>1️⃣ <code class="language-plaintext highlighter-rouge">Firebase</code> 프로젝트 생성<br>
+2️⃣ <code class="language-plaintext highlighter-rouge">Firebase</code> 호스팅 설정<br>
+3️⃣ <code class="language-plaintext highlighter-rouge">Firebase</code> 초기화<br>
+4️⃣ <code class="language-plaintext highlighter-rouge">Firebase</code> 배포 및 확인</p>
+
+<blockquote>
+  <p><a href="https://console.firebase.google.com/">https://console.firebase.google.com/</a></p>
+</blockquote>
+
+<p>먼저 해당 URL 에서 새로운 <code class="language-plaintext highlighter-rouge">Firebase</code> 프로젝트를 생성 해 준다.<br></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FukI1V%2FbtszjriLTYX%2FKXsz5DJ316oyYNvaMa2tvK%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FZpd5d%2Fbtszk41jACi%2F6X0k9zqoacxydkljmlZoAK%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAj4Y5%2FbtszmzfEJ66%2FIo1UV1l8zrGbkQK1iHFZk0%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcXZS57%2FbtszgzoKkcr%2FTbN8JQuZrivI1F4PJWyGu1%2Fimg.png" alt=""></p>
+
+<hr>
+
+<h3 id="install-">install 🔮</h3>
+
+<p>우리는 <code class="language-plaintext highlighter-rouge">웹 앱</code>을 배포하려고 하니,<br>
+생성한 프로젝트의 <code class="language-plaintext highlighter-rouge">프로젝트 개요</code> 화면에서 <code class="language-plaintext highlighter-rouge">웹</code> 버튼을 클릭 해 준다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F7i967%2FbtszlJiwJ1d%2Ff3N2iHh7zs0i2ttsD7IBz0%2Fimg.png" alt=""></p>
+
+<p>앱 닉네임을 설정 해 준뒤 호스팅 체크박스도 체크 해 준다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbdulfq%2FbtszlJv43GE%2FbFWgQ1ywt8oNo9ewAV0HCk%2Fimg.png" alt=""></p>
+
+<p><code class="language-plaintext highlighter-rouge">npm</code> 을 사용하여 프로젝트에서 <code class="language-plaintext highlighter-rouge">firebase</code> 모듈을 설치 해 준다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install firebase
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add firebase
+</code></pre></div></div>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FYtFXb%2Fbtszjsbh11g%2FLfIFSKPzSjt2WkCUyImQLK%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p><strong><code class="language-plaintext highlighter-rouge">firebase SDK</code></strong> 는 추후 모듈을 초기화 할 때 사용되므로 클립보드에 저장 해 놓자</p>
+</blockquote>
+
+<p>다음으로 아래 명령어를 통해<br>
+<code class="language-plaintext highlighter-rouge">Firebase</code> 로 생성한 프로젝트 관리, 배포, DB 관리 등 을 할 때 사용되는 모듈을 전역으로 설치 해 준다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install -g firebase-tools
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn global add firebase-tools
+</code></pre></div></div>
+
+<hr>
+
+<h3 id="init-">init 💾</h3>
+
+<p>프로젝트 터미널에 <code class="language-plaintext highlighter-rouge">firebase login</code> 을 실행하여,<br>
+프로젝트와 생성한 프로젝트를 연결할 준비를 한다.</p>
+
+<blockquote>
+  <p>해당 명령어를 실행하면, 새 창으로 google 로그인 화면이 실행된다.</p>
+</blockquote>
+
+<ul>
+  <li>이미 명령어를 실행하여 로그인 된 상태</li>
+</ul>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcRWQ7n%2FbtszlJv5b1D%2FE2a097ske8JSt0GPBfLumK%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>만약 Local 에 연결된 구글 계정을 변경하고 싶다면<br><code class="language-plaintext highlighter-rouge">firebase logout</code> 명령으로 연결을 끊어줘야 한다.</p>
+</blockquote>
+
+<hr>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>firebase init
+</code></pre></div></div>
+
+<p>해당 명령어를 실행하면 아래와 같은 화면을 볼 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlyHZZ%2FbtszlYfAsFA%2Ff8InHBNPW6jCaAFddl6Iq1%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Hosting: Configue files for Firebase Hosting …</code> 을<br><code class="language-plaintext highlighter-rouge">스페이스 바</code> 를 눌러 선택 후 Enter</p>
+</blockquote>
+
+<p>앞서 생성한 프로젝트를 선택 해 준다.
+<code class="language-plaintext highlighter-rouge">Select a default Firebase project for this directory:</code></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbgmeZZ%2FbtsziOTdQJR%2FRXCKk85KX8Y1JEIpW6hXe0%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Vite</code> 로 생성한 앱일 경우 <code class="language-plaintext highlighter-rouge">npm run build</code> 혹은 <code class="language-plaintext highlighter-rouge">yarn run build</code> 명령을 실행 시<br><code class="language-plaintext highlighter-rouge">dist</code> 폴더가 생성된다.<br>
+(React 의 경우 <code class="language-plaintext highlighter-rouge">build</code> 폴더 생성)</p>
+</blockquote>
+
+<blockquote>
+  <p>Are you ready to proceed? (Y/N)<br><strong>👉 진행여부 Y</strong><br><br>
+What do you want to use as your public directory?<br><strong>👉 dist 라고 적어준다</strong><br><strong>(npm run build 로 나온 파일을 사용하기 때문에)</strong><br><br>
+Configure as a single-page app (rewrite all urls to /index.html)? (Y/N)<br><strong>👉 SPA 일경우 index.html 을 기본으로 보여주겠다는 여부 Y</strong><br><strong>(리액트이기 때문에 SPA)</strong><br><br>
+Set up automatic builds and deploys with GitHub? (Y/N)<br><strong>👉 GitHub로 자동 빌드 및 배포 설정 N</strong><br><br>
+File build/index.html already exists. Overwrite? (Y/N)<br><strong>👉 이미 생성된 index.html을 덮어쓰는여부 N</strong><br><strong>(덮어쓰면 리액트로 build 된 파일이 초기화되기 때문에 N)</strong></p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">init</code> 설정이 완료되면 Hosting 을 하기 위한 파일과 폴더가 생성된다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtElb7%2FbtszgYBVQJt%2FQn99IJ3aMI0Hd5hck12Aj1%2Fimg.png" alt=""></p>
+
+<hr>
+
+<p><code class="language-plaintext highlighter-rouge">build</code> 명령어를 실행하지 않고 <code class="language-plaintext highlighter-rouge">firebase deploy</code> 명령어만을 실행하면,<br>
+배포가 진행되며 생성된 <code class="language-plaintext highlighter-rouge">Hosting URL</code> 주소로 접속할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FUBJSZ%2FbtszlYmmyv9%2FKsaqg7zwMaWsGqNt3Bjl2K%2Fimg.png" alt=""></p>
+
+<p>생성된 호스팅 주소로 접속 시 아래와 같은 화면이 출력된다면,<br>
+호스팅(배포) 에 성공 한 것이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdfV4KG%2FbtszhsCLYcA%2F5H0jsKrbg7ywvLwAn9zcPK%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>작성된 코드를 반영시키려면,<br><code class="language-plaintext highlighter-rouge">build</code> 명령어를 실행하고 다시 <code class="language-plaintext highlighter-rouge">firebase deploy</code> 명령으로 적용시키면 된다.</p>
+</blockquote>
+
+<hr>
+
+<h3 id="error-">Error ❌</h3>
+
+<p>만약 <code class="language-plaintext highlighter-rouge">404</code> 에러 <code class="language-plaintext highlighter-rouge">Page Not Fount</code> 가 뜬다면,<br>
+<code class="language-plaintext highlighter-rouge">firebase.json</code> 파일을 수정 해 준다.</p>
+
+<p><img src="https://velog.velcdn.com/images/-__-/post/715286b7-e392-4e3b-afa7-1b72fa3b1c55/image.png" alt=""></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "hosting": {
+    "public": "build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+</code></pre></div></div>
+
+<hr>
+
+<h3 id="배포-확인-️">배포 확인 ✔️</h3>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBibUf%2Fbtszl05xQnT%2FsngGePKXQrFY2eBILAeUh0%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>도메인과 함께 성공적으로 Deploy 된 상태를 확인할 수 있다.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="reference-">Reference 🌊</h2>
+
+<blockquote>
+  <p><a href="https://wavescats.github.io/react/2022/10/21/react18.html">https://wavescats.github.io/react/2022/10/21/react18.html</a><br><a href="https://firebase.google.com/docs/hosting?hl=ko">https://firebase.google.com/docs/hosting?hl=ko</a><br><a href="https://firebase.google.com/docs/hosting/quickstart?hl=ko">https://firebase.google.com/docs/hosting/quickstart?hl=ko</a><br><a href="https://lxxyeon.tistory.com/38">https://lxxyeon.tistory.com/38</a><br><a href="https://velog.io/@hippohami/Firebase-%EC%9B%B9-%ED%98%B8%EC%8A%A4%ED%8C%85-%EC%84%A4%EC%A0%95-%EB%B0%B0%ED%8F%AC-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95">https://velog.io/@hippohami/Firebase-%EC%9B%B9-%ED%98%B8%EC%8A%A4%ED%8C%85-%EC%84%A4%EC%A0%95-%EB%B0%B0%ED%8F%AC-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/blockchain/2023/04/17/BC-Sepolia-ERC20.html" title="[Blockchain] 세폴리아 (Sepolia) 네트워크 환경에서 erc20 토큰 발행하기">[Blockchain] 세폴리아 (Sepolia) 네트워크 환경에서 erc20...</a><a class="next" href="/jekyll-theme-yat/review/2023/05/03/Sesacthon-Engagement.html" title="[새싹톤] 해커톤 참여 결정 !! (Feat.AI 👀)">[새싹톤] 해커톤 참여 결정 !! (Feat.AI...</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/review/2022/03/23/codestates.html" title="[새싹톤] 해커톤 참여 결정 !! (Feat.AI 👀)">[코드스테이츠] 코드스테이츠 AI 부트캠프</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/project/2022/11/11/React-weather-API(1).html" title="[새싹톤] 해커톤 참여 결정 !! (Feat.AI 👀)">[Project] 날씨 기반 API 를 활용한 프로젝트 - 1 (OpenWeather API) 🌞...</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/vue.js/2023/07/03/Vue_Hello_Quasar.html" title="[새싹톤] 해커톤 참여 결정 !! (Feat.AI 👀)">[Vue.js] Quasar 프레임워크로 프로젝트 초기 세팅하기 💘</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2023/03/09/React-Websocket-connected-server.html" title="[새싹톤] 해커톤 참여 결정 !! (Feat.AI 👀)">[React] WebSocket 을 활용한 서버간의 통신</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

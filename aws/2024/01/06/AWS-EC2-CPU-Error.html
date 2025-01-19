@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[AWS] AWS EC2 인스턴스 CPU 사용량 100 % 에러 해결 방법 (Feat. EIP) 👀 | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.4">
+<meta property="og:title" content="[AWS] AWS EC2 인스턴스 CPU 사용량 100 % 에러 해결 방법 (Feat. EIP) 👀">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요 🔔">
+<meta property="og:description" content="개요 🔔">
+<link rel="canonical" href="/jekyll-theme-yat/aws/2024/01/06/AWS-EC2-CPU-Error.html">
+<meta property="og:url" content="/jekyll-theme-yat/aws/2024/01/06/AWS-EC2-CPU-Error.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2024-01-06T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[AWS] AWS EC2 인스턴스 CPU 사용량 100 % 에러 해결 방법 (Feat. EIP) 👀">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2024-01-06T00:00:00+00:00","datePublished":"2024-01-06T00:00:00+00:00","description":"개요 🔔","headline":"[AWS] AWS EC2 인스턴스 CPU 사용량 100 % 에러 해결 방법 (Feat. EIP) 👀","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/aws/2024/01/06/AWS-EC2-CPU-Error.html"},"url":"/jekyll-theme-yat/aws/2024/01/06/AWS-EC2-CPU-Error.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[AWS] AWS EC2 인스턴스 CPU 사용량 100 % 에러 해결 방법 (Feat. EIP) 👀</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2024-01-06T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jan 06, 2024
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Node.js">#Node.js</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#AWS">#AWS</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#EC2">#EC2</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#Error">#Error</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8">#프로젝트</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="개요-">개요 🔔</h2>
+
+<p>해당 포스팅의 시작은 <strong><code class="language-plaintext highlighter-rouge">AWS</code></strong> 에서 생성한 <strong><code class="language-plaintext highlighter-rouge">EC2 인스턴스</code></strong> 를<br>
+<strong>VSCode</strong> 의 <strong>SSH Extension</strong> 으로 실행했을 때 발생한 에러를 기록하고자 한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F1XSeI%2FbtsC33eSR7c%2FUGGNNT66lgP2aT3PNAf5w1%2Fimg.png" alt=""></p>
+
+<p>위 사진은 <strong><code class="language-plaintext highlighter-rouge">VSCode</code></strong> 에서 <strong>SSH</strong> 로 원격 서버를 실행했을 때 발생한 <strong>무한 부팅 (?)</strong> 에러이다.</p>
+
+<pre><code class="language-linux">[22:17:58.478] Log Level: 2
+[22:17:58.495] VS Code version: 1.85.1
+[22:17:58.495] Remote-SSH version: remote-ssh@0.107.1
+[22:17:58.496] win32 x64
+[22:17:58.499] SSH Resolver called for "ssh-remote+7b22686f73744e616d65223a2244446f636b65725f4c6f63616c536572766572227d", attempt 1
+[22:17:58.500] "remote.SSH.useLocalServer": false
+[22:17:58.500] "remote.SSH.useExecServer": false
+[22:17:58.500] "remote.SSH.showLoginTerminal": false
+[22:17:58.500] "remote.SSH.remotePlatform": {"LocalServer":"linux","DDocker_LocalServer":"linux"}
+[22:17:58.501] "remote.SSH.path": undefined
+[22:17:58.501] "remote.SSH.configFile": undefined
+[22:17:58.501] "remote.SSH.useFlock": true
+[22:17:58.501] "remote.SSH.lockfilesInTmp": false
+[22:17:58.501] "remote.SSH.localServerDownload": auto
+[22:17:58.504] "remote.SSH.remoteServerListenOnSocket": false
+[22:17:58.504] "remote.SSH.showLoginTerminal": false
+[22:17:58.504] "remote.SSH.defaultExtensions": []
+[22:17:58.504] "remote.SSH.loglevel": 2
+[22:17:58.504] "remote.SSH.enableDynamicForwarding": true
+[22:17:58.505] "remote.SSH.enableRemoteCommand": false
+[22:17:58.505] "remote.SSH.serverPickPortsFromRange": {}
+[22:17:58.505] "remote.SSH.serverInstallPath": {}
+[22:17:58.515] SSH Resolver called for host: DDocker_LocalServer
+[22:17:58.515] Setting up SSH remote "DDocker_LocalServer"
+[22:17:58.520] Using commit id "0ee08df0cf4527e40edc9aa28f4b5bd38bbff2b2" and quality "stable" for server
+[22:17:58.526] Install and start server if needed
+[22:17:58.533] Checking ssh with "C:\Program Files\Eclipse Adoptium\jdk-11.0.19.7-hotspot\bin\ssh.exe -V"
+[22:17:58.538] Got error from ssh: spawn C:\Program Files\Eclipse Adoptium\jdk-11.0.19.7-hotspot\bin\ssh.exe ENOENT
+[22:17:58.538] Checking ssh with "C:\Ruby32-x64\bin\ssh.exe -V"
+[22:17:58.540] Got error from ssh: spawn C:\Ruby32-x64\bin\ssh.exe ENOENT
+[22:17:58.540] Checking ssh with "C:\Windows\system32\ssh.exe -V"
+[22:17:58.542] Got error from ssh: spawn C:\Windows\system32\ssh.exe ENOENT
+[22:17:58.542] Checking ssh with "C:\Windows\ssh.exe -V"
+[22:17:58.544] Got error from ssh: spawn C:\Windows\ssh.exe ENOENT
+[22:17:58.544] Checking ssh with "C:\Windows\System32\Wbem\ssh.exe -V"
+[22:17:58.546] Got error from ssh: spawn C:\Windows\System32\Wbem\ssh.exe ENOENT
+[22:17:58.546] Checking ssh with "C:\Windows\System32\WindowsPowerShell\v1.0\ssh.exe -V"
+[22:17:58.550] Got error from ssh: spawn C:\Windows\System32\WindowsPowerShell\v1.0\ssh.exe ENOENT
+[22:17:58.550] Checking ssh with "C:\Windows\System32\OpenSSH\ssh.exe -V"
+[22:17:58.640] &gt; OpenSSH_for_Windows_8.1p1, Lib
+[22:17:58.640] &gt; reSSL 3.0.2
+
+[22:17:58.645] Running script with connection command: "C:\Windows\System32\OpenSSH\ssh.exe" -T -D 53233 "DDocker_LocalServer" bash
+[22:17:58.650] Terminal shell path: C:\Windows\System32\cmd.exe
+[22:17:58.965] &gt; ]0;C:\Windows\System32\cmd.exe
+[22:17:58.965] Got some output, clearing connection timeout
+[22:18:20.019] &gt; ssh: connect to host DDocker_LocalServer port 22: Connection timed out
+[22:18:20.033] &gt; 프로세스에서 없는 파이프에 쓰려고 했습니다.
+[22:18:21.322] "install" terminal command done
+[22:18:21.322] Install terminal quit with output: 프로세스에서 없는 파이프에 쓰려고 했습니다.
+[22:18:21.323] Received install output: 프로세스에서 없는 파이프에 쓰려고 했습니다.
+[22:18:21.324] Failed to parse remote port from server output
+[22:18:21.326] Resolver error: Error:
+	at g.Create (c:\Users\user\.vscode\extensions\ms-vscode-remote.remote-ssh-0.107.1\out\extension.js:2:642703)
+	at t.handleInstallOutput (c:\Users\user\.vscode\extensions\ms-vscode-remote.remote-ssh-0.107.1\out\extension.js:2:640069)
+	at t.tryInstall (c:\Users\user\.vscode\extensions\ms-vscode-remote.remote-ssh-0.107.1\out\extension.js:2:761983)
+	at async c:\Users\user\.vscode\extensions\ms-vscode-remote.remote-ssh-0.107.1\out\extension.js:2:722522
+	at async t.withShowDetailsEvent (c:\Users\user\.vscode\extensions\ms-vscode-remote.remote-ssh-0.107.1\out\extension.js:2:725828)
+	at async I (c:\Users\user\.vscode\extensions\ms-vscode-remote.remote-ssh-0.107.1\out\extension.js:2:719493)
+	at async t.resolve (c:\Users\user\.vscode\extensions\ms-vscode-remote.remote-ssh-0.107.1\out\extension.js:2:723199)
+	at async c:\Users\user\.vscode\extensions\ms-vscode-remote.remote-ssh-0.107.1\out\extension.js:2:907003
+[22:18:21.340] ------
+
+[22:18:23.868] Opening exec server for ssh-remote+7b22686f73744e616d65223a2244446f636b65725f4c6f63616c536572766572227d
+[22:18:23.899] Initizing new exec server for ssh-remote+7b22686f73744e616d65223a2244446f636b65725f4c6f63616c536572766572227d
+[22:18:23.906] Using commit id "0ee08df0cf4527e40edc9aa28f4b5bd38bbff2b2" and quality "stable" for server
+[22:18:23.911] Install and start server if needed
+[22:18:23.933] Running script with connection command: "C:\Windows\System32\OpenSSH\ssh.exe" -T -D 53263 "DDocker_LocalServer" bash
+[22:18:23.935] Terminal shell path: C:\Windows\System32\cmd.exe
+[22:18:24.276] &gt; ]0;C:\Windows\System32\cmd.exe
+[22:18:24.277] Got some output, clearing connection timeout
+</code></pre>
+
+<p>터미널도 열리지 않고,<br>
+아무런 키가 작동을 하지 않아 여러 방면으로 검색 등을 활용 해 봤지만<br>
+필요한 정보는 얻을 수 없었다.</p>
+
+<p>어제까지만 해도 잘 열리던 서버인데 먼가 이상하다..🙄</p>
+
+<p>그런 중 <strong>EC2 인스턴스 관리 페이지</strong>에서 아래와 같은 정보를 확인할 수 있었다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcPESoi%2FbtsC6p9y5GG%2FJIqDFHkRnWuCmwUNb5xYK1%2Fimg.png" alt=""></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">CPU</code></strong> 의 사용량이 <strong>비 정상적인 수치</strong>로 확인되고있다.</p>
+
+<hr>
+
+<h2 id="에러-확인-">에러 확인 💥</h2>
+
+<p>확인 해 본 결과,<br>
+위 에러는 비 정상적으로 치솟은 <strong><code class="language-plaintext highlighter-rouge">CPU</code></strong> 사용량에 의해<br>
+연결되어있는 <strong><code class="language-plaintext highlighter-rouge">SSH 서버</code></strong> 가 모두 끊기는 (터지는) 현상이었다.</p>
+
+<p><strong>원인없는 결과는 존재할수없듯,</strong><br>
+내가 시도했던 방법을 추적해본 결과</p>
+
+<p><strong>무언가를 설치하는 명령어</strong> 를 실행할때마다 CPU 사용량이 기하급수적으로 치솟았다.</p>
+
+<p>즉,<br>
+리눅스 쉘에서 <strong>외부와 통신하는 명령어</strong>를 실행 할 때<br>
+이를 수행할 <strong>메모리에 부하</strong>가 기준치보다 높게 측정되어 발생하는게 원인이었다.</p>
+
+<p>프리티어로 생성한 <strong><code class="language-plaintext highlighter-rouge">EC2 인스턴스</code></strong> 의 경우 보통 <strong><code class="language-plaintext highlighter-rouge">t2.micro</code></strong> 를 사용하게 될 텐데,<br>
+지원되는 <strong>메모리의 크기가 작고,</strong><br>
+<strong>네트워크의 성능이 비교적 낮음</strong>을 확인할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FxCCe0%2FbtsC6TwwAlm%2FSjYcwedGsWTZDqPiqzR9h0%2Fimg.png" alt=""></p>
+
+<p>이 경우 인스턴스 유형을 업그레이드 하여<br>
+보다 좋은 성능을 가진 인스턴스를 사용하면 문제가 가볍게 해결될테지만,<br>
+그에 따른 <strong>과금</strong>되는 요금또한 만만치 않으며</p>
+
+<p>미니 프로젝트를 위한 인스턴스로는 <strong><code class="language-plaintext highlighter-rouge">t2.micro</code></strong> 로도 감사하다..🙏</p>
+
+<p>아..❗<br>
+언제 문득 <strong><code class="language-plaintext highlighter-rouge">EC2 인스턴스</code></strong> 를 <strong>도커 (Docker)</strong> 로 가져와 이미지를 띄운다는 얘기를 들었던것 같은데<br>
+혹시 이와 같은 문제를 해결하기 위해서..❔ 일까..❔</p>
+
+<p>알면 알수록 궁금해지는게 많은 백엔드(서버) 인 것 같다 👶</p>
+
+<hr>
+
+<h2 id="에러-해결-">에러 해결 ✅</h2>
+
+<h3 id="인스턴스-재부팅-">인스턴스 재부팅 💫</h3>
+
+<p>내가 마주친 에러와 같은 경우,<br>
+인스턴스를 <strong>재 부팅</strong> 해 주면 거의 왠만하면 해결이 된다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FPB29i%2FbtsC6VulJKx%2FO5RK9sDOerTR6YP5u8Mtv1%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>재부팅으로도 해결이 되지 않는다면,<br><strong><code class="language-plaintext highlighter-rouge">인스턴스 중지</code></strong> 후 다시 <strong><code class="language-plaintext highlighter-rouge">인스턴스 시작</code></strong> 을 해 준다.</p>
+</blockquote>
+
+<p>하지만,<br>
+인스턴스를 재부팅을 할 경우<br>
+<strong><code class="language-plaintext highlighter-rouge">퍼블릭 IPv4 주소</code></strong> 와 <strong><code class="language-plaintext highlighter-rouge">퍼블릭 IPv4 DNS</code></strong> 가 바뀌어 새로 할당되는데,<br>
+이 경우 연결되어있는 <strong><code class="language-plaintext highlighter-rouge">SSH</code></strong> 가 해제되며 다시 연결 해 주어야 하는 상황이 발생한다.</p>
+
+<hr>
+
+<h3 id="탄력적-ip-eip-">탄력적 IP (EIP) 🌐</h3>
+
+<p>해당 파트는,<br>
+인스턴스를 재 부팅하거나 중지 후 재 시작을 할 경우<br>
+<strong><code class="language-plaintext highlighter-rouge">퍼블릭 IPv4 주소</code></strong> 와 <strong><code class="language-plaintext highlighter-rouge">퍼블릭 IPv4 DNS</code></strong> 가 재 할당되는데,</p>
+
+<p>생성한 EC2 는 낮은 버전의 메모리를 사용하는 환경이므로 <strong>잦은 재부팅</strong>을 해야할지도 모르는 상황이기에<br>
+한 번 발급받은 <strong><code class="language-plaintext highlighter-rouge">IP</code></strong> 주소를 고정시킬 수 없을까 ? 에서 시작하려한다.</p>
+
+<p>이미 나와 같은 생각을 한 사람이 수 없이 많이 존재했고,<br>
+비교적 쉽게 정보를 얻을 수 있었다.</p>
+
+<p>바로 <strong><code class="language-plaintext highlighter-rouge">탄력적 IP</code></strong> 인데,<br>
+이는 특정 주소를 할당받아 동적으로 <strong><code class="language-plaintext highlighter-rouge">IP 주소</code></strong> 가 변경되지 않게하는 <strong><code class="language-plaintext highlighter-rouge">AWS</code></strong> 의 서비스 이다 👉 <strong><code class="language-plaintext highlighter-rouge">EIP</code></strong></p>
+
+<p>해당 서비스를 이용하기 전,<br>
+유의사항으로는 과금이 발생할 수도 있다는 것이다.</p>
+
+<p>단,<br>
+아래 사항에 해당하는 경우에만 말이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbT7Zvf%2FbtsC6y6UWc3%2FYZVTDhN4Jy4kbCk6E9C311%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>사이드 프로젝트를 통해 <strong>AWS</strong> 의 서비스를 이용하는데,<br>문서를 다시금 확인하여 <strong>불필요한 사항</strong>에서 과금이 발생하지 않게 유의하자 ❗❗<br>참조 링크 👉 <a href="https://repost.aws/ko/knowledge-center/elastic-ip-charges">https://repost.aws/ko/knowledge-center/elastic-ip-charges</a></p>
+</blockquote>
+
+<p>먼저,<br>
+왼쪽의 사이드 바 에서 <strong><code class="language-plaintext highlighter-rouge">탄력적 IP</code></strong> 를 선택하여 해당 탭으로 이동한다.</p>
+
+<p><strong>[탄력적 IP 주소 할당]</strong> 버튼을 통해 생성 해 준다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FW1h6c%2FbtsDfVzf0m6%2FDroka0lKSJjuFrXdN7SoR1%2Fimg.png" alt=""></p>
+
+<p>네트워크 그룹을 사용자의 현재 위치에 맞게끔 지정하고,<br>
+<strong>[할당]</strong> 버튼을 통해 <strong><code class="language-plaintext highlighter-rouge">탄력적 IP</code></strong> 를 생성 해 준다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlniC7%2FbtsC6zY6uE0%2FjGLPz7lK1oBsOUWdT3iag1%2Fimg.png" alt=""></p>
+
+<p>비교적 간단하게 생성할 수 있으며, 이를 기존의 인스턴스와 연결 만 해 주면 끝이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAXJ71%2FbtsC50iif8l%2Fx1IQbu0NwmsZmCYleu6bEk%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FPtbZd%2FbtsC8XrA9em%2F1p9WjkXImd6uUSk9qHZGA1%2Fimg.png" alt=""></p>
+
+<p>생성된 <strong><code class="language-plaintext highlighter-rouge">탄력적 IP</code></strong> 주소를 확인하고,<br>
+<strong>[인스턴스]</strong> 를 선택 후 연결할 인스턴스와 프라이빗 IP 주소를 입력한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbUrqmg%2FbtsDfiasSE2%2FJi108UDLkT7z0IiN04azKk%2Fimg.png" alt=""></p>
+
+<hr>
+
+<p>위 과정을 통해,<br>
+발급받은 <strong><code class="language-plaintext highlighter-rouge">탄력적 IP</code></strong> 주소와 인스턴스를 연결 완료하였고,</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbqVZlZ%2FbtsC4u43RS1%2Fi8ny5DyZUoZQFskmjt2F31%2Fimg.png" alt=""></p>
+
+<p>인스턴스에 올바르게 적용 되었는지 확인하면 끝이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdZ7jIX%2FbtsDdGiiliw%2F0b4CV4DsVohSbShGA9apgK%2Fimg.png" alt=""></p>
+
+<hr>
+
+<h2 id="reference-">Reference 🌊</h2>
+
+<blockquote>
+  <p><a href="https://velog.io/@yesparrot/EC2-%ED%83%84%EB%A0%A5%EC%A0%81-IP-%EC%A0%81%EC%9A%A9-AWS-EIP">https://velog.io/@yesparrot/EC2-%ED%83%84%EB%A0%A5%EC%A0%81-IP-%EC%A0%81%EC%9A%A9-AWS-EIP</a><br><a href="https://repost.aws/ko/knowledge-center/elastic-ip-charges">https://repost.aws/ko/knowledge-center/elastic-ip-charges</a><br><a href="https://assaeunji.github.io/aws/2020-03-30-elastic-ip/">https://assaeunji.github.io/aws/2020-03-30-elastic-ip/</a><br><a href="https://hjjooace.tistory.com/42">https://hjjooace.tistory.com/42</a><br><a href="https://velog.io/@kkj53051000/AWS-EC2-CPU-%EC%82%AC%EC%9A%A9%EB%A5%A0-100-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EA%B3%BC%EC%A0%95">https://velog.io/@kkj53051000/AWS-EC2-CPU-%EC%82%AC%EC%9A%A9%EB%A5%A0-100-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EA%B3%BC%EC%A0%95</a><br><a href="https://vlog.tion.co.kr/aws-ec2-cpu-%EC%82%AC%EC%9A%A9%EB%9F%89-100-%EC%84%9C%EB%B2%84%EB%B6%80%ED%95%98-%EC%9B%90%EC%9D%B8/">https://vlog.tion.co.kr/aws-ec2-cpu-%EC%82%AC%EC%9A%A9%EB%9F%89-100-%EC%84%9C%EB%B2%84%EB%B6%80%ED%95%98-%EC%9B%90%EC%9D%B8/</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/aws/2024/01/04/AWS-EC2.html" title="[AWS] AWS EC2 클라우드 서버를 VSCode 에서 띄우기 ⛅">[AWS] AWS EC2 클라우드 서버를 VSCode...</a><a class="next" href="/jekyll-theme-yat/aws/2024/01/07/AWS-MySQL.html" title="[AWS] AWS EC2 에 MySQL 환경 구축하기 (Feat. RDS) 🏦">[AWS] AWS EC2 에 MySQL 환경...</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/vue.js/2023/08/09/API-postman.html" title="[AWS] AWS EC2 에 MySQL 환경 구축하기 (Feat. RDS) 🏦">[Vue.js] 포스트맨(Postman) 을 사용하여 api 테스트하기 (feat.카카오) 💋</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react-native/2023/10/19/RN-Playstore_SDK.html" title="[AWS] AWS EC2 에 MySQL 환경 구축하기 (Feat. RDS) 🏦">[React-Native] 안드로이드 스튜디오 애뮬레이터에 구글 플레이스토어 앱 추가하기 📱</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/vue.js/2023/08/08/Vue-kakao_Login.html" title="[AWS] AWS EC2 에 MySQL 환경 구축하기 (Feat. RDS) 🏦">[Vue.js] 카카오 소셜로그인 구현하기 (feat.Express)</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2023/04/01/React-JS&amp;JSX.html" title="[AWS] AWS EC2 에 MySQL 환경 구축하기 (Feat. RDS) 🏦">[React] JS 파일과 JSX 파일의 차이 🌊</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

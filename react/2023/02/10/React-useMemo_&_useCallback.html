@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[React] useMemo 와 useCallback 란 ❓ | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.4">
+<meta property="og:title" content="[React] useMemo 와 useCallback 란 ❓">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요 ✏️">
+<meta property="og:description" content="개요 ✏️">
+<link rel="canonical" href="/jekyll-theme-yat/react/2023/02/10/React-useMemo_&amp;_useCallback.html">
+<meta property="og:url" content="/jekyll-theme-yat/react/2023/02/10/React-useMemo_&amp;_useCallback.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-02-10T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[React] useMemo 와 useCallback 란 ❓">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2023-02-10T00:00:00+00:00","datePublished":"2023-02-10T00:00:00+00:00","description":"개요 ✏️","headline":"[React] useMemo 와 useCallback 란 ❓","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/react/2023/02/10/React-useMemo_&_useCallback.html"},"url":"/jekyll-theme-yat/react/2023/02/10/React-useMemo_&_useCallback.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[React] useMemo 와 useCallback 란 ❓</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2023-02-10T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Feb 10, 2023
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#%EB%A6%AC%EC%95%A1%ED%8A%B8">#리액트</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="개요-️">개요 ✏️</h2>
+
+<p><code class="language-plaintext highlighter-rouge">React</code> 를 사용한다면,<br>
+가장 대표적인 <strong><code class="language-plaintext highlighter-rouge">Hooks</code></strong> 인 <strong><code class="language-plaintext highlighter-rouge">useState</code> 와 <code class="language-plaintext highlighter-rouge">useEffect</code></strong> 는 이제 익숙 할 것이다.<br>
+컴포넌트 내부에서 <code class="language-plaintext highlighter-rouge">props</code> 나 <code class="language-plaintext highlighter-rouge">state</code> 를 다루는 기본적인 로직은<br>
+<strong><code class="language-plaintext highlighter-rouge">useState</code> 와 <code class="language-plaintext highlighter-rouge">useEffect</code> 만으로도 구현이 가능</strong>하다.<br></p>
+
+<p>이번 포스팅에서는,<br>
+보다 <strong>효과적인 컴포넌트의 렌더링 최적화</strong>를 위해 등장한 <code class="language-plaintext highlighter-rouge">Hooks</code> 인<br>
+<code class="language-plaintext highlighter-rouge">useMemo</code> 와 <code class="language-plaintext highlighter-rouge">useCallback</code> 에 대해 정리 해 보려고 한다.</p>
+
+<hr>
+
+<h3 id="사전-지식-">사전 지식 ✅</h3>
+
+<p>1️⃣ 함수형 컴포넌트는 말 그대로 함수 그 자체 이며, <code class="language-plaintext highlighter-rouge">JSX</code> 형태로 작성된 컴포넌트를 반환하는 함수이다.<br></p>
+
+<p>2️⃣ 컴포넌트가 렌더링 된다는 것은 누군가가 그 함수(컴포넌트) 를 호출하여 실행되는 것을 말한다.<br>
+<strong>즉, 함수가 실행될 때 마다 내부에 선언되어 있는 변수나 함수 또한 실행된다.</strong>
+<br><br>
+3️⃣ 컴포넌트는 자신의 <code class="language-plaintext highlighter-rouge">State</code> 가 변경되거나, 부모에게서 받는 <code class="language-plaintext highlighter-rouge">props</code> 가 변경되었을 때 재 렌더링이 된다.<br></p>
+
+<blockquote>
+  <p><strong>하위 컴포넌트에서 최적화를 시켜주지 않으면,</strong><br><strong>부모에서 받는 <code class="language-plaintext highlighter-rouge">props</code> 가 변경되지 않더라도 재 렌더링이 된다.</strong></p>
+</blockquote>
+
+<hr>
+
+<h2 id="usememo-">useMemo 📝</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">memoizedValue</span> <span class="o">=</span> <span class="nf">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">computeExpensiveValue</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">),</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Returns a memoized value.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">useMemo()</code> 는 메모이제이션 된 <strong>값</strong>을 반환한다.</p>
+
+<h3 id="메모이제이션이-뭐지-">메모이제이션이 뭐지 ❓</h3>
+
+<blockquote>
+  <p>계산 결과를 저장하고, 동일한 입력 값이 다시 전달 될 경우<br>
+이전에 저장된 결과를 반환하여 계산을 최적화 하는 프로그래밍 기법이다</p>
+</blockquote>
+
+<p>위 코드에서 <code class="language-plaintext highlighter-rouge">computeExpensiveValue</code> 함수는 <code class="language-plaintext highlighter-rouge">a</code> 와 <code class="language-plaintext highlighter-rouge">b</code> 두 가지의 종속성을 가지며,<br>
+이 종속성이 변경될 때만 다시 계산(함수 실행) 한다.<br>
+계산된 결과는 <code class="language-plaintext highlighter-rouge">memoizedValue</code> 에 저장되고 재사용 된다.<br></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">useMemo</code></strong> Hooks 는 위 설명으로 모든 과정을 설명가능하다.<br>
+React 앱을 사용하며,<br>
+계산 비용이 높은 연산을 <strong>최적화</strong> 하고,<br>
+렌더링을 <strong>효율적으로 관리하기 위해</strong> 사용되는 메모이제이션 훅 이다.</p>
+
+<hr>
+
+<h3 id="예제-">예제 🌟</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useMemo</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nf">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">numbers</span><span class="p">,</span> <span class="nx">setNumbers</span><span class="p">]</span> <span class="o">=</span> <span class="nf">useState</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>
+
+  <span class="c1">// numbers 배열의 합계를 계산하는 함수</span>
+  <span class="kd">const</span> <span class="nx">calculateSum</span> <span class="o">=</span> <span class="p">(</span><span class="nx">numbers</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Calculating sum...</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">numbers</span><span class="p">.</span><span class="nf">reduce</span><span class="p">((</span><span class="nx">acc</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">acc</span> <span class="o">+</span> <span class="nx">num</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="c1">// useMemo를 사용하여 계산 결과를 메모이제이션</span>
+  <span class="kd">const</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nf">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nf">calculateSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">),</span> <span class="p">[</span><span class="nx">numbers</span><span class="p">]);</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Sum</span> <span class="k">of</span> <span class="nx">Numbers</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">numbers</span><span class="p">.</span><span class="nf">map</span><span class="p">((</span><span class="nx">number</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">index</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">number</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>        <span class="p">))}</span>
+      <span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">Sum</span><span class="p">:</span> <span class="p">{</span><span class="nx">sum</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>위 코드는 <code class="language-plaintext highlighter-rouge">useMemo</code> 훅을 사용하여 <code class="language-plaintext highlighter-rouge">sum</code> 변수를 계산한다.<br>
+<code class="language-plaintext highlighter-rouge">useMemo</code> 는 <code class="language-plaintext highlighter-rouge">calculateSum</code> 함수의 결과를 메모이제이션 하고,<br>
+의존성 배열에 추가된 <strong><code class="language-plaintext highlighter-rouge">numbers</code> 의 값이 변경되지 않는 한, 이전의 결과를 반환한다.</strong><br></p>
+
+<p>즉, <strong><code class="language-plaintext highlighter-rouge">numbers</code> 배열의 변경이 없다면,</strong><br>
+<code class="language-plaintext highlighter-rouge">calculateSum</code> <strong>함수가 중복으로 실행되지 않으며,</strong> 계산 결과를 저장(캐싱)하여 성능을 최적화 한다.</p>
+
+<hr>
+
+<h2 id="usecallback-">useCallback 📡</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">memoizedCallback</span> <span class="o">=</span> <span class="nf">useCallback</span><span class="p">(</span><span class="nx">callback</span><span class="p">,</span> <span class="nx">dependencies</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">memoizedCallback</span> <span class="o">=</span> <span class="nf">useCallback</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">doSomething</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Returns a memoized Callback.</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">useCallback()</code> 은, 메모이제이션 된 <strong>함수</strong>를 반환한다.<br></p>
+
+<p><code class="language-plaintext highlighter-rouge">callback</code> 은 메모이제이션 하려는 대상, 즉 =&gt; <strong>콜백 함수</strong> 이며,<br>
+<code class="language-plaintext highlighter-rouge">dependencies</code> 는 의존성 배열로,<br>
+이 배열에 포함된 <strong>종속성이 변경될 때만</strong> 새로운 콜백 <strong>함수가 생성</strong>된다.<br></p>
+
+<blockquote>
+  <p>만약 종속성(의존성) 배열이 비어있다면,<br>콜백 함수는 항상 <strong>동일한 결과를 리턴</strong>하는 함수로 유지된다.</p>
+</blockquote>
+
+<p>사전 지식에도 기재 해 놓았듯,<br>
+컴포넌트는 <strong>렌더링 될 때 마다</strong> 내부에 선언되어 있는 표현식(변수, 또다른 함수 등)도 매번 다시 선언되어 사용된다.<br><br></p>
+
+<p>이를 보완하기 위하여,<br>
+<code class="language-plaintext highlighter-rouge">useMemo</code> 나 <code class="language-plaintext highlighter-rouge">useCallback</code> 훅을 사용하여<br>
+<strong>불필요한 렌더링을 방지</strong>하고, 계산 비용이 높은 표현식과 콜백 함수를 메모이제이션 하여 방지할 수 있다.<br></p>
+
+<hr>
+
+<h3 id="예제--1">예제 🌟</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useCallback</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ChildComponent</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">./ChildComponent</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nf">ParentComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nf">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="c1">// `increment` 함수를 메모이제이션</span>
+  <span class="kd">const</span> <span class="nx">increment</span> <span class="o">=</span> <span class="nf">useCallback</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">setCount</span><span class="p">(</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">count</span><span class="p">]);</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">Count</span><span class="p">:</span> <span class="p">{</span><span class="nx">count</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">ChildComponent</span> <span class="nx">onIncrement</span><span class="o">=</span><span class="p">{</span><span class="nx">increment</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">ParentComponent</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>위 코드는,<br>
+<code class="language-plaintext highlighter-rouge">useCallback</code> 을 사용하여 자식 컴포넌트로 콜백 함수를 전달하는 부모 컴포넌트 이다.<br></p>
+
+<p><code class="language-plaintext highlighter-rouge">increment</code> 함수는,<br>
+의존성 배열에 존재하는 <code class="language-plaintext highlighter-rouge">count</code> 값에 의존하므로,<br>
+종속성 배열에 <code class="language-plaintext highlighter-rouge">count</code> 를 포함시켜 해당 값이 <strong>변경될 때만</strong> (<code class="language-plaintext highlighter-rouge">setCount</code>) 새로운 함수를 생성한다.</p>
+
+<h4 id="새로운-함수-생성-">새로운 함수 생성 ❓</h4>
+
+<p>새로운 함수를 생성한다는 말은<br>
+즉, 매번 렌더링 시 마다 동일한 함수가 아니라 새로운 함수 인스턴스가 생성된다는 것을 말한다.<br></p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">React</code> 앱은,<br>컴포넌트가 렌더링 될 때 함수 컴포넌트의 모든 코드가 실행된다.</p>
+</blockquote>
+
+<p>예제에 사용된 <code class="language-plaintext highlighter-rouge">increment</code> 함수는,<br>
+의존성 배열에 포함된 <code class="language-plaintext highlighter-rouge">count</code> 의 값이 변경되면, 새로운 함수 인스턴스를 필요로 한다.<br></p>
+
+<p>즉,<br>
+<code class="language-plaintext highlighter-rouge">count</code> 의 값이 변경되면, 새로운 <code class="language-plaintext highlighter-rouge">increment</code> 함수가 필요하기 때문에<br>
+의존성 배열에 담긴 <strong><code class="language-plaintext highlighter-rouge">count</code> 값이 변경될 때만 ❕</strong> 새로운 함수 <code class="language-plaintext highlighter-rouge">increment</code> 가 생성되도록 하여<br>
+불필요한 렌더링을 방지하고,<br>
+<code class="language-plaintext highlighter-rouge">increment</code> 함수를 최적화 하여 성능을 향상 시키는 것을 말한다.</p>
+
+<hr>
+
+<h2 id="reference-">Reference 🌊</h2>
+
+<blockquote>
+  <p><a href="https://youtu.be/uBmnf_k7_r0?si=YrIfAPxIgdZE8Dub">https://youtu.be/uBmnf_k7_r0?si=YrIfAPxIgdZE8Dub</a><br><a href="https://velog.io/@sunkim/React.memo-useMemo-useCallback-%EC%97%AD%ED%95%A0-%EB%B0%8F-%EC%B0%A8%EC%9D%B4%EC%A0%90">https://velog.io/@sunkim/React.memo-useMemo-useCallback-%EC%97%AD%ED%95%A0-%EB%B0%8F-%EC%B0%A8%EC%9D%B4%EC%A0%90</a><br><a href="https://velog.io/@hang_kem_0531/useMemo%EC%99%80-useCallback%EC%9D%98-%EC%B0%A8%EC%9D%B4">https://velog.io/@hang_kem_0531/useMemo%EC%99%80-useCallback%EC%9D%98-%EC%B0%A8%EC%9D%B4</a><br><a href="https://whales.tistory.com/117">https://whales.tistory.com/117</a><br><a href="https://any-ting.tistory.com/83">https://any-ting.tistory.com/83</a><br><a href="https://leehwarang.github.io/2020/05/02/useMemo&amp;useCallback.html">https://leehwarang.github.io/2020/05/02/useMemo&amp;useCallback.html</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/react/2023/02/05/React-variable-error.html" title="[React] ReferenceError: 'xxx' is not defined ❌">[React] ReferenceError: 'xxx' is not defined...</a><a class="next" href="/jekyll-theme-yat/react-native/2023/02/15/RN-create-error.html" title="[React-Native] 프로젝트 생성 시 발생한 에러 'npx create-expo-app'">[React-Native] 프로젝트 생성 시 발생한 에러...</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/react/2022/11/15/React-Loading-spiner.html" title="[React-Native] 프로젝트 생성 시 발생한 에러 'npx create-expo-app'">[React] UI 에 Loading-Spinners 효과 주기</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react-native/2023/02/15/RN-create-error.html" title="[React-Native] 프로젝트 생성 시 발생한 에러 'npx create-expo-app'">[React-Native] 프로젝트 생성 시 발생한 에러 'npx create-expo-app'</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2022/12/14/Font-apply.html" title="[React-Native] 프로젝트 생성 시 발생한 에러 'npx create-expo-app'">[React] 구글 폰트 적용하는 법 (다운로드 x)</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/2023/02/01/React-what-is-webpack.html" title="[React-Native] 프로젝트 생성 시 발생한 에러 'npx create-expo-app'">React What Is Webpack</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

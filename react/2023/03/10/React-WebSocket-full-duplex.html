@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[React] WebSocket 을 활용한 실시간 채팅 기능 - 1 | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.4">
+<meta property="og:title" content="[React] WebSocket 을 활용한 실시간 채팅 기능 - 1">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요 이전 포스팅에서 WebSocket을 활용해 back 과 front 를 연결하고, 메세지를 보냄으로써 연결이 잘 되었는지 확인 해 보았다. 이번 포스팅 에서는, 서로 다른 웹 브라우저에서 메세지를 보내고 받는 실시간 채팅 기능을 구현해 보고자 한다.">
+<meta property="og:description" content="개요 이전 포스팅에서 WebSocket을 활용해 back 과 front 를 연결하고, 메세지를 보냄으로써 연결이 잘 되었는지 확인 해 보았다. 이번 포스팅 에서는, 서로 다른 웹 브라우저에서 메세지를 보내고 받는 실시간 채팅 기능을 구현해 보고자 한다.">
+<link rel="canonical" href="/jekyll-theme-yat/react/2023/03/10/React-WebSocket-full-duplex.html">
+<meta property="og:url" content="/jekyll-theme-yat/react/2023/03/10/React-WebSocket-full-duplex.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-03-10T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[React] WebSocket 을 활용한 실시간 채팅 기능 - 1">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2023-03-10T00:00:00+00:00","datePublished":"2023-03-10T00:00:00+00:00","description":"개요 이전 포스팅에서 WebSocket을 활용해 back 과 front 를 연결하고, 메세지를 보냄으로써 연결이 잘 되었는지 확인 해 보았다. 이번 포스팅 에서는, 서로 다른 웹 브라우저에서 메세지를 보내고 받는 실시간 채팅 기능을 구현해 보고자 한다.","headline":"[React] WebSocket 을 활용한 실시간 채팅 기능 - 1","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/react/2023/03/10/React-WebSocket-full-duplex.html"},"url":"/jekyll-theme-yat/react/2023/03/10/React-WebSocket-full-duplex.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[React] WebSocket 을 활용한 실시간 채팅 기능 - 1</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2023-03-10T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Mar 10, 2023
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 5 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#%EB%A6%AC%EC%95%A1%ED%8A%B8">#리액트</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8">#프로젝트</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#WebSocket">#WebSocket</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="개요">개요</h2>
+<p>이전 포스팅에서 <code class="language-plaintext highlighter-rouge">WebSocket</code>을 활용해 back 과 front 를 연결하고,<br>
+메세지를 보냄으로써 연결이 잘 되었는지 확인 해 보았다.<br>
+<br>
+이번 포스팅 에서는, <br>
+서로 다른 웹 브라우저에서 메세지를 보내고 받는 실시간 채팅 기능을 구현해 보고자 한다.</p>
+
+<hr>
+
+<h2 id="개발환경">개발환경</h2>
+<p>작업 툴은 <code class="language-plaintext highlighter-rouge">vscode</code>를 사용하며,<br>
+웹 브라우저는 <code class="language-plaintext highlighter-rouge">chrome</code>과, <code class="language-plaintext highlighter-rouge">Microsoft Edge</code>로 진행한다.</p>
+
+<h2 id="ui">UI</h2>
+<p>이전에 생성한 <code class="language-plaintext highlighter-rouge">home.pug</code>에서 간단한 UI 를 그려 확인 해 보자.<br>
+<br></p>
+
+<p>아직은 비어있지만 메세지를 받으면 리스트 형태로 받을 <code class="language-plaintext highlighter-rouge">ul</code>태그를 생성해준다.<br>
+그 아래 <code class="language-plaintext highlighter-rouge">form</code>태그를 부모 태그로 두고,<br>
+그 아래 텍스트를 입력할 수 있는 <code class="language-plaintext highlighter-rouge">input</code>태그와,<br>
+작성한 메세지를 보낼 수 있는 <code class="language-plaintext highlighter-rouge">button</code>태그를 생성한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdjdNnB%2Fbtr3QyGuBIh%2FMKnLyWyhpUa76wRm9B7rv0%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbWoQLt%2Fbtr3Lq24ww8%2FCRfoLDEGqPNWTUWpGTtG11%2Fimg.png" alt=""></p>
+
+<h2 id="데이터텍스트-전송">데이터(텍스트) 전송</h2>
+
+<p><code class="language-plaintext highlighter-rouge">html</code> 코드가 작성된 태그를 <code class="language-plaintext highlighter-rouge">Client.js</code>에서 가져온다.<br></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">MessageList</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">ul</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">MessageForm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">form</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>event listener 를 <code class="language-plaintext highlighter-rouge">MessageForm</code>에 추가한다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">handleSubmit</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nf">preventDefault</span><span class="p">()</span>
+    <span class="kd">const</span> <span class="nx">input</span> <span class="o">=</span> <span class="nx">MessageForm</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">input</span><span class="dl">'</span><span class="p">)</span>
+    <span class="c1">// console.log(input.value) // console 창에 input 영역에 입력한 텍스트를 출력</span>
+    <span class="nx">socket</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="c1">// front form 영역에서 서버로 데이터 전송</span>
+    <span class="nx">input</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="dl">""</span> <span class="c1">// 빈 값을 정의하여 send button 을 클릭 시 내용을 비워줌</span>
+<span class="p">}</span>
+
+<span class="nx">MessageForm</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">submit</span><span class="dl">'</span><span class="p">,</span> <span class="nx">handleSubmit</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>다음과 같이 코드를 작성한 뒤,<br>
+<code class="language-plaintext highlighter-rouge">console.log(input.value)</code>의 주석을 풀면 브라우저 콘솔 창에 입력한 텍스트가 출력 되지만,<br>
+<code class="language-plaintext highlighter-rouge">socket.send</code> 명령어를 통해 입력한 텍스트를 <code class="language-plaintext highlighter-rouge">Server.js</code>에 보내준다.</p>
+
+<p><img src="https://blog.kakaocdn.net/dn/d1gBVa/btr3U2GFMEI/TernC8UuzQ1hcqHD4CwCHK/img.gif" alt=""></p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">input.value</code>를 빈 문자열로 정의하여 텍스트를 입력 후 버튼을 클릭 시 input 영역을 비워줌.</p>
+</blockquote>
+
+<h3 id="에러">에러</h3>
+<p>front 에서 보낸 데이터(텍스트)를 server 터미널에 출력할때,<br>
+다음과 같이 출력이 된다면 아래와 같은 형태로 재 랜더링 하여 다시 데이터를 보내주도록 하자.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbFqy66%2Fbtr3IDvho5M%2FbqAjaMImbGh28hdUcSZAnk%2Fimg.png" alt=""></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nf">toString</span><span class="p">(</span><span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>이는 맥 사용자 이외의 윈도우에서 해당하는 에러인듯하다..<br>
+(본인이 윈도우 사용자 )</p>
+
+<hr>
+
+<p><code class="language-plaintext highlighter-rouge">Server.js</code>의 터미널에 user 가 front 에서 입력한 텍스트가 잘 출력이 됨을 확인 했다.<br>
+이제 user 가 보낸 메세지를 다시 user 에게 보내줄 수 있도록 <code class="language-plaintext highlighter-rouge">socket.send</code> 함수를 사용한다.<br>
+즉, <br>
+front 영역에서 보낸 데이터를 server 를 거쳐 다시 front 에 띄워준다는 말이다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">socket</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이 때도 마찬가지로 콘솔 창에 다음과 같이 출력 된다면,<br>
+<code class="language-plaintext highlighter-rouge">'utf8'</code>옵션을 추가하여 다시 랜더링 해 주자.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FepE7et%2Fbtr3SxU0ghn%2FYuOFeEwJTJEG0OhqYya4kk%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbio9l5%2Fbtr3SICeMlM%2FE6nLvdGLN16uwteo7AGXL1%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>1 번은 front 콘솔에 출력되는 메세지<br>
+2 번은 server 콘솔에 출력되는 메세지</p>
+</blockquote>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbReMOf%2Fbtr3XW607qX%2FVMdxFxqkwFPBDkjnp4tptK%2Fimg.png" alt=""></p>
+
+<hr>
+
+<h2 id="다른-웹-브라우저-간의-통신">다른 웹 브라우저 간의 통신</h2>
+<p><code class="language-plaintext highlighter-rouge">input</code>영역 안에 텍스트를 입력 후 버튼을 클릭하면,<br>
+메세지를 전송하고 받는 기능을 구현 했다.<br>
+<br>
+여기까지의 기능을 chrome 에서 테스트 했지만,<br>
+다른 웹 브라우저인 Microsoft Edge 에서 다시 테스트 해 보도록 하자.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbjiCws%2Fbtr3TI9Duan%2FyIG3Pi4XMjVEcKcZ4K5QXK%2Fimg.png" alt=""></p>
+
+<p>역시나 chrome 에서 텍스트를 보내면 chrome 브라우저 에서만 받을 수 있고,<br>
+Edge 에서 보낸 텍스트는 Edge 브라우저 에서만 받을 수 있었다.<br>
+<br>
+즉, 한 개의 서버가 서로 다른 브라우저로부터 데이터를 받고있고,<br>
+받은 데이터에 각각 답장(반환)을 해 주고 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbCCDF2%2Fbtr34aSUelA%2FZuWyAIwwF6Vz53CSxGXy21%2Fimg.png" alt=""></p>
+
+<p><br></p>
+
+<p>이번에는 <strong>한쪽의 브라우저에서 텍스트를 보내면,</strong><br>
+<strong>다른 웹 브라우저에서도 데이터를 받을 수 있는 기능</strong>을 구현하려 한다.
+<br>
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FkNoe8%2Fbtr37BuRdFO%2FInvbIWsVQkYzmohZoqgfLk%2Fimg.png" alt=""></p>
+
+<p>해당 코드는 Chrome 과 Edge 두 브라우저에 연결 되었을때 실행되는 코드이다.<br></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">wss</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">connection</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Connection to Browser 💌</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nx">socket</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">close</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Disconnected to Browser ❌</span><span class="dl">'</span><span class="p">))</span>
+    <span class="nx">socket</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">message</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">socket</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nf">toString</span><span class="p">(</span><span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span><span class="p">))</span>
+    <span class="p">})</span>
+<span class="p">})</span>
+</code></pre></div></div>
+<p>해당 코드로 인해 두 브라우저 모두<br>
+서버가 연결되었다는 메세지와 함께 새로운 메세지를 받을 수 있다.<br>
+즉,<br>
+같은 코드로 두 개의 브라우저가 연결 되었다는 의미이다.<br>
+<br>
+아니, 어쩌면 두 개 이상의 브라우저가 연결이 될지도 모른다.<br>
+<br>
+그렇기에 먼저,<br>
+다수의 브라우저들을 데이터베이스로 받을 수 있게 빈 배열을 생성해준다.</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 두 개의 브라우저가 담겼다면,</span>
+<span class="kd">const</span> <span class="nx">otherBrowser</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">// ex) [1, 2, ...]</span>
+</code></pre></div></div>
+<p>빈 배열이 담긴 <code class="language-plaintext highlighter-rouge">otherBrowser</code>는, <br>
+누군가 서버에 연결을 시도한다면 그 connection 을 담는 역할을 한다.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 브라우저들이 연결 되었을 때 `otherBrowser`에 넣어줌</span>
+<span class="nx">otherBrowser</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">socket</span><span class="p">)</span> 
+<span class="o">---</span>
+<span class="c1">// 메세지 영역의 함수</span>
+<span class="c1">// 터미널에 "Buffer 68 65 6c 6c 6f 20 66 72 6f ..." 이 출력되어 utf-8 로 렌더링 해줌</span>
+<span class="nx">otherBrowser</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">aSocket</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">aSocket</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nf">toString</span><span class="p">(</span><span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>해당 코드로 인해 임의의 브라우저에서 받은 메세지를 <br>
+socket 이 있는 모든 곳에 전달해 줄 수 있게 된 것이다.<br></p>
+
+<p><img src="https://blog.kakaocdn.net/dn/1MI9d/btr34UoDLWR/3YtYkurfGGBXy6DzDN8ylK/img.gif" alt=""></p>
+
+<h2 id="reference">Reference</h2>
+<blockquote>
+  <p><a href="https://nomadcoders.co/noom/lectures/3096">https://nomadcoders.co/noom/lectures/3096</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/react/2023/03/09/React-Websocket-connected-server.html" title="[React] WebSocket 을 활용한 서버간의 통신">[React] WebSocket 을 활용한 서버간의 통신...</a><a class="next" href="/jekyll-theme-yat/react/2023/03/12/React-Websocket-LiveChatFunc.html" title="[React] WebSocket 을 활용한 실시간 채팅 기능 - 2">[React] WebSocket 을 활용한 실시간 채팅...</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/react/2022/12/16/Code-Refactoring.html" title="[React] WebSocket 을 활용한 실시간 채팅 기능 - 2">[React] Code Refactoring 을 통한 리소스 줄이기</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/database/2024/01/24/DB-Connection-Pool.html" title="[React] WebSocket 을 활용한 실시간 채팅 기능 - 2">[DataBase] 커넥션 풀 vs 단일 커넥션 (Connection Pool vs Single Connection) (Feat....</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/typescript/2023/06/26/TS-Type_Error.html" title="[React] WebSocket 을 활용한 실시간 채팅 기능 - 2">[Typescript] Type 을 지정하지 않아 발생하는 에러 해결방법</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/aws/2024/01/04/AWS-EC2.html" title="[React] WebSocket 을 활용한 실시간 채팅 기능 - 2">[AWS] AWS EC2 클라우드 서버를 VSCode 에서 띄우기 ⛅</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

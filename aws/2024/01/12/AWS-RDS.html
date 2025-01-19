@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[AWS] EC2 에 RDS 연동하기 (Feat. MySQL) 👑 | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.4">
+<meta property="og:title" content="[AWS] EC2 에 RDS 연동하기 (Feat. MySQL) 👑">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요 🔔">
+<meta property="og:description" content="개요 🔔">
+<link rel="canonical" href="/jekyll-theme-yat/aws/2024/01/12/AWS-RDS.html">
+<meta property="og:url" content="/jekyll-theme-yat/aws/2024/01/12/AWS-RDS.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2024-01-12T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[AWS] EC2 에 RDS 연동하기 (Feat. MySQL) 👑">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2024-01-12T00:00:00+00:00","datePublished":"2024-01-12T00:00:00+00:00","description":"개요 🔔","headline":"[AWS] EC2 에 RDS 연동하기 (Feat. MySQL) 👑","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/aws/2024/01/12/AWS-RDS.html"},"url":"/jekyll-theme-yat/aws/2024/01/12/AWS-RDS.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[AWS] EC2 에 RDS 연동하기 (Feat. MySQL) 👑</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2024-01-12T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jan 12, 2024
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#Node.js">#Node.js</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#AWS">#AWS</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#EC2">#EC2</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#RDS">#RDS</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#MySQL">#MySQL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8">#프로젝트</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="개요-">개요 🔔</h2>
+
+<p>이전 포스팅을 확인 해 보면,<br>
+<strong><code class="language-plaintext highlighter-rouge">AWS</code></strong> 에서 생성한 <strong><code class="language-plaintext highlighter-rouge">EC2</code></strong> 인스턴스에 <strong><code class="language-plaintext highlighter-rouge">MySQL</code></strong> 을 설치하여 외부에서 접근이 가능한 환경을 구축했다.</p>
+
+<p>다만 문제가 있었다.</p>
+
+<p><strong>프리티어</strong> 로 생성한 서버였기에<br>
+<strong><code class="language-plaintext highlighter-rouge">t2.micro</code></strong> 메모리로는 <strong><code class="language-plaintext highlighter-rouge">MySQL</code></strong> 까지 돌리기에는 버거웠는지 서버가 종종 터지는 경우가 발생했다.</p>
+
+<blockquote>
+  <p><strong><code class="language-plaintext highlighter-rouge">Git</code></strong> 을 설치하여 <strong><code class="language-plaintext highlighter-rouge">Node</code></strong> 서버가 존재함</p>
+</blockquote>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbPgcjm%2FbtsDivig9jS%2Fl6SZozS2PGEZjK6TNxgHUK%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>보통 위와같은 화면이 지속되면 <strong>서버가 터졋다</strong> 라고 간주할 수 있다.</p>
+</blockquote>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbMsV4g%2FbtsDivig9yg%2FTJLvTX5BvtEePvjz5eP1jk%2Fimg.png" alt=""></p>
+
+<p>해당 문제를 해결하기 위해 조언을 구하고 얻은 답변을 통해</p>
+
+<blockquote>
+  <p>도커의 이미지로 <strong><code class="language-plaintext highlighter-rouge">EC2</code></strong> 와 <strong><code class="language-plaintext highlighter-rouge">DB</code></strong> 를 분리하여 띄워도 보고,<br>조금 더 가벼운 <strong><code class="language-plaintext highlighter-rouge">SQLite</code></strong> 로 마이그레이션 하여 환경을 구축 해 봤지만<br>해당 이슈를 해결할 수 없었다 😭</p>
+</blockquote>
+
+<p>해당 포스팅에서는 마지막 최후의 방법인,<br>
+<strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 사용하여 데이터베이스를 구축하고 인스턴스와 연결하는 과정을 기록하고자 한다.</p>
+
+<hr>
+
+<h2 id="rds-">RDS ❓</h2>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FYvTWG%2FbtsDpaqOzFA%2F8498ZKhMwF3otJXs6TxYwk%2Fimg.png" alt=""></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 란, <strong><code class="language-plaintext highlighter-rouge">AWS</code></strong> 에서 제공하는 관계형 데이터베이스이다.</p>
+
+<p>클라우드 환경에서 제공하는 관계형데이터베이스를 통해 보다 쉬운 설정, 운영 및 확장의 기능까지 제공한다.</p>
+
+<blockquote>
+  <p>인스턴스 내부에 <strong><code class="language-plaintext highlighter-rouge">MySQL</code></strong> 을 설치하여 사용해도 무관하지만,<br>위에서 발생한 이슈도 존재할 뿐더러 여러 방면에서 효율적이지 못하다고 한다.</p>
+</blockquote>
+
+<p><strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 에서 제공하는 <strong><code class="language-plaintext highlighter-rouge">스냅샷</code></strong> 기능이 있는데,<br>
+이는 데이터베이스를 일정한 주기로 저장하여 예상치 못한 삭제나 버그 등으로 발생한 이슈에서 롤백이 가능하다.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">예약 인스턴스</code></strong> 기능은,<br>
+데이터베이스를 실행하는 시간을 사전에 정의해둠으로써<br>
+프리티어로 제공된 시간 안에서 보다 많은 서버를 돌릴 수 있다.</p>
+
+<hr>
+
+<h3 id="rds-생성-">RDS 생성 🚀</h3>
+
+<p>서비스 검색에서 <strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 를 검색 후 데이터베이스 탭에서 생성 가능하다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcmC6cu%2FbtsDqMbAIOt%2FDweHS70tinQTKzJIo6x7MK%2Fimg.png" alt=""></p>
+
+<p>다양한 데이터베이스를 제공하는데 해당 포스팅에서는 <strong><code class="language-plaintext highlighter-rouge">MySQL</code></strong> 환경을 선택 해 생성할 것이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcJJT47%2FbtsDnvbo8HJ%2Fg9Wbingnxx4EHD0gLIhKGK%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p><strong><code class="language-plaintext highlighter-rouge">Amazon Aurora</code></strong> 도 <strong><code class="language-plaintext highlighter-rouge">MySQL</code></strong> 과 작동방식은 같지만 보다 우수한 성능을 자랑한다 라고 일단 알고있자 ❗❗</p>
+</blockquote>
+
+<p>낮은 버전으로 생성 할 경우,<br>
+레거시코드를 사용하면 작동되지 않은 버전이 존재할 수 있기에 가급적 최신 버전을 유지하도록 하자.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F5gdnA%2FbtsDnDNK7Ux%2Fujz65V3P4626Hjc0XkVyOK%2Fimg.png" alt=""></p>
+
+<p>지정한 식별자를 통해 데이터베이스에 접근하기 때문에,<br>
+가급적 식별자를 자세히 명시 해 주는것이 좋다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FQiCxd%2FbtsDpc3bU0a%2FkWuhsUIKyRDLoR6KOOh9d1%2Fimg.png" alt=""></p>
+
+<p>이제 생성된 데이터베이스를 <strong><code class="language-plaintext highlighter-rouge">MySQL</code></strong> 에서 제공하는 <strong><code class="language-plaintext highlighter-rouge">GUI</code></strong> 프로그램인 워크벤치를 통해 연결 해 보려고 한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FceZ9jp%2FbtsDp5CL3nl%2FvPdCKxKcohjDPTzUBnYUX1%2Fimg.png" alt=""></p>
+
+<hr>
+
+<h3 id="rds-연결">RDS 연결</h3>
+
+<p>사실 데이터베이스를 <strong>비쥬얼라이징 도구 (GUI)</strong> 에서 확인하는 방법은 <strong>매우 간단</strong>하다.</p>
+
+<p>생성된 데이터베이스의 상세정보를 확인 해 보면,<br>
+엔드포인트가 생성 되어있을텐데 이를 워크벤치의 <strong><code class="language-plaintext highlighter-rouge">Host</code></strong> 부분에 넣어주면 끝이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb2x786%2FbtsDon40nse%2FblP70SjpytMcqPIWDXSYU1%2Fimg.png" alt=""></p>
+
+<p>음.. 근데 연결에 실패했다 🤦‍♂️</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbxEfR6%2FbtsDrmjrnNp%2FQ4kxVcmPWfLT8e7KPA5EJ0%2Fimg.png" alt=""></p>
+
+<p>위와 같이 <strong>연결에 실패 할 경우</strong> 체크해야할 부분이 2️⃣ 개가 있다.</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">퍼블릭 엑세스</code></strong></li>
+  <li><strong><code class="language-plaintext highlighter-rouge">인바운드 규칙</code></strong></li>
+</ul>
+
+<p>예상했던 대로 <strong><code class="language-plaintext highlighter-rouge">인바운드 규칙</code></strong> 이 추가되지 않아 해당 포트(<strong><code class="language-plaintext highlighter-rouge">3306</code></strong>) 으로의 접근이 불가능한 상태였고,<br>
+이를 보안그룹에서 추가 해 주었다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FxxyI6%2FbtsDrnvTjPS%2FIBW26VwSh6cMGZC1D6LruK%2Fimg.png" alt=""></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Test Connection</code></strong> 을 해 보면 아래와 같이 정상적으로 연결 됨을 확인할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdLziOe%2FbtsDpcCa5cA%2FDZoH4KuvNFJGGc4fk2Ryz0%2Fimg.png" alt=""></p>
+
+<hr>
+
+<h2 id="ec2-와의-연결-">EC2 와의 연결 🔌</h2>
+
+<p>생성된 <strong><code class="language-plaintext highlighter-rouge">인스턴스</code></strong> 와 <strong><code class="language-plaintext highlighter-rouge">RDS</code></strong>, <strong><code class="language-plaintext highlighter-rouge">보안그룹</code></strong>, <strong><code class="language-plaintext highlighter-rouge">서브넷그룹</code></strong> 모두<br>
+<strong>같은 네트워크 안에서 사용</strong>해야 하기 때문에 해당 정보를 파악하고 있어야 한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlDuPs%2FbtsDrmda19L%2Fkg9InVc2HU7N6rnbx3HAY0%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FytznO%2FbtsDuSPSpNh%2FamCFH7BldW2fkCSI4HXtw0%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>빨간 네모 영역의 정보를 사용할 것이다.</p>
+</blockquote>
+
+<p><strong><code class="language-plaintext highlighter-rouge">EC2</code></strong> 와 <strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 를 연결하기 위해서는,<br>
+인스턴스를 생성할 때 사용된 <strong><code class="language-plaintext highlighter-rouge">VPC</code></strong> 를 기준으로 <strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 를 생성 해 주어야 한다.</p>
+
+<blockquote>
+  <p><strong>해당 자료는 어떤 레퍼런스에서도 설명이 없어 굉장히 많은 삽질을 해서 얻은 결과이다.. 😭</strong></p>
+</blockquote>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc3JEN9%2FbtsDsZhtwQG%2FXGMRFffRFGpuxkldXMEXN1%2Fimg.png" alt=""></p>
+
+<p>나의 경우 각각 독립적으로 <strong><code class="language-plaintext highlighter-rouge">인스턴스</code></strong> 와 <strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 를 생성 해 놓은 상태였고,<br>
+<strong><code class="language-plaintext highlighter-rouge">VPC</code></strong> 또한 하나에 몰아서 생성하는 경우 보안적인 이슈가 발생할 수 있다 라고 인지하고 있는 상태였기에,<br>
+서비스마다 새 <strong><code class="language-plaintext highlighter-rouge">VPC</code></strong> 를 생성하여 분리 생성 해 놓은 상태였다.</p>
+
+<blockquote>
+  <p>이미 생성 한 서비스는 <strong><code class="language-plaintext highlighter-rouge">VPC</code></strong> 를 변경 할 수 없다.</p>
+</blockquote>
+
+<hr>
+
+<h3 id="보안그룹-생성-">보안그룹 생성 🚧</h3>
+
+<p>위에서 한 번 설명했듯,<br>
+<strong><code class="language-plaintext highlighter-rouge">EC2</code></strong> 와 연결하기 위해 <strong><code class="language-plaintext highlighter-rouge">인스턴스</code></strong> 에 연결 해 놓은 보안그룹에 <strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 보안그룹을 생성 해 줄 것이다.</p>
+
+<p><strong>이게 무슨 말이냐 ?</strong></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FGBZM5%2FbtsDxhvMRI1%2FMkFrPgKsyXjIwKRfKoR3Kk%2Fimg.png" alt=""></p>
+
+<p>이런 형태로 통신이 이루어질 것이다.</p>
+
+<p>먼저 인스턴스를 생성하면서 발급받은 <strong><code class="language-plaintext highlighter-rouge">VPC</code></strong> 아래에<br>
+<strong><code class="language-plaintext highlighter-rouge">인스턴스</code></strong> 와 <strong><code class="language-plaintext highlighter-rouge">보안그룹1</code></strong> 과 <strong><code class="language-plaintext highlighter-rouge">보안그룹2</code></strong> 가 존재 할 것이고,<br>
+그 <strong><code class="language-plaintext highlighter-rouge">VPC</code></strong> 를 기준으로 <strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 를 생성하여 종속되게끔 지정 해 주는 것이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbhKWqe%2FbtsDuRRF4Sm%2F4hC1frKwTDgp8FfAfKLKh0%2Fimg.png" alt=""></p>
+
+<p>기본 값으로 <strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 를 생성 할 때 정의한 <strong><code class="language-plaintext highlighter-rouge">default</code></strong> 보안그룹이 연결되어있을 것이다.<br>
+이 보안그룹에 접근하여 아래와 같이 추가 해 주면 된다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcutMTq%2FbtsDxmwXWM6%2FA0vPkWJm47jhaRkKFRInaK%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p><strong><code class="language-plaintext highlighter-rouge">소스</code></strong> 부분에는 <strong><code class="language-plaintext highlighter-rouge">EC2</code></strong> 에 연결되어있는 <strong>보안그룹 ID</strong> 를 선택 해 주면된다.<br>해당 보안그룹 역시 하나의 <strong><code class="language-plaintext highlighter-rouge">VPC</code></strong> 안에서 생성 했다면 선택할 수 있는 드롭다운박스에서 선택할 수 있을것이다.</p>
+</blockquote>
+
+<hr>
+
+<h3 id="mysql-제거-">MySQL 제거 🚫✅</h3>
+
+<p>먼저 인스턴스를 연결하여 터미널에 접근 해 <strong><code class="language-plaintext highlighter-rouge">ls</code></strong> 명령어로 현재 디렉토리상의 <strong><code class="language-plaintext highlighter-rouge">파일/폴더</code></strong> 를 확인한다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fmd40h%2FbtsDrEMk0Xs%2F85mpkpjKlDdtY6ektR1HfK%2Fimg.png" alt=""></p>
+
+<p>아래 명령어를 실행하여 MySQL과 관련된 모든 패키지와 설정 파일들을 완전히 제거 해 준다.</p>
+
+<pre><code class="language-linux">sudo apt-get purge mysql* -y
+</code></pre>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbIlw5g%2FbtsDuRxCUO5%2F0C0n5Muxkh3JVi7HPEBp6k%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p><strong><code class="language-plaintext highlighter-rouge">-y</code></strong> 옵션은 사용자에게 확인 메세지를 표시하지 않고 강제로 제거하기 위해 추가</p>
+</blockquote>
+
+<p>그리고 <strong><code class="language-plaintext highlighter-rouge">MySQL</code></strong> 관련 디렉토리를 모두 제거 해 준다.</p>
+
+<pre><code class="language-linux">sudo rm -rf /var/log/mysql
+sudo rm -rf /var/log/mysql.*
+sudo rm -rf /var/lib/mysql
+sudo rm -rf /etc/mysql
+</code></pre>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc3ClLh%2FbtsDxfSvgI3%2FkKScw7q3RGeJS8U3oboHbk%2Fimg.png" alt=""></p>
+
+<p>이렇게 다시 <strong><code class="language-plaintext highlighter-rouge">ls</code></strong> 로 확인 해 보면 <strong><code class="language-plaintext highlighter-rouge">mysql</code></strong> 폴더가 사라졌음을 확인할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdQ6Oz5%2FbtsDxKq2ubr%2FU3Bb7iXo0V1ToshO5aLq1K%2Fimg.png" alt=""></p>
+
+<p>더불어 아래 명령을 통해 <strong><code class="language-plaintext highlighter-rouge">MySQL</code></strong> 이 제거되었는지 확인할 수 있다.<br>
+<strong>(만약 제거가 되지 않았다면 버전이 정상적으로 출력이 될 것임.)</strong></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fd5cYFW%2FbtsDrEyLfLd%2Ftrz9K51sNkwCXncL1UY2X0%2Fimg.png" alt=""></p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FPHNty%2FbtsDyOs4FvU%2FGhB1hTyHWdxB8hN4Jt26j0%2Fimg.png" alt=""></p>
+
+<hr>
+
+<h3 id="특정-ip-주소-접근-">특정 IP 주소 접근 🌐</h3>
+
+<p>기존에 설정한 보안그룹의 <strong><code class="language-plaintext highlighter-rouge">인바운드 규칙</code></strong> 에서는<br>
+테스트 목적으로 모든 접근을 허용하기 위해 <strong><code class="language-plaintext highlighter-rouge">0.0.0.0</code></strong> 으로 지정했었다.</p>
+
+<p>하지만 이는 보안적으로 외부 침입에 대한 이슈가 발생할 수 있기에 안전하지 않다.<br>
+그렇기에 팀원들의 <strong><code class="language-plaintext highlighter-rouge">ip</code></strong> 주소만 허용하여<br>
+특정 주소만 <strong><code class="language-plaintext highlighter-rouge">DB</code></strong> 에 접근이 가능하게 설정 해 주려고 한다.</p>
+
+<p>설정을 모두 마친 모습은 아래와 같다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FYqtFM%2FbtsDBsYs5rb%2Fmxsshcbo4kyS1athN0AdMk%2Fimg.png" alt=""></p>
+
+<p>해당 ip 주소는 각 로컬 커맨드 창에서 <strong><code class="language-plaintext highlighter-rouge">ipconfig</code></strong> 명령으로 주소를 획득할 수 있으며,<br>
+이를 넣어주면 된다.</p>
+
+<h4 id="외부-접근-ip-">외부 접근 IP 💻</h4>
+
+<p>테스트 해 본 결과 <strong><code class="language-plaintext highlighter-rouge">ipconfig</code></strong> 로 획득한 ip 주소는,<br>
+말 그대로 <strong>로컬 컴퓨터 자체의 ip 주소</strong> 이며 <strong>외부와 통신이 불가능</strong> 한 형태였다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FkQEJW%2FbtsDBtwld8J%2FDAAyMWzsZduR65f8FMpO60%2Fimg.png" alt=""></p>
+
+<blockquote>
+  <p>해당 <strong><code class="language-plaintext highlighter-rouge">IPv4</code></strong> 주소를 인바운드 규칙에 추가 시 <strong><code class="language-plaintext highlighter-rouge">MySQL</code></strong> 접근 안됨 ❗❗</p>
+</blockquote>
+
+<p>검색 해 본 결과,<br>
+<strong><code class="language-plaintext highlighter-rouge">AWS</code></strong> 의 <strong><code class="language-plaintext highlighter-rouge">RDS</code></strong> 는 외부에서 운영중인 서비스 이므로 해당 서비스에 접근하기 위해서는<br>
+<strong>인터넷을 통해 접속 가능한 외부 IP 주소</strong> 를 획득하여 추가해야한다고 한다.</p>
+
+<blockquote>
+  <p>Window 환경<br>👉 <a href="https://www.whatismyip.com/">https://www.whatismyip.com/</a><br>Linux 환경<br>👉 <strong><code class="language-plaintext highlighter-rouge">curl ifconfig.me</code></strong><br>Mac 환경<br>👉 <strong><code class="language-plaintext highlighter-rouge">ifconfig</code></strong> or <strong><code class="language-plaintext highlighter-rouge">ipconfig getifaddr en0</code></strong></p>
+</blockquote>
+
+<p>문제는,<br>
+해당 IP 주소는 연결된 네트워크의 환경에 따라 동적으로 바뀌게 된다.</p>
+
+<p>가장 쉬운 방법은<br>
+<strong><code class="language-plaintext highlighter-rouge">AWS</code></strong> 에서 팀원들에게 할당해준 <strong><code class="language-plaintext highlighter-rouge">IAM</code></strong> 유저로 인바운드 규칙에 접근하여 직접 <strong>내 IP</strong> 를 추가 해 주는것이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbz2aCH%2FbtsDyNbtZUB%2Fe6ASTvlshooSNUK6tRXJDK%2Fimg.png" alt=""></p>
+
+<p>이를 통해<br>
+<strong>매번 다른 환경(장소 👉 집, 카페, 학교, etc..)</strong> 에서<br>
+접속한 네트워크 환경마다 다른 ip 주소를 추가하여 DB 에 접근할 수 있었다.</p>
+
+<hr>
+
+<h2 id="reference-">Reference 🌊</h2>
+
+<blockquote>
+  <p><a href="https://velog.io/@yoonth95/AWS-04.-RDS-MySQL-%EC%97%B0%EA%B2%B0-%EB%B0%8F-Workbench#1-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1">https://velog.io/@yoonth95/AWS-04.-RDS-MySQL-%EC%97%B0%EA%B2%B0-%EB%B0%8F-Workbench#1-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1</a><br><a href="https://dooyeoung.tistory.com/31">https://dooyeoung.tistory.com/31</a><br><a href="https://deepmal.tistory.com/9">https://deepmal.tistory.com/9</a><br><a href="https://velog.io/@whytili/AWS-RDS%EC%99%80-EC2-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0">https://velog.io/@whytili/AWS-RDS%EC%99%80-EC2-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/review/2024/01/11/Coding_Test.html" title="[코딩테스트] 알고리즘 스터디 시작 👀🚀">[코딩테스트] 알고리즘 스터디 시작 👀🚀</a><a class="next" href="/jekyll-theme-yat/database/2024/01/23/DB-Array-processing.html" title="[DataBase] DB 에 적재할 데이터 가공하기 (Feat.Python) 🦏">[DataBase] DB 에 적재할 데이터 가공하기...</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/review/2023/06/09/Undefined-Kor1.html" title="[DataBase] DB 에 적재할 데이터 가공하기 (Feat.Python) 🦏">[후기] 언디파인드랩스 해커톤 1일차 1️⃣ with.Kor (Feat.FIFA)</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/database/2023/09/05/DB-MySQL_UPDATE.html" title="[DataBase] DB 에 적재할 데이터 가공하기 (Feat.Python) 🦏">[DataBase] MySQL 의 쿼리문을 사용하여 DB 업데이트하기 (UPDATE, WHERE) 🐬</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2022/10/20/React-npm-start.html" title="[DataBase] DB 에 적재할 데이터 가공하기 (Feat.Python) 🦏">[React] 프로젝트의 npm start 가 실행되지 않을 때</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/review/2023/05/03/Sesacthon-Engagement.html" title="[DataBase] DB 에 적재할 데이터 가공하기 (Feat.Python) 🦏">[새싹톤] 해커톤 참여 결정 !! (Feat.AI 👀)</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

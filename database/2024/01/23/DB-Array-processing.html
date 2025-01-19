@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[DataBase] DB 에 적재할 데이터 가공하기 (Feat.Python) 🦏 | 전투코딩</title>
+<meta name="generator" content="Jekyll v4.3.4">
+<meta property="og:title" content="[DataBase] DB 에 적재할 데이터 가공하기 (Feat.Python) 🦏">
+<meta name="author" content="전투코딩">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="개요 🙋">
+<meta property="og:description" content="개요 🙋">
+<link rel="canonical" href="/jekyll-theme-yat/database/2024/01/23/DB-Array-processing.html">
+<meta property="og:url" content="/jekyll-theme-yat/database/2024/01/23/DB-Array-processing.html">
+<meta property="og:site_name" content="전투코딩">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2024-01-23T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="[DataBase] DB 에 적재할 데이터 가공하기 (Feat.Python) 🦏">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"전투코딩"},"dateModified":"2024-01-23T00:00:00+00:00","datePublished":"2024-01-23T00:00:00+00:00","description":"개요 🙋","headline":"[DataBase] DB 에 적재할 데이터 가공하기 (Feat.Python) 🦏","mainEntityOfPage":{"@type":"WebPage","@id":"/jekyll-theme-yat/database/2024/01/23/DB-Array-processing.html"},"url":"/jekyll-theme-yat/database/2024/01/23/DB-Array-processing.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/jekyll-theme-yat/assets/css/main.css">
+  <script src="/jekyll-theme-yat/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/jekyll-theme-yat/feed.xml" title="전투코딩">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/jekyll-theme-yat/">
+  <img class="site-favicon" title="전투코딩" src="/assets/images/favicon/favicon.ico" onerror="this.style.display='none'">
+  전투코딩
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/jekyll-theme-yat/about.html">ABOUT</a><a class="page-link" href="/jekyll-theme-yat/categories.html">CATEGORIES</a><a class="page-link" href="/jekyll-theme-yat/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<span class="page-link">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<!-- <span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</span> -->
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<!-- <div class="theme-toggle">
+  <input type="checkbox" id="theme-switch" />
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div> -->
+
+
+
+
+<script>
+  (function () {
+    var sw = document.getElementById("theme-switch");
+    var html = document.getElementsByTagName("html")[0];
+    var nightModeOption = ("auto" || "auto").toLowerCase();
+    var storage = nightModeOption === "manual" ? localStorage : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem("theme", JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem("theme");
+      try {
+        data = JSON.parse(data ? data : "");
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? "light" : "dark";
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0);
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime(),
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener("change", function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == "auto") {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == "manual") {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === "on";
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">[DataBase] DB 에 적재할 데이터 가공하기 (Feat.Python) 🦏</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2024-01-23T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jan 23, 2024
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 4 mins</span> -->
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/jekyll-theme-yat/tags.html#TIL">#TIL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#DB">#DB</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#MySQL">#MySQL</a><a class="post-tag" href="/jekyll-theme-yat/tags.html#colap">#colap</a>
+</div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="개요-">개요 🙋</h2>
+
+<blockquote>
+  <p><a href="https://www.eaten.co.kr/">https://www.eaten.co.kr/</a></p>
+</blockquote>
+
+<p>위 사이트에서 커피와 관련된 <strong>브랜드별 영양 정보</strong> 를 크롤링하여<br>
+필요한 정보만을 가공하여 사용하려고 한다.</p>
+
+<p>크롤링한 데이터는 아래와 같다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbR0z7N%2FbtsDKPAz1Xt%2FsUHRBA3yM9hEzK6g8Ekvv0%2Fimg.png" alt=""></p>
+
+<p>이 데이터에서 필요한 정보는 <strong><code class="language-plaintext highlighter-rouge">브랜드</code></strong>, <strong><code class="language-plaintext highlighter-rouge">메뉴</code></strong>, <strong><code class="language-plaintext highlighter-rouge">카페인</code></strong> 이다.</p>
+
+<p>먼저,<br>
+번거롭지만 수기로 1 차 가공을 통해 아래와 같은 정보를 얻은 상태이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuyWWD%2FbtsDUhaUvn9%2FPRIYGslcfE8x7LoYV40Lg1%2Fimg.png" alt=""></p>
+
+<p>이 정보를 바탕으로,<br>
+<strong><code class="language-plaintext highlighter-rouge">MySQL</code></strong> 에 쿼리문을 사용하여 데이터를 적재하려고 하는데,<br>
+쿼리문으로 사용하기엔 다소 형식이 맞지 않다고 판단되어,<br>
+이를 <strong><code class="language-plaintext highlighter-rouge">{brand, name, caffeine}</code></strong> 형식으로 가공하여 적재하고자 한다.</p>
+
+<hr>
+
+<h3 id="생성--삽입-쿼리-">생성 &amp; 삽입 쿼리 🔮</h3>
+
+<pre><code class="language-SQL">CREATE TABLE IF NOT EXISTS brand (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    brand_name VARCHAR(255),
+    name VARCHAR(255),
+    caffeine INT,
+    url VARCHAR(255)
+);
+</code></pre>
+
+<p>위 쿼리문을 해석 해 보면,<br>
+먼저 고유한 <code class="language-plaintext highlighter-rouge">id</code> 값을 가지며 1씩 증가하는 옵션이 추가되어있다. 👉 <strong><code class="language-plaintext highlighter-rouge">AUTO_INCREMENT</code></strong><br>
+다음으로는 문자열인 커피 브랜드, 메뉴 정보가 있고,<br>
+커피 메뉴에 따른 카페인 함량에 대한 정보가 정수형태로 저장될 테이블을 생성 해 준다.</p>
+
+<p>다음으로는 생성한 테이블에 데이터를 삽입하기 위해 쿼리문을 날려주어야 하는데,<br>
+아래와 같이 작성 해 주면 될 것이다.</p>
+
+<pre><code class="language-SQL">INSERT INTO brand (brand_name, name, caffeine) VALUES
+('엔제리너스', '돌체라떼', 317),
+('엔제리너스', '카페 연유다', 176),
+('엔제리너스', '아메리치노 라떼', 317);
+</code></pre>
+
+<p>문제는 삽입할 데이터의 양이 너무 많다는것이다 🤦‍♂️</p>
+
+<blockquote>
+  <p>이를 일일히 수기로 작성하는것은 소위 <strong><code class="language-plaintext highlighter-rouge">미련한</code></strong> 짓이다.</p>
+</blockquote>
+
+<p>때문에,<br>
+아래의 방법을 사용하여 쿼리문에 사용할 수 있도록 적절하게 가공하고자 한다.</p>
+
+<hr>
+
+<h3 id="python-으로-추출하기-">Python 으로 추출하기 🤓</h3>
+
+<blockquote>
+  <p><a href="https://colab.research.google.com/">https://colab.research.google.com/</a></p>
+</blockquote>
+
+<p>위 사이트는 <strong><code class="language-plaintext highlighter-rouge">Python</code></strong> 을 활용한 코드를 실행시킬 수 있는 <strong><code class="language-plaintext highlighter-rouge">IDE</code></strong> 환경이다.</p>
+
+<p>먼저,<br>
+<strong>1 차 가공</strong> 을 마친 객체 형태의 데이터를 변수에 담아 할당 해 준다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FoVwfV%2FbtsDUI7fI84%2FRxY0KLkGMQJOv2cVTMK5ik%2Fimg.png" alt=""></p>
+
+<p>그리고 이를 파싱하여 튜플로 변환하고,<br>
+주어진 형식으로 튜플을 출력하고자 한다.</p>
+
+<pre><code class="language-Python">formatted_data = []
+
+for brand, items in coffeeData.items():
+    for item in items:
+        formatted_data.append((item['brand'], item['name'], item['caffeine']))
+
+# 튜플 형식으로 출력
+output = ',\n'.join([str(item) for item in formatted_data])
+
+print(output)
+</code></pre>
+
+<p>튜플 형태의 데이터를 저장할 <strong><code class="language-plaintext highlighter-rouge">formatted_data</code></strong> 변수에 빈 리스트를 할당하고,<br>
+이중 반복문을 통해 <strong><code class="language-plaintext highlighter-rouge">coffeeData</code></strong> 의 각 브랜드와 아이템에 접근한다.</p>
+
+<blockquote>
+  <p><strong>외부 루프 (`for brand, items in coffeeData.items(): )</strong><br>👉 브랜드와 그에 해당하는 아이템을 가져온다.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>내부 루프 (<code class="language-plaintext highlighter-rouge">for item in items: </code>)</strong><br>👉 각 브랜드의 아이템을 하나씩 가져와 처리한다.</p>
+</blockquote>
+
+<p><strong>내부 루프</strong> 에서는,<br>
+아이템의 정보를 추출하여 <strong><code class="language-plaintext highlighter-rouge">formatted_data</code></strong> 리스트에 튜플 형식으로 저장한다.<br>
+이 때,<br>
+각 튜플은 <strong><code class="language-plaintext highlighter-rouge">브랜드, 아이템 이름, 카페인</code></strong> 형식으로 구성된다.</p>
+
+<p>다음으로는 <strong>리스트 컴프리헨션</strong> 문법을 사용하여<br>
+<strong><code class="language-plaintext highlighter-rouge">formatted_data</code></strong> 리스트의 각 튜플을 문자열로 반환 한 후,<br>
+<strong><code class="language-plaintext highlighter-rouge">',\n'</code></strong> 을 구분자로 사용하여 하나의 문자열로 결합(<strong><code class="language-plaintext highlighter-rouge">join</code></strong>) 한다.</p>
+
+<p>위 코드를 실행하면 아래와 같이 가공된 데이터를 얻을 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdHUpqd%2FbtsDNqULKGS%2FzCYwTbQn9TM76j0qWEgnu1%2Fimg.png" alt=""></p>
+
+<hr>
+
+<h3 id="javascript-로-추출하기-">JavaScript 로 추출하기 ⚡</h3>
+
+<p>크롤링이 아무리 <strong><code class="language-plaintext highlighter-rouge">Python</code></strong> 이 쉽다 한들,<br>
+이를 <strong><code class="language-plaintext highlighter-rouge">JavaScript</code></strong> 에서도 구현 가능해야 옳잖은가 ?</p>
+
+<p>로직은 <strong><code class="language-plaintext highlighter-rouge">Python</code></strong> 과 매우 유사하다.<br>
+단,<br>
+<strong><code class="language-plaintext highlighter-rouge">for</code></strong> 문을 사용하지 않고 <strong>자바스크립트 내장함수</strong> 인 <strong><code class="language-plaintext highlighter-rouge">map</code></strong> 을 사용하여 반복할 것이다..</p>
+
+<pre><code class="language-JavaScript">const formattedData =
+    Object.values(coffeeData).flatMap(items =&gt;
+        items.map(item =&gt; [item['brand'], item['name'], item['price']])
+);
+
+const output =
+    formattedData.map(item =&gt;
+        `(${item.map(i =&gt; JSON.stringify(i)).join(', ')})`).join(',\n');
+
+console.log(output);
+</code></pre>
+
+<p>주어진 커피 데이터 👉 <strong>1 차 가공된 데이터</strong> 를 준비하고,<br>
+이를 <strong><code class="language-plaintext highlighter-rouge">Object.valuse</code></strong> 를 사용하여 객체 형태의 값을 배열로 변환 해 준다.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">flatMap</code></strong> 함수를 사용하여 각 브랜드의 아이템들을 하나의 배열로 평탄화(?) 해 준다.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">map</code></strong> 함수를 사용하여 각 아이템들을 튜플 형식으로 변환하고<br>
+<strong><code class="language-plaintext highlighter-rouge">join</code></strong> 메서드를 사용하여 전체 배열을 문자열로 합친다.</p>
+
+<blockquote>
+  <p><strong>평탄화</strong> 란 ❔❗<br>아래와 같이 두개의 동일한 예제가 있을 때<br><strong><code class="language-plaintext highlighter-rouge">map</code></strong> 함수 사용 시 <strong>2 차원 배열</strong> 이 생성되는 반면,<br><strong><code class="language-plaintext highlighter-rouge">flatMap</code></strong> 함수를 사용하면 이를 <strong>1 차원 배열</strong> 로 <strong><code class="language-plaintext highlighter-rouge">return</code></strong> 한다.<br>즉, <strong>중첩된 이중 구조를 가진 데이터를 단일 수준으로 펼친다</strong> 라는 의미를 갖고있다.</p>
+</blockquote>
+
+<pre><code class="language-JavaScript">const arr = [1, 2, 3];
+
+const mapArr = arr.map((num) =&gt; [num, num * 2]);
+console.log(mapArr); // [[1, 2], [2, 4], [3, 6]]
+
+const flatMapArr = arr.flatMap((num) =&gt; [num, num * 2]);
+console.log(flatMapArr); // [1, 2, 2, 4, 3, 6]
+</code></pre>
+
+<hr>
+
+<h3 id="데이터-삽입-및-db-확인-">데이터 삽입 및 DB 확인 👀</h3>
+
+<p>위에 있던 데이터 삽입 쿼리를 <strong><code class="language-plaintext highlighter-rouge">Workbench</code></strong> 에서 가공한 데이터를 삽입하고 확인하려 한다.</p>
+
+<pre><code class="language-SQL">INSERT INTO brand (brand_name, name, caffeine) VALUES
+('엔제리너스', '돌체라떼', 317),
+('엔제리너스', '카페 연유다', 176),
+('엔제리너스', '아메리치노 라떼', 317);
+</code></pre>
+
+<blockquote>
+  <p>가공된 데이터를 출력하여 이를 복 붙 하여 가져왔다..<br>좀 더 단순화 하는 방법이 있을텐데 현재로써는 이게 최선이었다 😭</p>
+</blockquote>
+
+<p>쿼리문을 실행한 후 생성된 테이블을 조회하면 아래와 같은 레코드를 확인할 수 있다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlSPIm%2FbtsDQeUm0MW%2FaYwh1WQkzOTDoQ3cSobIx1%2Fimg.jpg" alt=""></p>
+
+<hr>
+
+<h2 id="reference-">Reference 🌊</h2>
+
+<blockquote>
+  <p><a href="https://jerryjerryjerry.tistory.com/159">https://jerryjerryjerry.tistory.com/159</a><br><a href="https://dang-dang12.tistory.com/18">https://dang-dang12.tistory.com/18</a><br><a href="https://inpa.tistory.com/entry/MYSQL-%F0%9F%93%9A-%EA%B8%B0%EB%B3%B8-SQL%EB%AC%B8-%EC%A0%95%EB%A6%AC-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A1%B0%ED%9A%8C-%EC%83%9D%EC%84%B1-%EC%88%98%EC%A0%95-%EC%82%AD%EC%A0%9C">https://inpa.tistory.com/entry/MYSQL-%F0%9F%93%9A-%EA%B8%B0%EB%B3%B8-SQL%EB%AC%B8-%EC%A0%95%EB%A6%AC-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%A1%B0%ED%9A%8C-%EC%83%9D%EC%84%B1-%EC%88%98%EC%A0%95-%EC%82%AD%EC%A0%9C</a><br><a href="https://121202.tistory.com/25">https://121202.tistory.com/25</a></p>
+</blockquote>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/jekyll-theme-yat/aws/2024/01/12/AWS-RDS.html" title="[AWS] EC2 에 RDS 연동하기 (Feat. MySQL) 👑">[AWS] EC2 에 RDS 연동하기 (Feat....</a><a class="next" href="/jekyll-theme-yat/database/2024/01/24/DB-Connection-Pool.html" title="[DataBase] 커넥션 풀 vs 단일 커넥션 (Connection Pool vs Single Connection) (Feat. MySQL) 🔌">[DataBase] 커넥션 풀 vs 단일 커넥션...</a>
+</div>
+<div class="post-related">
+      <div>관련 글</div>
+      <ul>
+        <li><a class="post-link" href="/jekyll-theme-yat/react/2023/02/05/React-variable-error.html" title="[DataBase] 커넥션 풀 vs 단일 커넥션 (Connection Pool vs Single Connection) (Feat. MySQL) 🔌">[React] ReferenceError: 'xxx' is not defined ❌</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2023/01/31/React_interface_props.html" title="[DataBase] 커넥션 풀 vs 단일 커넥션 (Connection Pool vs Single Connection) (Feat. MySQL) 🔌">[React] Interface 를 통해 Props 관리하기 💨</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2022/11/15/React-Loading-spiner.html" title="[DataBase] 커넥션 풀 vs 단일 커넥션 (Connection Pool vs Single Connection) (Feat. MySQL) 🔌">[React] UI 에 Loading-Spinners 효과 주기</a></li>
+<li><a class="post-link" href="/jekyll-theme-yat/react/2023/08/29/React-Vite.html" title="[DataBase] 커넥션 풀 vs 단일 커넥션 (Connection Pool vs Single Connection) (Feat. MySQL) 🔌">[React] React 프로젝트에 Vite 번들러를 사용하여 HMR 테스트해보기 ⚡️</a></li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">목차</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jekyll-theme-yat/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+      © 2021-2022 🐘 전투코딩
+      <div>Contact <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://github.com/wavescats">Github</a>
+        &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>
+      </div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/jekyll-theme-yat/%20/feed.xml">via RSS</a>
+</div>
+      <a href="https://hits.seeyoufarm.com"><img class="visit-views" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fwavescats%2Fhit-counter&count_bg=%23843DC8&title_bg=%232B70B4&icon=&icon_color=%23E7E7E7&title=%F0%9F%8C%8A+%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&amp;edge_flat=false">
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
